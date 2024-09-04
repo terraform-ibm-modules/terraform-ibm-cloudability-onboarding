@@ -1,5 +1,5 @@
 <!-- Update this title with a descriptive name. Use sentence case. -->
-# Terraform modules template project
+# Apptio Cloudability onboarding Deployable Architecture (DA)
 
 <!--
 Update status and "latest release" badges:
@@ -12,27 +12,23 @@ Update status and "latest release" badges:
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-<!--
-Add a description of modules in this repo.
-Expand on the repo short description in the .github/settings.yml file.
+This repository contains the necessary modules and deployable architecture (DA) to onboarding an IBM Cloud account or enterprise to Apptio Cloudability.
 
-For information, see "Module names and descriptions" at
-https://terraform-ibm-modules.github.io/documentation/#/implementation-guidelines?id=module-names-and-descriptions
--->
-
-TODO: Replace this with a description of the modules in this repo.
-
+[All Inclusive](./solutions/all-inclusive)
 
 <!-- The following content is automatically populated by the pre-commit hook -->
 <!-- BEGIN OVERVIEW HOOK -->
 ## Overview
 * [terraform-ibm-apptio-cloudability-onboarding](#terraform-ibm-apptio-cloudability-onboarding)
-* [Examples](./examples)
-    * [Advanced example](./examples/advanced)
-    * [Basic example](./examples/basic)
+* [Submodules](./modules)
+    * [billing-exports](./modules/billing-exports)
+    * [cloudability-bucket-access](./modules/cloudability-bucket-access)
+    * [cloudability-enterprise-access](./modules/cloudability-enterprise-access)
+    * [cloudability-onboarding](./modules/cloudability-onboarding)
+    * [data-resource-instance-by-id](./modules/data-resource-instance-by-id)
+    * [encrypted_cos_bucket](./modules/encrypted_cos_bucket)
 * [Contributing](#contributing)
 <!-- END OVERVIEW HOOK -->
-
 
 <!--
 If this repo contains any reference architectures, uncomment the heading below and link to them.
@@ -40,79 +36,8 @@ If this repo contains any reference architectures, uncomment the heading below a
 See "Reference architecture" in the public documentation at
 https://terraform-ibm-modules.github.io/documentation/#/implementation-guidelines?id=reference-architecture
 -->
-<!-- ## Reference architectures -->
+## Reference architectures
 
-
-<!-- Replace this heading with the name of the root level module (the repo name) -->
-## terraform-ibm-apptio-cloudability-onboarding
-
-### Usage
-
-<!--
-Add an example of the use of the module in the following code block.
-
-Use real values instead of "var.<var_name>" or other placeholder values
-unless real values don't help users know what to change.
--->
-
-```hcl
-
-```
-
-### Required IAM access policies
-
-<!-- PERMISSIONS REQUIRED TO RUN MODULE
-If this module requires permissions, uncomment the following block and update
-the sample permissions, following the format.
-Replace the sample Account and IBM Cloud service names and roles with the
-information in the console at
-Manage > Access (IAM) > Access groups > Access policies.
--->
-
-<!--
-You need the following permissions to run this module:
-
-- IAM services
-    - **Sample IBM Cloud** service
-        - `Editor` platform access
-        - `Manager` platform access
-- Account management services
-    - **Sample account management** service
-        - `Editor` platform access
--->
-
-<!-- NO PERMISSIONS FOR MODULE
-If no permissions are required for the module, uncomment the following
-statement instead the previous block.
--->
-
-<!-- No permissions are needed to run this module.-->
-
-
-<!-- The following content is automatically populated by the pre-commit hook -->
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-### Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
-
-### Modules
-
-No modules.
-
-### Resources
-
-No resources.
-
-### Inputs
-
-No inputs.
-
-### Outputs
-
-No outputs.
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 <!-- Leave this section as is so that your module has a link to local development environment set-up steps for contributors to follow -->
 ## Contributing

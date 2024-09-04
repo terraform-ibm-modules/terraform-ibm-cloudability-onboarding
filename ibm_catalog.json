@@ -1,0 +1,501 @@
+{
+	"products": [
+		{
+			"label": "Apptio Cloudability",
+			"name": "apptio-cloudability-onboarding",
+			"version": "v0.0.1",
+			"product_kind": "solution",
+			"tags": [
+				"ibm_created",
+				"ibm_beta",
+                "integration"
+			],
+			"keywords": [
+				"Billing",
+				"Apptio",
+				"Cloudability",
+				"FinOps",
+				"Cloud Spend"
+			],
+			"short_description": "Add your IBM Cloud Account to Apptio Cloudability and start tracking your cloud spend.",
+			"long_description": "Simplify your IBM Cloud Account onboarding to Apptio Cloudability with this deployable architecture. Only an IBM Cloud IAM Api Key and Cloudability API key are required. This deployable architecture will take care of all of the necessary steps to get your IBM Cloud billing data into Apptio Cloudability. This includes the following:\n\n1. Creating Key Protect Encrypted COS Buckets to store your daily billing snapshots.\n2. Setup writing of billing snapshots to the COS Bucket.\n3. Grant Apptio Cloudability access to read from the COS buckets\n4. Add your IBM Cloud account to Cloudability and run access verification from Cloudability.\n\nYour IBM Cloud billing data will begin showing up in Apptio cloudability the next day. \nTo obtain your Apptio Cloudability API key visit https://app.apptio.com/cloudability#/settings/preferences under the section **Cloudability API** select **Enable API** which will generate an api key. If you don't have a Cloudability account start your tree trial now: https://www.apptio.com/products/cloudability/#cldy-trial.",
+			"provider_name": "apptio-cloudability",
+			"offering_docs_url": "https://cloud.ibm.com/docs/billing-usage?topic=billing-usage-exporting-your-usage",
+			"offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-apptio-cloudability-onboarding/main/images/Apptio_logo.svg",
+			"features": [
+				{
+					"title": "Daily exports of your cloud billing reports to a COS Bucket",
+					"description": "Cloudability reads CSV Billing reports which are added to a COS bucket daily for each account in your enterprise."
+				},
+				{
+					"title": "Encrypted Bucket with Key Protect",
+					"description": "Daily billing reports are stored in a Key Protect encrypted bucket allowing the automated rotatation of encryption keys. See https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-tutorial-kp-encrypt-bucket."
+				},
+				{
+					"title": "Least Privileged Operations to Cloudability",
+					"description": "Custom access roles are created so that cloudability only has the minimal required access to your IBM Cloud Account."
+				},
+				{
+					"title": "Cloudability Onboarding Verification",
+					"description": "Verification of the account onboarding to Apptio Cloudability is performed so that you have confidence that the configuration is correct."
+				},
+				{
+					"title": "Add all accounts in an Enterprise to Cloudability",
+					"description": "Running this deployable architecture at the root (primary) Enterprise Account will cause all existing and future accounts in the enterprise to be added to Apptio Cloudability."
+				},
+				{
+					"title": "Managed with Code!",
+					"description": "Easily re-configure or clean-up the onboarding of your accounts to Cloudability and ensure that everything is centrally connected and configured."
+				}
+			],
+			"flavors": [
+				{
+					"label": "All-inclusive",
+					"name": "cloudability-all-inclusive",
+                    "working_directory": "./solutions/all-inclusive",
+					"compliance": {},
+					"iam_permissions": [
+						{
+							"service_name": "billing",
+							"role_crns": [
+								"crn:v1:bluemix:public:iam::::role:Administrator"
+							]
+						},
+						{
+							"service_name": "enterprise",
+							"role_crns": [
+								"crn:v1:bluemix:public:iam::::role:Viewer"
+							]
+						},
+						{
+							"service_name": "iam-access-management",
+							"role_crns": [
+								"crn:v1:bluemix:public:iam::::role:Administrator"
+							]
+						},
+						{
+							"service_name": "cloud-object-storage",
+							"role_crns": [
+								"crn:v1:bluemix:public:iam::::serviceRole:Manager",
+								"crn:v1:bluemix:public:iam::::role:Administrator",
+								"crn:v1:bluemix:public:iam::::serviceRole:ObjectReader"
+							]
+						},
+						{
+							"service_name": "kms",
+							"role_crns": [
+								"crn:v1:bluemix:public:iam::::serviceRole:Manager",
+								"crn:v1:bluemix:public:iam::::role:Editor"
+							]
+						}
+					],
+					"architecture": {
+						"diagrams": [
+							{
+								"diagram": {
+									"caption": "All inclusive Cloudability Onboarding",
+									"type": "image/svg+xml",
+									"url_proxy": {
+										"url": "https://github.com/terraform-ibm-modules/terraform-ibm-apptio-cloudability-onboarding/blob/master/reference-architecture/cloudability-all-inclusive-onboarding.svg"
+									}
+								},
+								"description": "Billing exports are written to a Key Protect encrypted COS bucket. Apptio Cloudability is granted access to read from this bucket to add ibm cloud billing reports daily. Key Protect and Cloud Object Storage are created in your desired region and resource group. Optionally, configure retention and archiving of the data in your bucket and enable monitoring and auditing to your cloud object storage bucket."
+							}
+						],
+                        "features": [
+							{
+                                "title": "Daily exports of your cloud billing reports to a COS Bucket",
+                                "description": "Cloudability reads CSV Billing reports which are added to a COS bucket daily for each account in your enterprise."
+                            },
+                            {
+                                "title": "Encrypted Bucket with Key Protect",
+                                "description": "Daily billing reports are stored in a Key Protect encrypted bucket allowing the automated rotatation of encryption keys. See https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-tutorial-kp-encrypt-bucket."
+                            },
+							{
+                                "title": "Least Privileged Operations to Cloudability",
+                                "description": "Custom access roles are created so that cloudability only has the minimal required access to your IBM Cloud Account."
+                            },
+							{
+                                "title": "Cloudability Onboarding Verification",
+                                "description": "Verification of the account onboarding to Apptio Cloudability is performed so that you have confidence that the configuration is correct."
+                            },
+							{
+                                "title": "Add all accounts in an Enterprise to Cloudability",
+                                "description": "Running this deployable architecture at the root (primary) Enterprise Account will cause all existing and future accounts in the enterprise to be added to Apptio Cloudability."
+                            },
+							{
+                                "title": "Managed with Code!",
+                                "description": "Easily re-configure or clean-up the onboarding of your accounts to Cloudability and ensure that everything is centrally connected and configured."
+                            }
+						]
+					},
+					"configuration": [
+						{
+							"key": "ibmcloud_api_key",
+							"type": "password",
+							"description": "The IBM Cloud API Key",
+							"required": true
+						},
+						{
+							"key": "cloudability_api_key",
+							"type": "password",
+							"description": "Cloudability API Key. Retrieve your Api Key from https://app.apptio.com/cloudability#/settings/preferences under the section **Cloudability API** select **Enable API** which will generate an api key.",
+							"default_value": "__NULL__",
+							"required": true
+						},
+						{
+							"key": "cloudability_host",
+							"type": "string",
+							"default_value": "api.cloudability.com",
+							"description": "The cloudability hostname as documented in https://help.apptio.com/en-us/cloudability/api/v3/getting_started_with_the_cloudability.htm#authentication",
+							"required": true,
+							"options": [
+								{
+									"displayname": "api.cloudability.com",
+									"value": "api.cloudability.com"
+								},
+								{
+									"displayname": "api-eu.cloudability.com",
+									"value": "api-eu.cloudability.com"
+								},
+								{
+									"displayname": "api-au.cloudability.com",
+									"value": "api-au.cloudability.com"
+								}
+							]
+						},
+						{
+							"key": "is_enterprise_account",
+							"type": "boolean",
+							"default_value": "false",
+							"description": "Whether the account is an enterprise account. Adds an additional grant for cloudability to query the list of accounts in an enterprise. If enabled will fetch the enterprise account id to complete onboarding.",
+							"required": true
+						},
+						{
+							"key": "enterprise_id",
+							"type": "string",
+							"default_value": "__NULL__",
+							"description": "Use this field in the case when the provided `ibmcloud_api_key` does not have access to view the enterprise. Setting this value to `__NULL__` will along with `is_enterprise_account` is true will cause the `enterprise_id` to be automatically retrieved.",
+							"required": false
+						},
+						{
+							"key": "enable_billing_exports",
+							"type": "boolean",
+							"hidden": true,
+							"default_value": "true"
+						},
+						{
+							"key": "policy_granularity",
+							"type": "string",
+							"description": "Whether access to the cos bucket is controlled at the bucket (resource), cos instance (serviceInstance), or resource-group (resourceGroup). This property may be useful in the complex scenario of aggregating billing exports across many IBM Cloud enterprises or accounts into a central instance",
+							"default_value": "resource",
+							"hidden": true,
+							"options": [
+								{
+								  "displayname": "Bucket",
+								  "value": "resource"
+								},
+								{
+									"displayname": "Instance",
+									"value": "serviceInstance"
+								},
+								{
+									"displayname": "Resource Group",
+									"value": "resourceGroup"
+								}
+							  ]
+						},
+						{
+							"key": "activity_tracker_crn",
+							"type": "string",
+							"default_value": "__NULL__",
+							"description": "Optionally include an existing activity tracker instance CRN.",
+							"required": false
+						},
+						{
+							"key": "sysdig_crn",
+							"type": "string",
+							"default_value": "__NULL__",
+							"description": "Optionally include an existing cloud monitoring instance CRN.",
+							"required": false
+						},
+						{
+							"key": "create_resource_group",
+							"type": "boolean",
+							"default_value": "false",
+							"description": "Whether var.resource_group represents the name of an existing resource group or a new resource group should be created",
+							"required": false
+						},
+						{
+							"key": "resource_group_name",
+							"type": "string",
+							"default_value": "Default",
+							"description": "The name of a new or existing resource group where resources will be created",
+							"required": false
+						},
+						{
+							"key": "resource_tags",
+							"type": "array",
+							"default_value": "[]",
+							"description": "Optional list of tags to be added to created resources",
+							"required": false
+						},
+						{
+							"key": "access_tags",
+							"type": "array",
+							"default_value": "[]",
+							"description": "Optional list of access tags to be added to the created resources",
+							"required": false
+						},
+						{
+							"key": "region",
+							"type": "string",
+							"default_value": "us-south",
+							"description": "Region where resources will be created. Restricted to 3 regions where Key Protect has failover support. (See https://cloud.ibm.com/docs/key-protect?topic=key-protect-ha-dr#availability for more details)",
+							"required": true,
+							"options": [
+								{
+								  "displayname": "Dallas (us-south)",
+								  "value": "us-south"
+								},
+								{
+								  "displayname": "Frankfurt (eu-de)",
+								  "value": "eu-de"
+								},
+								{
+								  "displayname": "Tokyo (jp-tok)",
+								  "value": "jp-tok"
+								}
+							]
+						},
+						{
+							"key": "existing_kms_instance_crn",
+							"type": "string",
+							"description": "The CRN of the Key Protect or Hyper Protect instance in which the key specified in var.kms_key_crn is coming from. Required if var.skip_iam_authorization_policy is false in order to create an IAM Access Policy to allow Key Protect or Hyper Protect to access the newly created COS instance.",
+							"required": false
+						},
+						{
+							"key": "key_protect_instance_name",
+							"type": "string",
+							"default_value": "cloudability-bucket-encryption",
+							"description": "Name of the Key Protect instance name used for bucket encryption",
+							"required": false
+						},
+						{
+							"key": "key_name",
+							"type": "string",
+							"default_value": "cldy-bucket-key",
+							"description": "Name of the cos bucket encryption key",
+							"required": false
+						},
+						{
+							"key": "key_ring_name",
+							"type": "string",
+							"default_value": "bucket-encryption",
+							"description": "Name of the key ring to group keys",
+							"required": false
+						},
+						{
+							"key": "existing_cos_instance_id",
+							"type": "string",
+							"description": "The ID of an existing cloud object storage instance. Required if 'var.create_cos_instance' is false.",
+							"required": false
+						},
+						{
+							"key": "cos_instance_name",
+							"type": "string",
+							"default_value": "apptio-cldy-billing-reports",
+							"description": "Name of the cloud object storage instance where billing reports are created",
+							"required": false
+						},
+						{
+							"key": "cos_plan",
+							"type": "string",
+							"default_value": "standard",
+							"description": "Plan to be used for creating cloud object storage instance.",
+							"required": true,
+							"options": [
+								{
+									"displayname": "Standard",
+									"value": "standard"
+								},
+								{
+									"displayname": "One Rate",
+									"value": "cos-one-rate-plan"
+								},
+								{
+									"displayname": "Lite",
+									"value": "lite"
+								}
+							]
+						},
+						{
+							"key": "bucket_name",
+							"type": "string",
+							"default_value": "billing-snapshots",
+							"description": "Name of the COS bucket",
+							"required": true
+						},
+						{
+							"key": "add_bucket_name_suffix",
+							"type": "boolean",
+							"default_value": "true",
+							"description": "Add random generated suffix (4 characters long) to the newly provisioned COS bucket name. This helps avoid naming conflicts since bucket names need to be globally unique",
+							"required": true
+						},
+						{
+							"key": "bucket_storage_class",
+							"type": "string",
+							"default_value": "smart",
+							"description": "The storage class of the newly provisioned COS bucket of a `standard` or `lite` plan instance. Not required for one rate instances are always ",
+							"required": true,
+							"options": [
+								{
+									"displayname": "Smart (cost optimized based on activity)",
+									"value": "smart"
+								},
+								{
+									"displayname": "Standard (frequently accessed)",
+									"value": "standard"
+								},
+								{
+									"displayname": "Vault (access ~ 1 / month)",
+									"value": "vault"
+								},
+								{
+									"displayname": "Cold (access ~ 1 / year)",
+									"value": "cold"
+								}
+							]
+						},
+						{
+							"key": "object_versioning_enabled",
+							"type": "boolean",
+							"default_value": "false",
+							"description": "Enable object versioning to keep multiple versions of an object in a bucket.",
+							"required": false
+						},
+						{
+							"key": "archive_days",
+							"type": "number",
+							"default_value": 62,
+							"description": "Specifies the number of days when the archive rule action takes effect.",
+							"required": false
+						},
+						{
+							"key": "archive_type",
+							"type": "string",
+							"default_value": "Glacier",
+							"description": "Specifies the storage class or archive type to which you want the object to transition.",
+							"required": false,
+							"options": [
+								{
+									"displayname": "Glacier",
+									"value": "Glacier"
+								},
+								{
+									"displayname": "Accelerated",
+									"value": "Accelerated"
+								}
+							]
+						},
+						{
+							"key": "expire_days",
+							"type": "number",
+							"default_value": 180,
+							"description": "Specifies the number of days when the expire rule action takes effect.",
+							"required": false
+						},
+						{
+							"key": "cloudability_custom_role_name",
+							"type": "string",
+							"default_value": "CloudabilityStorageCustomRole",
+							"description": "name of the custom role which grants cloudability access to read from the billing reports cos bucket",
+							"required": false
+						},
+						{
+							"key": "cloudability_enterprise_custom_role_name",
+							"type": "string",
+							"default_value": "CloudabilityListAccCustomRole",
+							"description": "name of the custom role which grants cloudability to read the enterprise information.",
+							"required": false
+						},
+						{
+							"key": "cos_folder",
+							"type": "string",
+							"default_value": "IBMCloud-Billing-Reports",
+							"description": "Folder in the COS bucket to store the billing reports",
+							"required": true
+						},
+						{
+							"key": "skip_verification",
+							"type": "boolean",
+							"default_value": "false",
+							"description": "whether to verify the account after adding the account to cloudability. Requires cloudability_api_key to be set.",
+							"required": false
+						}
+					],
+					"outputs": [
+						{
+						  "key": "resource_group_id",
+						  "description": "Resource Group ID"
+						},
+						{
+						  "key": "s3_endpoint_public",
+						  "description": "public endpoint to the cos bucket"
+						},
+						{
+							"key": "bucket_id",
+							"description": "id of the cos bucket"
+						},
+						{
+							"key": "bucket_crn",
+							"description": "crn of the  cos bucket"
+						},
+						{
+							"key": "bucket_name",
+							"description": "name of the  cos bucket"
+						},
+						{
+							"key": "bucket_storage_class",
+							"description": "storage class of the  cos bucket"
+						},
+						{
+							"key": "kms_key_crn",
+							"description": "The CRN of the KMS key used to encrypt the COS bucket"
+						},
+						{
+							"key": "cos_instance_id",
+							"description": "The ID of the Cloud Object Storage Instance where the buckets are created"
+						},
+						{
+							"key": "cos_instance_guid",
+							"description": "The GUID of the Cloud Object Storage Instance where the buckets are created"
+						},
+						{
+							"key": "key_protect_guid",
+							"description": "Key Protect GUID"
+						},
+						{
+							"key": "key_protect_id",
+							"description": "Key Protect service instance ID when an instance is created, otherwise null"
+						},
+						{
+							"key": "key_protect_name",
+							"description": "Key Protect name"
+						},
+						{
+							"key": "enterprise_account_id",
+							"description": "Id for the primary account in the enterprise"
+						},
+						{
+							"key": "enterprise_id",
+							"description": "Id for the enterprise"
+						}
+					],
+					"install_type": "fullstack"
+				}
+			]
+		}
+	]
+}
