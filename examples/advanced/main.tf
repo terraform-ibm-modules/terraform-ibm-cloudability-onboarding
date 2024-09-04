@@ -10,7 +10,7 @@ module "cloudability_onboarding" {
   ibmcloud_api_key           = var.ibmcloud_api_key
   cloudability_api_key       = null
   is_enterprise_account      = false
-  create_resource_group      = true
+  create_resource_group      = false
   resource_group_name        = var.resource_group
   resource_tags              = var.resource_tags
   access_tags                = var.access_tags
