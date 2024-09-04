@@ -96,7 +96,7 @@
 									"caption": "All inclusive Cloudability Onboarding",
 									"type": "image/svg+xml",
 									"url_proxy": {
-										"url": "https://github.com/terraform-ibm-modules/terraform-ibm-apptio-cloudability-onboarding/blob/master/reference-architecture/cloudability-all-inclusive-onboarding.svg"
+										"url": "https://github.com/terraform-ibm-modules/terraform-ibm-apptio-cloudability-onboarding/blob/main/reference-architecture/cloudability-all-inclusive-onboarding.svg"
 									}
 								},
 								"description": "Billing exports are written to a Key Protect encrypted COS bucket. Apptio Cloudability is granted access to read from this bucket to add ibm cloud billing reports daily. Key Protect and Cloud Object Storage are created in your desired region and resource group. Optionally, configure retention and archiving of the data in your bucket and enable monitoring and auditing to your cloud object storage bucket."

@@ -15,7 +15,6 @@ Update status and "latest release" badges:
 <!-- Add a description of module(s) in this repo -->
 All in one module for creating a Key protect, COS instance and a cos bucket that is encrypted with a key from Key protect.
 
-
 <!-- Below content is automatically populated via pre-commit hook -->
 <!-- BEGIN OVERVIEW HOOK -->
 ## Overview

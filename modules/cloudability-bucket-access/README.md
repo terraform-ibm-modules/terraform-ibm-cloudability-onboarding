@@ -87,7 +87,7 @@ data "ibm_resource_group" "group" {
 }
 
 module "cloudability_bucket_access" {
-  source              = "git::https://github.ibm.com/dataops/terraform-billing-reports-snapshot-module//modules/cloudability-bucket-access"
+  source              = "git::https://github.com/terraform-ibm-modules/terraform-ibm-apptio-cloudability-onboarding//modules/cloudability-bucket-access"
   bucket_crn                    = "crn:v1:bluemix:public:cloud-object-storage:global:a/81ee25188545f05150650a0a4ee015bb:a2deec95-0836-4720-bfc7-ca41c28a8c66:bucket:tf-listbuckettest"
   resource_group_id             = data.ibm_resource_group.group.id
   policy_granularity            = "resource"

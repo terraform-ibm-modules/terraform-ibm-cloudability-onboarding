@@ -79,7 +79,7 @@ unless real values don't help users know what to change.
 
 ```hcl
 module "cloudability_onboarding" {
-  source              = "git::https://github.ibm.com/dataops/terraform-billing-reports-snapshot-module//modules/cloudability-onboarding"
+  source              = "git::https://github.com/terraform-ibm-modules/terraform-ibm-apptio-cloudability-onboarding//modules/cloudability-onboarding"
 
   ibmcloud_api_key    = "XXXXXXXXXX"
   cos_bucket_prefix   = "IBMCloud-Billing-Reports"

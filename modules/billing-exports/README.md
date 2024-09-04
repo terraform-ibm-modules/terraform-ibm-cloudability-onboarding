@@ -84,7 +84,7 @@ data "ibm_resource_group" "group" {
 }
 
 module "billing_exports" {
-  source              = "git::https://github.ibm.com/dataops/terraform-billing-reports-snapshot-module//modules/billing-exports"
+  source              = "git::https://github.com/terraform-ibm-modules/terraform-ibm-apptio-cloudability-onboarding//modules/billing-exports"
   cos_bucket_crn      = "crn:v1:bluemix:public:cloud-object-storage:global:a/81ee25188545f05150650a0a4ee015bb:a2deec95-0836-4720-bfc7-ca41c28a8c66:bucket:tf-listbuckettest"
   cos_bucket_location = "us-south"
   interval            = "daily"

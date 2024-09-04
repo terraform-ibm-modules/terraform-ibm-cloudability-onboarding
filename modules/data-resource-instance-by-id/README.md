@@ -78,7 +78,7 @@ unless real values don't help users know what to change.
 
 ```hcl
 module "cos_instance" {
-    source              = "git::https://github.ibm.com/dataops/terraform-billing-reports-snapshot-module//modules/data-resource-instance-by-id"
+    source              = "git::https://github.com/terraform-ibm-modules/terraform-ibm-apptio-cloudability-onboarding//modules/data-resource-instance-by-id"
     guid   = "a2deec95-0836-4720-bfc7-ca41c28a8c66"
 }
 ```
