@@ -34,6 +34,8 @@ This Deployable Architecture will fully onboard a standard IBM Cloud account or 
     * [cloudability-onboarding](./modules/cloudability-onboarding)
     * [data-resource-instance-by-id](./modules/data-resource-instance-by-id)
     * [encrypted_cos_bucket](./modules/encrypted_cos_bucket)
+* [Examples](./examples)
+    * [Cloudability Advanced Example](./examples/advanced)
 * [Contributing](#contributing)
 <!-- END OVERVIEW HOOK -->
 
@@ -58,17 +60,23 @@ information in the console at
 Manage > Access (IAM) > Access groups > Access policies.
 -->
 
-<!--
+
 You need the following permissions to run this module:
 
 - IAM services
-    - **Sample IBM Cloud** service
+    - **Cloud Object Storage** service
+        - `Administrator` platform access
+        - `Manager`, `ObjectReader` service access
+    - **Key Protect** service
         - `Editor` platform access
-        - `Manager` platform access
+        - `Manager` service access
 - Account management services
-    - **Sample account management** service
-        - `Editor` platform access
--->
+    - **Billing** service
+        - `Administrator` platform access
+    - **Enterprise** service (only for enterprise accounts)
+        - `Viewer` platform access
+    - **IAM Access Management** service (only for enterprise accounts)
+        - `Administrator` platform access
 
 <!-- NO PERMISSIONS FOR MODULE
 If no permissions are required for the module, uncomment the following

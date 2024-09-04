@@ -10,13 +10,14 @@ import (
 
 // Use existing resource group
 const resourceGroup = "geretain-test-resources"
-const advancedExampleDir = "."
+const advancedExampleDir = "examples/advanced"
 
 func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:       t,
 		TerraformDir:  dir,
 		Prefix:        prefix,
+		Region:        "us-south",
 		ResourceGroup: resourceGroup,
 	})
 	return options

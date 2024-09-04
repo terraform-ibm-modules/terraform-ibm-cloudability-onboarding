@@ -50,7 +50,7 @@
 			],
 			"flavors": [
 				{
-					"label": "All-inclusive",
+					"label": "all-inclusive",
 					"name": "cloudability-all-inclusive",
                     "working_directory": ".",
 					"compliance": {},
