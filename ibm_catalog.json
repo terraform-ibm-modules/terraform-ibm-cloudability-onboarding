@@ -52,7 +52,7 @@
 				{
 					"label": "All-inclusive",
 					"name": "cloudability-all-inclusive",
-                    "working_directory": "./solutions/all-inclusive",
+                    "working_directory": ".",
 					"compliance": {},
 					"iam_permissions": [
 						{

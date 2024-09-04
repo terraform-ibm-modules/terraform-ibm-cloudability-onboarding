@@ -31,7 +31,7 @@ module "cos_bucket" {
   providers = {
     ibm = ibm
   }
-  source                              = "../../modules/encrypted_cos_bucket"
+  source                              = "./modules/encrypted_cos_bucket"
   resource_group_id                   = module.resource_group.resource_group_id
   resource_tags                       = var.resource_tags
   region                              = var.region
@@ -67,7 +67,7 @@ module "cos_bucket" {
 }
 
 module "cloudability_bucket_access" {
-  source                        = "../../modules/cloudability-bucket-access"
+  source                        = "./modules/cloudability-bucket-access"
   policy_granularity            = var.policy_granularity
   bucket_crn                    = local.cos_bucket_crn
   cloudability_custom_role_name = var.cloudability_custom_role_name
@@ -77,14 +77,14 @@ module "cloudability_bucket_access" {
 module "cloudability_enterprise_access" {
   count = var.enable_billing_exports ? 1 : 0
   # if same account then re-use the access group. Otherwise create a new one
-  source                        = "../../modules/cloudability-enterprise-access"
+  source                        = "./modules/cloudability-enterprise-access"
   enterprise_id                 = local.enterprise_id
   cloudability_custom_role_name = var.cloudability_enterprise_custom_role_name
 }
 
 module "billing_exports" {
   count               = var.enable_billing_exports ? 1 : 0
-  source              = "../../modules/billing-exports"
+  source              = "./modules/billing-exports"
   billing_account_id  = local.enterprise_account_id
   cos_bucket_crn      = local.cos_bucket_crn
   cos_bucket_location = var.region
@@ -98,7 +98,7 @@ module "cloudability_onboarding" {
   providers = {
     restapi = restapi.cloudability
   }
-  source = "../../modules/cloudability-onboarding"
+  source = "./modules/cloudability-onboarding"
   # needed to execute an ibmcloud cli script to check that billing exports have been writted to the cos bucket
   ibmcloud_api_key    = var.ibmcloud_api_key
   cos_bucket_prefix   = var.cos_folder
