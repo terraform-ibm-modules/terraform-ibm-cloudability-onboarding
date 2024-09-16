@@ -1,5 +1,5 @@
 <!-- Update the title -->
-# cloudability-bucket-access
+# Apptio cloudability COS bucket access
 
 <!-- Add a description of module(s) in this repo -->
 This module grants the Apptio Cloudability ServiceID access to the bucket containing the billing exports (see [Exporting your usage data for continual insights](https://cloud.ibm.com/docs/billing-usage?topic=billing-usage-exporting-your-usage&interface=terraform)). The module uses [iam custom roles](https://cloud.ibm.com/docs/account?topic=account-custom-roles&interface=ui) so that Apptio cloudability has only the minimum required access to the storage bucket.

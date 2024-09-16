@@ -1,6 +1,5 @@
 {
   "ibmcloud_api_key": $VALIDATION_APIKEY,
   "resource_group_name": $PREFIX,
-  "use_existing_resource_group": false,
-  "existing_kms_instance_guid": $HPCS_US_SOUTH_GUID
+  "use_existing_resource_group": false
 }

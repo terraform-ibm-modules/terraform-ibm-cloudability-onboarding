@@ -7,7 +7,7 @@ variable "ibmcloud_api_key" {
 
 variable "cloudability_api_key" {
   type        = string
-  description = "API Key for Apptio Cloudability"
+  description = "Cloudability API Key. Retrieve your Api Key from https://app.apptio.com/cloudability#/settings/preferences under the section **Cloudability API** select **Enable API** which will generate an api key. Setting this value to __NULL__ will skip adding the IBM Cloud account to Cloudability and only configure IBM Cloud so that the IBM Cloud Account can be added to Cloudability manually"
   sensitive   = true
   default     = null
 }
@@ -50,7 +50,7 @@ variable "policy_granularity" {
 
 variable "use_existing_resource_group" {
   type        = bool
-  description = "Whether the value of var.resource_group_name should be a new of existing resource_group"
+  description = "Whether the value of `resource_group_name` input should be a new of existing resource_group"
   default     = true
 }
 

@@ -139,7 +139,7 @@
 						{
 							"key": "cloudability_api_key",
 							"type": "password",
-							"description": "Cloudability API Key. Retrieve your Api Key from https://app.apptio.com/cloudability#/settings/preferences under the section **Cloudability API** select **Enable API** which will generate an api key. Setting this value to __NULL__ will allow skip the adding of the IBM Cloud account to Cloudability and only configure IBM Cloud so that the IBM Cloud Account can be added to Cloudability manually.",
+							"description": "Cloudability API Key. Retrieve your Api Key from https://app.apptio.com/cloudability#/settings/preferences under the section **Cloudability API** select **Enable API** which will generate an api key. Setting this value to __NULL__ will skip adding the IBM Cloud account to Cloudability and only configure IBM Cloud so that the IBM Cloud Account can be added to Cloudability manually.",
 							"default_value": "__NULL__",
 							"required": true
 						},
@@ -223,7 +223,7 @@
 							"key": "use_existing_resource_group",
 							"type": "boolean",
 							"default_value": "true",
-							"description": "Whether var.resource_group_name represents the name of an existing resource group or a new resource group should be created",
+							"description": "Whether `resource_group_name` input represents the name of an existing resource group or a new resource group should be created",
 							"required": false
 						},
 						{

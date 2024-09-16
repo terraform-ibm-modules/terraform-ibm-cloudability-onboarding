@@ -19,7 +19,7 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 		Region:       "us-south",
 		TerraformVars: map[string]interface{}{
 			"resource_group_name":         resourceGroup,
-			"use_existing_resource_group": false,
+			"use_existing_resource_group": true,
 		},
 	})
 	return options
@@ -35,14 +35,14 @@ func TestRunDefaultSolution(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
-// func TestRunUpgradeSolution(t *testing.T) {
-// 	t.Parallel()
+func TestRunUpgradeSolution(t *testing.T) {
+	t.Parallel()
 
-// 	options := setupOptions(t, "mod-template-upg", defaultSolutionDir)
+	options := setupOptions(t, "mod-template-upg", defaultSolutionDir)
 
-// 	output, err := options.RunTestUpgrade()
-// 	if !options.UpgradeTestSkipped {
-// 		assert.Nil(t, err, "This should not have errored")
-// 		assert.NotNil(t, output, "Expected some output")
-// 	}
-// }
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected some output")
+	}
+}
