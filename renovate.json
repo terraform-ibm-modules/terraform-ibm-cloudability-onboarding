@@ -5,7 +5,7 @@
     {
       "description": "Allow the locked in provider version to be updated to the latest for deployable architectures",
       "enabled": true,
-      "matchFileNames": ["solutions/**"],
+      "matchFileNames": ["version.tf"],
       "matchManagers": ["terraform"],
       "matchDepTypes": ["required_provider"],
       "rangeStrategy": "bump",

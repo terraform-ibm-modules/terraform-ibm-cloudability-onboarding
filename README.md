@@ -7,8 +7,8 @@ Update status and "latest release" badges:
   1. For the status options, see https://terraform-ibm-modules.github.io/documentation/#/badge-status
   2. Update the "latest release" badge to point to the correct module's repo. Replace "terraform-ibm-module-template" in two places.
 -->
-[![Incubating (Not yet consumable)](https://img.shields.io/badge/status-Incubating%20(Not%20yet%20consumable)-red)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
-[![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-module-template?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-module-template/releases/latest)
+[![Stable (With quality checks)](https://img.shields.io/badge/Status-Stable%20(With%20quality%20checks)-green)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
+[![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-apptio-cloudability-onboarding?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-apptio-cloudability-onboarding/releases/latest)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
@@ -22,6 +22,8 @@ This Deployable Architecture will fully onboard a standard IBM Cloud account or 
     - Cloudability access is controlled in a custom role so only the minimum access is given.
 - Adds the IBM Cloud account/enterprise to Apptio Cloudability
 
+:exclamation: **Important:** This Deployable Architecture solutions is not intended to be called by other modules because it contains a provider configuration and is therefor not compatible with the `for_each`, `count`, and `depends_on` arguments. For more information see [Providers Within Modules](https://developer.hashicorp.com/terraform/language/modules/develop/providers)
+
 
 <!-- The following content is automatically populated by the pre-commit hook -->
 <!-- BEGIN OVERVIEW HOOK -->
@@ -34,8 +36,6 @@ This Deployable Architecture will fully onboard a standard IBM Cloud account or 
     * [cloudability-onboarding](./modules/cloudability-onboarding)
     * [data-resource-instance-by-id](./modules/data-resource-instance-by-id)
     * [encrypted_cos_bucket](./modules/encrypted_cos_bucket)
-* [Examples](./examples)
-    * [Cloudability Advanced Example](./examples/advanced)
 * [Contributing](#contributing)
 <!-- END OVERVIEW HOOK -->
 
@@ -46,6 +46,8 @@ See "Reference architecture" in the public documentation at
 https://terraform-ibm-modules.github.io/documentation/#/implementation-guidelines?id=reference-architecture
 -->
 ## Reference architectures
+
+![cloudability-all-inclusive-onboarding](./reference-architecture/cloudability-all-inclusive-onboarding.svg)
 
 <!-- This heading should always match the name of the root level module (aka the repo name) -->
 ## terraform-ibm-apptio-cloudability-onboarding
@@ -91,9 +93,9 @@ statement instead the previous block.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.3.0 |
-| <a name="requirement_cloudability"></a> [cloudability](#requirement\_cloudability) | >= 0.0.35 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.59.0 |
-| <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | >= 1.18.2 |
+| <a name="requirement_cloudability"></a> [cloudability](#requirement\_cloudability) | 0.0.36 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.69.2 |
+| <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | 1.20.0 |
 
 ### Modules
 
@@ -110,9 +112,9 @@ statement instead the previous block.
 
 | Name | Type |
 |------|------|
-| [ibm_enterprises.enterprises](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/enterprises) | data source |
-| [ibm_iam_account_settings.billing_exports_account](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/iam_account_settings) | data source |
-| [ibm_iam_auth_token.tokendata](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/iam_auth_token) | data source |
+| [ibm_enterprises.enterprises](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.69.2/docs/data-sources/enterprises) | data source |
+| [ibm_iam_account_settings.billing_exports_account](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.69.2/docs/data-sources/iam_account_settings) | data source |
+| [ibm_iam_auth_token.tokendata](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.69.2/docs/data-sources/iam_auth_token) | data source |
 
 ### Inputs
 
@@ -135,7 +137,6 @@ statement instead the previous block.
 | <a name="input_cos_plan"></a> [cos\_plan](#input\_cos\_plan) | Plan to be used for creating cloud object storage instance. Only used if 'create\_cos\_instance' it true. | `string` | `"standard"` | no |
 | <a name="input_create_cos_instance"></a> [create\_cos\_instance](#input\_create\_cos\_instance) | Set as true to create a new Cloud Object Storage instance. | `bool` | `true` | no |
 | <a name="input_create_key_protect_instance"></a> [create\_key\_protect\_instance](#input\_create\_key\_protect\_instance) | Key Protect instance name | `bool` | `true` | no |
-| <a name="input_create_resource_group"></a> [create\_resource\_group](#input\_create\_resource\_group) | Whether the value of var.resource\_group\_name should be a new of existing resource\_group | `bool` | `false` | no |
 | <a name="input_cross_region_location"></a> [cross\_region\_location](#input\_cross\_region\_location) | Specify the cross-regional bucket location. Supported values are 'us', 'eu', and 'ap'. If you pass a value for this, ensure to set the value of var.region to null. | `string` | `null` | no |
 | <a name="input_enable_billing_exports"></a> [enable\_billing\_exports](#input\_enable\_billing\_exports) | Whether billing exports should be enabled | `bool` | `true` | no |
 | <a name="input_enable_cloudability_access"></a> [enable\_cloudability\_access](#input\_enable\_cloudability\_access) | Whether to grant cloudability access to read the billing reports | `bool` | `true` | no |
@@ -153,7 +154,7 @@ statement instead the previous block.
 | <a name="input_object_versioning_enabled"></a> [object\_versioning\_enabled](#input\_object\_versioning\_enabled) | Enable object versioning to keep multiple versions of an object in a bucket. Cannot be used with retention rule. Only used if 'create\_cos\_bucket' is true. | `bool` | `false` | no |
 | <a name="input_policy_granularity"></a> [policy\_granularity](#input\_policy\_granularity) | Whether access to the cos bucket is controlled at the bucket (resource), cos instance (serviceInstance), or resource-group (resourceGroup). | `string` | `"resource"` | no |
 | <a name="input_region"></a> [region](#input\_region) | Region where resources will be created | `string` | `"us-south"` | no |
-| <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of an existing resource group to provision resources in to. If not set a new resource group will be created using the prefix variable | `string` | `"Default"` | no |
+| <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of an existing resource group to provision resources in to. | `string` | `"Default"` | no |
 | <a name="input_resource_tags"></a> [resource\_tags](#input\_resource\_tags) | Optional list of tags to be added to created resources | `list(string)` | `[]` | no |
 | <a name="input_retention_default"></a> [retention\_default](#input\_retention\_default) | Specifies default duration of time an object that can be kept unmodified for COS bucket. Only used if 'create\_cos\_bucket' is true. | `number` | `90` | no |
 | <a name="input_retention_enabled"></a> [retention\_enabled](#input\_retention\_enabled) | Retention enabled for COS bucket. Only used if 'create\_cos\_bucket' is true. | `bool` | `false` | no |
@@ -163,6 +164,7 @@ statement instead the previous block.
 | <a name="input_skip_iam_authorization_policy"></a> [skip\_iam\_authorization\_policy](#input\_skip\_iam\_authorization\_policy) | Set to true to skip the creation of an IAM authorization policy that permits the COS instance created to read the encryption key from the KMS instance in `existing_kms_instance_guid`. WARNING: An authorization policy must exist before an encrypted bucket can be created | `bool` | `false` | no |
 | <a name="input_skip_verification"></a> [skip\_verification](#input\_skip\_verification) | whether to verify the account after adding the account to cloudability. Requires cloudability\_auth\_header to be set. | `bool` | `false` | no |
 | <a name="input_sysdig_crn"></a> [sysdig\_crn](#input\_sysdig\_crn) | Cloud Monitoring crn for COS bucket (Optional) | `string` | `null` | no |
+| <a name="input_use_existing_resource_group"></a> [use\_existing\_resource\_group](#input\_use\_existing\_resource\_group) | Whether the value of var.resource\_group\_name should be a new of existing resource\_group | `bool` | `true` | no |
 
 ### Outputs
 

@@ -48,15 +48,15 @@ variable "policy_granularity" {
 # Common variables
 ##############################################################################
 
-variable "create_resource_group" {
+variable "use_existing_resource_group" {
   type        = bool
   description = "Whether the value of var.resource_group_name should be a new of existing resource_group"
-  default     = false
+  default     = true
 }
 
 variable "resource_group_name" {
   type        = string
-  description = "The name of an existing resource group to provision resources in to. If not set a new resource group will be created using the prefix variable"
+  description = "The name of an existing resource group to provision resources in to."
   default     = "Default"
 
   validation {

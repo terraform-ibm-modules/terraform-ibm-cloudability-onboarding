@@ -6,15 +6,15 @@ terraform {
   required_providers {
     ibm = {
       source  = "IBM-Cloud/ibm"
-      version = ">= 1.59.0"
+      version = "1.69.2"
     }
     restapi = {
       source  = "Mastercard/restapi"
-      version = ">= 1.18.2"
+      version = "1.20.0"
     }
     cloudability = {
       source  = "skyscrapr/cloudability"
-      version = ">= 0.0.35"
+      version = "0.0.36"
     }
   }
 }
