@@ -2,16 +2,6 @@
 # Outputs
 ########################################################################################################################
 
-# resource "time_offset" "last_updated_at" {
-#   base_rfc3339   = "1970-01-01T00:00:00Z"
-#   offset_seconds = floor(local.billing_report_snapshot_instance.last_updated_at / 1000)
-# }
-
-# resource "time_offset" "created_at" {
-#   base_rfc3339   = "1970-01-01T00:00:00Z"
-#   offset_seconds = floor(local.billing_report_snapshot_instance.created_at / 1000)
-# }
-
 output "id" {
   description = "The unique identifier of the billing_report_snapshot."
   value       = local.billing_report_snapshot_instance.id
@@ -35,15 +25,6 @@ output "export_compression" {
   description = "type of compression for the exports"
   value       = local.billing_report_snapshot_instance.compression
 }
-
-# output "export_created_at" {
-#   description = "Date that the exports were created"
-#   value       = time_offset.created_at.rfc3339
-# }
-# output "export_last_updated_at" {
-#   description = "Date that the exports were last updated"
-#   value       = time_offset.last_updated_at.rfc3339
-# }
 
 output "export_account_type" {
   description = "Date that the exports were last updated"

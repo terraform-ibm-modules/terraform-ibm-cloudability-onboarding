@@ -2,12 +2,6 @@ data "ibm_iam_account_settings" "iam_account_settings" {
   count = var.billing_account_id == null ? 1 : 0
 }
 
-# module "cos_bucket_crn" {
-#   # source = "git::https://github.com/terraform-ibm-modules/terraform-ibmcloud-crn-module.git?ref=1.0.0"
-#   source = "../terraform-ibmcloud-crn-module"
-#   crn    = var.cos_bucket_crn
-# }
-
 locals {
   subject_account_id  = var.billing_account_id == null ? data.ibm_iam_account_settings.iam_account_settings[0].account_id : var.billing_account_id
   resource_account_id = split("/", split(":", var.cos_bucket_crn)[6])[1]
@@ -106,6 +100,5 @@ resource "ibm_billing_report_snapshot" "billing_report_snapshot_instance" {
 
 
 locals {
-  # billing_report_snapshot_instance = var.skip_authorization_policy ? ibm_billing_report_snapshot.billing_report_snapshot_instance[0] : ibm_billing_report_snapshot.billing_report_snapshot_instance_skipped_auth_policy[0]
   billing_report_snapshot_instance = ibm_billing_report_snapshot.billing_report_snapshot_instance
 }

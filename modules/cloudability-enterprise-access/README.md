@@ -1,7 +1,7 @@
 # cloudability enterprise access module
 
 <!-- Add a description of module(s) in this repo -->
-This module grants the Apptio Cloudability ServiceID access to read the list of enterprise accounts in the case that the IBM Cloud account is [an Enterprise](https://cloud.ibm.com/docs/secure-enterprise?topic=secure-enterprise-what-is-enterprise. The module uses [iam custom roles](https://cloud.ibm.com/docs/account?topic=account-custom-roles&interface=ui) so that Apptio cloudability has only the minimum required access to the storage bucket.
+This module grants the IBM Cloudability ServiceID access to read the list of enterprise accounts in the case that the IBM Cloud account is [an Enterprise](https://cloud.ibm.com/docs/secure-enterprise?topic=secure-enterprise-what-is-enterprise. The module uses [iam custom roles](https://cloud.ibm.com/docs/account?topic=account-custom-roles&interface=ui) so that Apptio cloudability has only the minimum required access to the storage bucket.
 
 The policies are granted directly to the ServiceId.
 

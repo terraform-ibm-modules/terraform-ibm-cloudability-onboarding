@@ -1,5 +1,5 @@
 <!-- Update the title -->
-# billing-exports module
+# Billing exports module
 
 This module configures the exporting of billing and usage files to a IBM Cloud object storage bucket as discussed in the IBM Cloud doc: "[Exporting your usage data for continual insights](https://cloud.ibm.com/docs/billing-usage?topic=billing-usage-exporting-your-usage&interface=terraform)"
 
@@ -18,7 +18,7 @@ data "ibm_resource_group" "group" {
 }
 
 module "billing_exports" {
-  source              = "git::https://github.com/terraform-ibm-modules/terraform-ibm-apptio-cloudability-onboarding//modules/billing-exports"
+  source              = "git::https://github.com/terraform-ibm-modules/terraform-ibm-cloudability-onboarding//modules/billing-exports"
   cos_bucket_crn      = "crn:v1:bluemix:public:cloud-object-storage:global:a/81ee25188545f05150650a0a4ee015bb:a2deec95-0836-4720-bfc7-ca41c28a8c66:bucket:tf-listbuckettest"
   cos_bucket_location = "us-south"
   interval            = "daily"

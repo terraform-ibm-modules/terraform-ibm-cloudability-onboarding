@@ -241,18 +241,6 @@ variable "existing_kms_instance_guid" {
   default     = null
 }
 
-# variable "kms_encryption_enabled" {
-#   description = "Set as true to use KMS key encryption to encrypt data in COS bucket (only applicable when var.create_cos_bucket is true)."
-#   type        = bool
-#   default     = true
-# }
-
-# variable "kms_key_crn" {
-#   description = "CRN of the KMS key to use to encrypt the data in the COS bucket. Required if var.encryption_enabled and var.create_cos_bucket are true."
-#   type        = string
-#   default     = null
-# }
-
 ##############################################################
 # Context-based restriction (CBR)
 ##############################################################

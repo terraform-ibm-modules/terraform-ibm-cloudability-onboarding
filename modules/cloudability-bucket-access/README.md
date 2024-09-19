@@ -2,7 +2,7 @@
 # Apptio cloudability COS bucket access
 
 <!-- Add a description of module(s) in this repo -->
-This module grants the Apptio Cloudability ServiceID access to the bucket containing the billing exports (see [Exporting your usage data for continual insights](https://cloud.ibm.com/docs/billing-usage?topic=billing-usage-exporting-your-usage&interface=terraform)). The module uses [iam custom roles](https://cloud.ibm.com/docs/account?topic=account-custom-roles&interface=ui) so that Apptio cloudability has only the minimum required access to the storage bucket.
+This module grants the IBM Cloudability ServiceID access to the bucket containing the billing exports (see [Exporting your usage data for continual insights](https://cloud.ibm.com/docs/billing-usage?topic=billing-usage-exporting-your-usage&interface=terraform)). The module uses [iam custom roles](https://cloud.ibm.com/docs/account?topic=account-custom-roles&interface=ui) so that Apptio cloudability has only the minimum required access to the storage bucket.
 
 The policies are granted directly to the ServiceId
 
@@ -22,7 +22,7 @@ data "ibm_resource_group" "group" {
 }
 
 module "cloudability_bucket_access" {
-  source              = "git::https://github.com/terraform-ibm-modules/terraform-ibm-apptio-cloudability-onboarding//modules/cloudability-bucket-access"
+  source              = "git::https://github.com/terraform-ibm-modules/terraform-ibm-cloudability-onboarding//modules/cloudability-bucket-access"
   bucket_crn                    = "crn:v1:bluemix:public:cloud-object-storage:global:a/81ee25188545f05150650a0a4ee015bb:a2deec95-0836-4720-bfc7-ca41c28a8c66:bucket:tf-listbuckettest"
   resource_group_id             = data.ibm_resource_group.group.id
   policy_granularity            = "resource"

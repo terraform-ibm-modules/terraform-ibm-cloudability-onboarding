@@ -19,7 +19,7 @@ unless real values don't help users know what to change.
 # - Key Protect instance
 # - COS buckets with retention, encryption
 module "cos_bucket" {
-    source              = "git::https://github.com/terraform-ibm-modules/terraform-ibm-apptio-cloudability-onboarding//modules/encrypted_cos_bucket"
+    source              = "git::https://github.com/terraform-ibm-modules/terraform-ibm-cloudability-onboarding//modules/encrypted_cos_bucket"
     resource_group_id          = "xxXXxxXXxXxXXXXxxXxxxXXXXxXXXXX"
     region                     = "us-south"
     cos_instance_name          = "my-cos-instance"

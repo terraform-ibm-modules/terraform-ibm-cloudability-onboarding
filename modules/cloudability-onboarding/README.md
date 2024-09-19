@@ -15,7 +15,7 @@ unless real values don't help users know what to change.
 
 ```hcl
 module "cloudability_onboarding" {
-  source              = "git::https://github.com/terraform-ibm-modules/terraform-ibm-apptio-cloudability-onboarding//modules/cloudability-onboarding"
+  source              = "git::https://github.com/terraform-ibm-modules/terraform-ibm-cloudability-onboarding//modules/cloudability-onboarding"
 
   ibmcloud_api_key    = "XXXXXXXXXX"
   cos_bucket_prefix   = "IBMCloud-Billing-Reports"
@@ -88,7 +88,7 @@ statement instead the previous block.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_cloudability_host"></a> [cloudability\_host](#input\_cloudability\_host) | Apptio Cloudability host name as described in https://help.apptio.com/en-us/cloudability/api/v3/getting_started_with_the_cloudability.htm#authentication | `string` | `"api.cloudability.com"` | no |
+| <a name="input_cloudability_host"></a> [cloudability\_host](#input\_cloudability\_host) | IBM Cloudability host name as described in https://help.apptio.com/en-us/cloudability/api/v3/getting_started_with_the_cloudability.htm#authentication | `string` | `"api.cloudability.com"` | no |
 | <a name="input_cos_bucket_crn"></a> [cos\_bucket\_crn](#input\_cos\_bucket\_crn) | CRN of the COS bucket | `string` | n/a | yes |
 | <a name="input_cos_bucket_location"></a> [cos\_bucket\_location](#input\_cos\_bucket\_location) | Location of the cos bucket. | `string` | n/a | yes |
 | <a name="input_cos_bucket_prefix"></a> [cos\_bucket\_prefix](#input\_cos\_bucket\_prefix) | name of the manifest file in the cost report | `string` | `"IBMCloud-Billing-Reports"` | no |

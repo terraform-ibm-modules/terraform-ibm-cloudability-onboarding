@@ -25,7 +25,7 @@ deployment-url: url
 
 docs: https://cloud.ibm.com/docs/solution-guide
 
-image_source: https://github.com/terraform-ibm-modules/terraform-ibm-apptio-cloudability-onboarding/blob/main/reference-architectures/cloudability-all-inclusive-onboarding.svg
+image_source: https://github.com/terraform-ibm-modules/terraform-ibm-cloudability-onboarding/blob/main/reference-architectures/cloudability-all-inclusive-onboarding.svg
 
 related_links:
   - title: 'Exporting your usage data for continual insights'

@@ -1,5 +1,5 @@
 <!-- Update this title with a descriptive name. Use sentence case. -->
-# Apptio Cloudability onboarding Deployable Architecture (DA)
+# IBM Cloudability onboarding Deployable Architecture (DA)
 
 
 <!--
@@ -13,14 +13,14 @@ Update status and "latest release" badges:
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-This Deployable Architecture will fully onboard a standard IBM Cloud account or an entire IBM Cloud enterprise to Apptio Cloudability. The DA performs the following actions:
+This Deployable Architecture will fully onboard a standard IBM Cloud account or an entire IBM Cloud enterprise to IBM Cloudability. The DA performs the following actions:
 
 - Creates an encrypted COS bucket to store billing reports
 - Enables daily Billing Report exports to the COS Bucket
 - Grants Cloudability access to read the billing reports from the bucket for ingestion
     - *If the account is an enterprise*: Grants cloudability access to read the list of child accounts in the enterprise
     - Cloudability access is controlled in a custom role so only the minimum access is given.
-- Adds the IBM Cloud account/enterprise to Apptio Cloudability
+- Adds the IBM Cloud account/enterprise to IBM Cloudability
 
 :exclamation: **Important:** This Deployable Architecture solutions is not intended to be called by other modules because it contains a provider configuration and is therefor not compatible with the `for_each`, `count`, and `depends_on` arguments. For more information see [Providers Within Modules](https://developer.hashicorp.com/terraform/language/modules/develop/providers)
 
@@ -131,9 +131,9 @@ statement instead the previous block.
 | <a name="input_cloudability_api_key"></a> [cloudability\_api\_key](#input\_cloudability\_api\_key) | Cloudability API Key. Retrieve your Api Key from https://app.apptio.com/cloudability#/settings/preferences under the section **Cloudability API** select **Enable API** which will generate an api key. Setting this value to __NULL__ will skip adding the IBM Cloud account to Cloudability and only configure IBM Cloud so that the IBM Cloud Account can be added to Cloudability manually | `string` | `null` | no |
 | <a name="input_cloudability_custom_role_name"></a> [cloudability\_custom\_role\_name](#input\_cloudability\_custom\_role\_name) | name of the custom role created access granted to cloudability service id to read from the billing reports cos bucket | `string` | `"CloudabilityStorageCustomRole"` | no |
 | <a name="input_cloudability_enterprise_custom_role_name"></a> [cloudability\_enterprise\_custom\_role\_name](#input\_cloudability\_enterprise\_custom\_role\_name) | name of the custom role to granting access to a cloudability service id to read the enterprise information. Only used of var.is\_enterprise\_account is set. | `string` | `"CloudabilityListAccCustomRole"` | no |
-| <a name="input_cloudability_host"></a> [cloudability\_host](#input\_cloudability\_host) | Apptio Cloudability host name as described in https://help.apptio.com/en-us/cloudability/api/v3/getting_started_with_the_cloudability.htm#authentication | `string` | `"api.cloudability.com"` | no |
+| <a name="input_cloudability_host"></a> [cloudability\_host](#input\_cloudability\_host) | IBM Cloudability host name as described in https://help.apptio.com/en-us/cloudability/api/v3/getting_started_with_the_cloudability.htm#authentication | `string` | `"api.cloudability.com"` | no |
 | <a name="input_cos_folder"></a> [cos\_folder](#input\_cos\_folder) | Folder in the COS bucket to store the account data | `string` | `"IBMCloud-Billing-Reports"` | no |
-| <a name="input_cos_instance_name"></a> [cos\_instance\_name](#input\_cos\_instance\_name) | The name to give the cloud object storage instance that will be provisioned by this module. Only required if 'create\_cos\_instance' is true. | `string` | `"apptio-cloudability"` | no |
+| <a name="input_cos_instance_name"></a> [cos\_instance\_name](#input\_cos\_instance\_name) | The name to give the cloud object storage instance that will be provisioned by this module. Only required if 'create\_cos\_instance' is true. | `string` | `"ibm-cloudability"` | no |
 | <a name="input_cos_plan"></a> [cos\_plan](#input\_cos\_plan) | Plan to be used for creating cloud object storage instance. Only used if 'create\_cos\_instance' it true. | `string` | `"standard"` | no |
 | <a name="input_create_cos_instance"></a> [create\_cos\_instance](#input\_create\_cos\_instance) | Set as true to create a new Cloud Object Storage instance. | `bool` | `true` | no |
 | <a name="input_create_key_protect_instance"></a> [create\_key\_protect\_instance](#input\_create\_key\_protect\_instance) | Key Protect instance name | `bool` | `true` | no |

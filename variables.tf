@@ -153,7 +153,7 @@ variable "create_cos_instance" {
 variable "cos_instance_name" {
   description = "The name to give the cloud object storage instance that will be provisioned by this module. Only required if 'create_cos_instance' is true."
   type        = string
-  default     = "apptio-cloudability"
+  default     = "ibm-cloudability"
   validation {
     condition     = can(regex("^([^[:ascii:]]|[a-zA-Z0-9-._: ]){0,179}$", var.cos_instance_name))
     error_message = "must be a valid resource instance name"
@@ -334,18 +334,6 @@ variable "existing_kms_instance_guid" {
   }
 }
 
-# variable "kms_encryption_enabled" {
-#   description = "Set as true to use KMS key encryption to encrypt data in COS bucket (only applicable when var.create_cos_bucket is true)."
-#   type        = bool
-#   default     = true
-# }
-
-# variable "kms_key_crn" {
-#   description = "CRN of the KMS key to use to encrypt the data in the COS bucket. Required if var.encryption_enabled and var.create_cos_bucket are true."
-#   type        = string
-#   default     = null
-# }
-
 ##############################################################
 # Context-based restriction (CBR)
 ##############################################################
@@ -438,7 +426,7 @@ variable "enable_cloudability_access" {
 }
 
 variable "cloudability_host" {
-  description = "Apptio Cloudability host name as described in https://help.apptio.com/en-us/cloudability/api/v3/getting_started_with_the_cloudability.htm#authentication"
+  description = "IBM Cloudability host name as described in https://help.apptio.com/en-us/cloudability/api/v3/getting_started_with_the_cloudability.htm#authentication"
   type        = string
   default     = "api.cloudability.com"
 }
