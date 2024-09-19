@@ -19,7 +19,7 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 		Region:       "us-south",
 		TerraformVars: map[string]interface{}{
 			"resource_group_name":         resourceGroup,
-			"use_existing_resource_group": false,
+			"use_existing_resource_group": true,
 		},
 	})
 	return options
