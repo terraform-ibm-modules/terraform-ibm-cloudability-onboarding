@@ -1,8 +1,8 @@
 ########################################################################################################################
-# Provider config
+# Input Variables
 ########################################################################################################################
 
-provider "ibm" {
-  ibmcloud_api_key = var.ibmcloud_api_key
-  region           = var.region
+variable "guid" {
+  type        = string
+  description = "The guid of the resource instance"
 }
