@@ -1,4 +1,4 @@
-module github.com/terraform-ibm-modules/terraform-ibm-apptio-cloudability-onboarding
+module github.com/terraform-ibm-modules/terraform-ibm-cloudability-onboarding
 
 go 1.22
 

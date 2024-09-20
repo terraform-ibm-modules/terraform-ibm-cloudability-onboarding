@@ -8,7 +8,7 @@ Update status and "latest release" badges:
   2. Update the "latest release" badge to point to the correct module's repo. Replace "terraform-ibm-module-template" in two places.
 -->
 [![Stable (With quality checks)](https://img.shields.io/badge/Status-Stable%20(With%20quality%20checks)-green)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
-[![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-apptio-cloudability-onboarding?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-apptio-cloudability-onboarding/releases/latest)
+[![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-cloudability-onboarding?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-cloudability-onboarding/releases/latest)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
@@ -28,7 +28,7 @@ This Deployable Architecture will fully onboard a standard IBM Cloud account or 
 <!-- The following content is automatically populated by the pre-commit hook -->
 <!-- BEGIN OVERVIEW HOOK -->
 ## Overview
-* [terraform-ibm-apptio-cloudability-onboarding](#terraform-ibm-apptio-cloudability-onboarding)
+* [terraform-ibm-cloudability-onboarding](#terraform-ibm-cloudability-onboarding)
 * [Submodules](./modules)
     * [billing-exports](./modules/billing-exports)
     * [cloudability-bucket-access](./modules/cloudability-bucket-access)
@@ -50,7 +50,7 @@ https://terraform-ibm-modules.github.io/documentation/#/implementation-guideline
 ![cloudability-all-inclusive-onboarding](./reference-architecture/cloudability-all-inclusive-onboarding.svg)
 
 <!-- This heading should always match the name of the root level module (aka the repo name) -->
-## terraform-ibm-apptio-cloudability-onboarding
+## terraform-ibm-cloudability-onboarding
 
 ### Required IAM access policies
 
