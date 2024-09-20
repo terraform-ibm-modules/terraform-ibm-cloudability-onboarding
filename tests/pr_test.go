@@ -27,10 +27,8 @@ func TestRunDefaultSolution(t *testing.T) {
 	// t.Parallel()
 
 	options := setupOptions(t, "mod-template", defaultSolutionDir, map[string]interface{}{
-		"resource_group_name":                      resourceGroup,
-		"use_existing_resource_group":              true,
-		"cloudability_custom_role_name":            "CldyStorageCustomRoleDefault",
-		"cloudability_enterprise_custom_role_name": "CldyListAccCustomRoleDefault",
+		"resource_group_name":         resourceGroup,
+		"use_existing_resource_group": true,
 	})
 
 	output, err := options.RunTestConsistency()
@@ -39,7 +37,8 @@ func TestRunDefaultSolution(t *testing.T) {
 }
 
 func TestRunUpgradeSolution(t *testing.T) {
-	t.Parallel()
+	// Remove Parallel execution since Billing Exports can only be enabled once on an account at a given time. Running in parallel causes the tests to create a conflict by trying to enable billing reports twice on the account.
+	// t.Parallel()
 
 	options := setupOptions(t, "mod-template-upg", defaultSolutionDir, map[string]interface{}{
 		"resource_group_name":                      resourceGroup,
