@@ -22,7 +22,7 @@ module "key_protect_all_inclusive" {
   }
   count                     = var.create_key_protect_instance ? 1 : 0
   source                    = "terraform-ibm-modules/kms-all-inclusive/ibm"
-  version                   = "4.14.1"
+  version                   = "4.15.13"
   key_protect_instance_name = var.key_protect_instance_name
   resource_group_id         = var.resource_group_id
   enable_metrics            = true
@@ -60,7 +60,7 @@ module "cos_bucket" {
     ibm = ibm
   }
   source                              = "terraform-ibm-modules/cos/ibm"
-  version                             = "8.6.2"
+  version                             = "8.11.14"
   bucket_name                         = var.bucket_name
   add_bucket_name_suffix              = var.add_bucket_name_suffix
   management_endpoint_type_for_bucket = var.management_endpoint_type_for_bucket
