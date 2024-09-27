@@ -17,10 +17,10 @@
 				"Cloud Spend"
 			],
 			"short_description": "Add your IBM Cloud Account to IBM Cloudability and start tracking your cloud spend.",
-			"long_description": "Simplify your IBM Cloud Account onboarding to IBM Cloudability with this deployable architecture. Only an IBM Cloud IAM Api Key and Cloudability API key are required. This deployable architecture will take care of all of the necessary steps to get your IBM Cloud billing data into IBM Cloudability. This includes the following:\n\n1. Creating Key Protect Encrypted COS Buckets to store your daily billing snapshots.\n2. Setup writing of billing snapshots to the COS Bucket.\n3. Grant IBM Cloudability access to read from the COS buckets\n4. Add your IBM Cloud account to Cloudability and run access verification from Cloudability.\n\nYour IBM Cloud billing data will begin showing up in Apptio cloudability the next day. \nTo obtain your IBM Cloudability API key visit https://app.apptio.com/cloudability#/settings/preferences under the section **Cloudability API** select **Enable API** which will generate an api key. If you don't have a Cloudability account start your tree trial now: https://www.apptio.com/products/cloudability/#cldy-trial.",
+			"long_description": "Simplify your IBM Cloud Account onboarding to IBM Cloudability with this deployable architecture. Only an IBM Cloud IAM Api Key and Cloudability API key are required. This deployable architecture will take care of all of the necessary steps to get your IBM Cloud billing data into IBM Cloudability. This includes the following:\n\n1. Creating Key Protect Encrypted COS Buckets to store your daily billing snapshots.\n2. Setup writing of billing snapshots to the COS Bucket.\n3. Grant IBM Cloudability access to read from the COS buckets\n4. Add your IBM Cloud account to Cloudability and run access verification from Cloudability.\n\nYour IBM Cloud billing data will begin showing up in IBM Cloudability the next day. \nTo obtain your IBM Cloudability API key visit https://app.apptio.com/cloudability#/settings/preferences under the section **Cloudability API** select **Enable API** which will generate an api key. If you don't have a Cloudability account start your tree trial now: https://www.apptio.com/products/cloudability/#cldy-trial.",
 			"provider_name": "IBM",
 			"offering_docs_url": "https://cloud.ibm.com/docs/billing-usage?topic=billing-usage-exporting-your-usage",
-			"offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-cloudability-onboarding/main/images/Apptio_logo.svg",
+			"offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-cloudability-onboarding/refs/heads/main/images/Apptio_logo.svg",
 			"features": [
 				{
 					"title": "Daily exports of your cloud billing reports to a COS Bucket",
@@ -94,9 +94,7 @@
 								"diagram": {
 									"caption": "All inclusive Cloudability Onboarding",
 									"type": "image/svg+xml",
-									"url_proxy": {
-										"url": "https://github.com/terraform-ibm-modules/terraform-ibm-cloudability-onboarding/blob/main/reference-architecture/cloudability-all-inclusive-onboarding.svg"
-									}
+									"url": "https://github.com/terraform-ibm-modules/terraform-ibm-cloudability-onboarding/blob/main/reference-architecture/cloudability-all-inclusive-onboarding.svg"
 								},
 								"description": "Billing exports are written to a Key Protect encrypted COS bucket. IBM Cloudability is granted access to read from this bucket to add ibm cloud billing reports daily. Key Protect and Cloud Object Storage are created in your desired region and resource group. Optionally, configure retention and archiving of the data in your bucket and enable monitoring and auditing to your cloud object storage bucket."
 							}
