@@ -41,10 +41,10 @@ func TestRunUpgradeSolution(t *testing.T) {
 	// t.Parallel()
 
 	options := setupOptions(t, "mod-template-upg", defaultSolutionDir, map[string]interface{}{
-		"resource_group_name":                      resourceGroup,
-		"use_existing_resource_group":              true,
-		"cloudability_custom_role_name":            "CldyStorageCustomRoleUpgrade",
-		"cloudability_enterprise_custom_role_name": "CldyListAccCustomRoleUpgrade",
+		"resource_group_name":         resourceGroup,
+		"use_existing_resource_group": true,
+		// "cloudability_custom_role_name":            "CldyStorageCustomRoleUpgrade",
+		// "cloudability_enterprise_custom_role_name": "CldyListAccCustomRoleUpgrade",
 	})
 
 	output, err := options.RunTestUpgrade()
