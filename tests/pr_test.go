@@ -27,10 +27,8 @@ func TestRunDefaultSolution(t *testing.T) {
 	// t.Parallel()
 
 	options := setupOptions(t, "mod-template", defaultSolutionDir, map[string]interface{}{
-		"resource_group_name":                      resourceGroup,
-		"use_existing_resource_group":              true,
-		"cloudability_custom_role_name":            "CldyStorageDefaultTest",
-		"cloudability_enterprise_custom_role_name": "CldyListAccDefaultTest",
+		"resource_group_name":         resourceGroup,
+		"use_existing_resource_group": true,
 	})
 
 	output, err := options.RunTestConsistency()
@@ -43,10 +41,8 @@ func TestRunUpgradeSolution(t *testing.T) {
 	// t.Parallel()
 
 	options := setupOptions(t, "mod-template-upg", defaultSolutionDir, map[string]interface{}{
-		"resource_group_name":                      resourceGroup,
-		"use_existing_resource_group":              true,
-		"cloudability_custom_role_name":            "CldyStorageUpgradeTest",
-		"cloudability_enterprise_custom_role_name": "CldyListAccUpgradeTest",
+		"resource_group_name":         resourceGroup,
+		"use_existing_resource_group": true,
 	})
 
 	output, err := options.RunTestUpgrade()
