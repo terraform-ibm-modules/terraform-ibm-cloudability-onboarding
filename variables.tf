@@ -91,8 +91,8 @@ variable "region" {
   default     = "us-south"
 
   validation {
-    condition     = can(regex("us-south|eu-de|jp-tok", var.region))
-    error_message = "Variable 'region' must be 'us-south' or 'eu-de', or 'jp-tok'. The encryption key must be created in a high availability key protect instance for cross region object storage. See https://cloud.ibm.com/docs/key-protect?topic=key-protect-ha-dr"
+    condition     = can(regex("us-south|eu-de|jp-tok|us-east|eu-gb|au-syd|jp-osa|ca-tor|br-sao|eu-es", var.region))
+    error_message = "'region' must be a Key Protect supported region. See https://cloud.ibm.com/docs/key-protect?topic=key-protect-regions"
   }
 }
 

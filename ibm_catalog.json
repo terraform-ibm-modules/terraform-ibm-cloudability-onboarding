@@ -174,20 +174,48 @@
 							"key": "region",
 							"type": "string",
 							"default_value": "us-south",
-							"description": "Region where resources will be created. Restricted to 3 regions where Key Protect has failover support. (See https://cloud.ibm.com/docs/key-protect?topic=key-protect-ha-dr#availability for more details)",
+							"description": "Region where resources will be created. Only us-south, eu-de and jp-tok have [Key protect failover support](https://cloud.ibm.com/docs/key-protect?topic=key-protect-ha-dr#availability)",
 							"required": true,
 							"options": [
 								{
-								  "displayname": "Dallas (us-south)",
+								  "displayname": "Dallas (us-south) w/ kms failover",
 								  "value": "us-south"
 								},
 								{
-								  "displayname": "Frankfurt (eu-de)",
+								  "displayname": "Frankfurt (eu-de) w/ kms failover",
 								  "value": "eu-de"
 								},
 								{
-								  "displayname": "Tokyo (jp-tok)",
+								  "displayname": "Tokyo (jp-tok) w/ kms failover",
 								  "value": "jp-tok"
+								},
+								{
+									"displayname": "Washington DC (us-east)",
+									"value": "us-east"
+								},
+								{
+									"displayname": "London (eu-gb)",
+									"value": "eu-gb"
+								},
+								{
+									"displayname": "Sydney (au-syd)",
+									"value": "au-syd"
+								},
+								{
+									"displayname": "Osaka (jp-osa)",
+									"value": "jp-osa"
+								},
+								{
+									"displayname": "Toronto (ca-tor)",
+									"value": "ca-tor"
+								},
+								{
+									"displayname": "São-Paulo (br-sao)",
+									"value": "br-sao"
+								},
+								{
+									"displayname": "Madrid (eu-es)",
+									"value": "eu-es"
 								}
 							]
 						},
