@@ -43,7 +43,7 @@ locals {
 resource "ibm_iam_service_policy" "cos_bucket_policy" {
   count  = var.policy_granularity == "resource" ? 1 : 0
   iam_id = local.apptio_service_id
-  roles  = [data.ibm_iam_roles.cos_custom_role.name]
+  roles  = [local.custom_role]
   resource_attributes {
     name     = "resource"
     value    = local.bucket_name
@@ -58,7 +58,7 @@ resource "ibm_iam_service_policy" "cos_bucket_policy" {
 resource "ibm_iam_service_policy" "cos_instance_policy" {
   count  = var.policy_granularity == "serviceInstance" ? 1 : 0
   iam_id = local.apptio_service_id
-  roles  = [ibm_iam_custom_role.cos_custom_role.display_name]
+  roles  = [local.custom_role]
   resource_attributes {
     name     = "serviceInstance"
     value    = local.cos_instance_id
@@ -73,7 +73,7 @@ resource "ibm_iam_service_policy" "cos_instance_policy" {
 resource "ibm_iam_service_policy" "cos_resource_group_policy" {
   count  = var.policy_granularity == "resourceGroup" ? 1 : 0
   iam_id = local.apptio_service_id
-  roles  = [ibm_iam_custom_role.cos_custom_role.display_name]
+  roles  = [local.custom_role]
   resource_attributes {
     name     = "resourceGroupId"
     value    = local.resource_group_id
