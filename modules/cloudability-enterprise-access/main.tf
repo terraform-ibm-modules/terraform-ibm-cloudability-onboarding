@@ -21,7 +21,7 @@ data "ibm_iam_roles" "list_enterprise_custom_role" {
 }
 
 locals {
-  custom_role = var.enterprise_id != null ? (var.use_existing_iam_custom_role ? one([for role in data.ibm_iam_roles.list_enterprise_custom_role[0].roles : role.name if role.name == var.cloudability_custom_role_name]) : ibm_iam_custom_role.list_enterprise_custom_role.display_name) : null
+  custom_role = var.enterprise_id != null ? (var.use_existing_iam_custom_role ? one([for role in data.ibm_iam_roles.list_enterprise_custom_role[0].roles : role.name if role.name == var.cloudability_custom_role_name]) : ibm_iam_custom_role.list_enterprise_custom_role[0].display_name) : null
 }
 
 resource "ibm_iam_service_policy" "enterprise_policy" {
