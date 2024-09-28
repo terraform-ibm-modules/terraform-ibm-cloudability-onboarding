@@ -3,6 +3,7 @@ locals {
 }
 
 resource "ibm_iam_custom_role" "list_enterprise_custom_role" {
+  count        = var.enterprise_id != null && !var.use_existing_iam_custom_role ? 1 : 0
   name         = var.cloudability_custom_role_name
   display_name = var.cloudability_custom_role_name
   description  = "This is a custom role to list Accounts in Enterprise"
@@ -14,10 +15,19 @@ resource "ibm_iam_custom_role" "list_enterprise_custom_role" {
   ]
 }
 
+data "ibm_iam_roles" "list_enterprise_custom_role" {
+  count   = var.enterprise_id != null && var.use_existing_iam_custom_role ? 1 : 0
+  service = "enterprise"
+}
+
+locals {
+  custom_role = var.enterprise_id != null ? (var.use_existing_iam_custom_role ? one([for role in data.ibm_iam_roles.list_enterprise_custom_role[0].roles : role.name if role.name == var.cloudability_custom_role_name]) : ibm_iam_custom_role.list_enterprise_custom_role.display_name) : null
+}
+
 resource "ibm_iam_service_policy" "enterprise_policy" {
   count  = var.enterprise_id != null ? 1 : 0
   iam_id = local.apptio_service_id
-  roles  = [ibm_iam_custom_role.list_enterprise_custom_role.display_name]
+  roles  = [local.custom_role]
   resource_attributes {
     name  = "serviceName"
     value = "enterprise"

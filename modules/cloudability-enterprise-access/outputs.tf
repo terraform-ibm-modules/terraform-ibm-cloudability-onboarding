@@ -1,6 +1,6 @@
 output "custom_role_display_name" {
   description = "Display name of the enterprise custom role to read the list of enterprise custom accounts"
-  value       = ibm_iam_custom_role.list_enterprise_custom_role.display_name
+  value       = local.custom_role
 }
 
 output "enterprise_policy" {

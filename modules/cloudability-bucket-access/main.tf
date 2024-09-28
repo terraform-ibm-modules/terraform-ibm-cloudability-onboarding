@@ -31,10 +31,19 @@ resource "ibm_iam_custom_role" "cos_custom_role" {
   ]
 }
 
+data "ibm_iam_roles" "cos_custom_role" {
+  count   = var.use_existing_iam_custom_role ? 1 : 0
+  service = "cloud-object-storage"
+}
+
+locals {
+  custom_role = var.use_existing_iam_custom_role ? one([for role in data.ibm_iam_roles.cos_custom_role[0].roles : role.name if role.name == var.cloudability_custom_role_name]) : ibm_iam_custom_role.cos_custom_role.display_name
+}
+
 resource "ibm_iam_service_policy" "cos_bucket_policy" {
   count  = var.policy_granularity == "resource" ? 1 : 0
   iam_id = local.apptio_service_id
-  roles  = [ibm_iam_custom_role.cos_custom_role.display_name]
+  roles  = [data.ibm_iam_roles.cos_custom_role.name]
   resource_attributes {
     name     = "resource"
     value    = local.bucket_name
