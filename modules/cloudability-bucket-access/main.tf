@@ -16,6 +16,7 @@ locals {
 
 # Define a custom IAM role for Cloud Storage with specific actions.
 resource "ibm_iam_custom_role" "cos_custom_role" {
+  count        = var.use_existing_iam_custom_role ? 0 : 1
   name         = var.cloudability_custom_role_name
   display_name = var.cloudability_custom_role_name
   description  = "This is a custom role to read Cloud Storage"
