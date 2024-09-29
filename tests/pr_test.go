@@ -29,7 +29,7 @@ func TestRunDefaultSolution(t *testing.T) {
 	options := setupOptions(t, "mod-template", defaultSolutionDir, map[string]interface{}{
 		"resource_group_name":          resourceGroup,
 		"use_existing_resource_group":  true,
-		"use_existing_iam_custom_role": false,
+		"use_existing_iam_custom_role": true,
 	})
 
 	output, err := options.RunTestConsistency()
