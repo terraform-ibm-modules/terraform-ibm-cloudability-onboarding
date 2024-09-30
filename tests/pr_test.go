@@ -43,9 +43,9 @@ func TestRunUpgradeSolution(t *testing.T) {
 	// t.Parallel()
 
 	options := setupOptions(t, "mod-template-upg", defaultSolutionDir, map[string]interface{}{
-		"resource_group_name":         resourceGroup,
-		"use_existing_resource_group": true,
-		// "use_existing_iam_custom_role":  true,
+		"resource_group_name":           resourceGroup,
+		"use_existing_resource_group":   true,
+		"use_existing_iam_custom_role":  true,
 		"cloudability_custom_role_name": "CldyStorageDefaultTest",
 	})
 
