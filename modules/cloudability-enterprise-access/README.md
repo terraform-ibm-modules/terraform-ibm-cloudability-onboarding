@@ -25,6 +25,7 @@ No modules.
 | [ibm_iam_custom_role.list_enterprise_custom_role](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/iam_custom_role) | resource |
 | [ibm_iam_service_policy.billing_policy](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/iam_service_policy) | resource |
 | [ibm_iam_service_policy.enterprise_policy](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/iam_service_policy) | resource |
+| [ibm_iam_roles.list_enterprise_custom_role](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/iam_roles) | data source |
 
 ### Inputs
 
@@ -32,6 +33,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_cloudability_custom_role_name"></a> [cloudability\_custom\_role\_name](#input\_cloudability\_custom\_role\_name) | name of the custom role to granting access to a cloudability service id to read the enterprise information | `string` | `"CloudabilityListAccCustomRole"` | no |
 | <a name="input_enterprise_id"></a> [enterprise\_id](#input\_enterprise\_id) | Guid for the enterprise account id | `string` | `null` | no |
+| <a name="input_use_existing_iam_custom_role"></a> [use\_existing\_iam\_custom\_role](#input\_use\_existing\_iam\_custom\_role) | Whether the iam\_custom\_roles should be created or if they already exist and the they should be linked with a datasource | `bool` | `false` | no |
 
 ### Outputs
 
