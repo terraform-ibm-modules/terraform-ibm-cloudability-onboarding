@@ -164,6 +164,7 @@ statement instead the previous block.
 | <a name="input_skip_iam_authorization_policy"></a> [skip\_iam\_authorization\_policy](#input\_skip\_iam\_authorization\_policy) | Set to true to skip the creation of an IAM authorization policy that permits the COS instance created to read the encryption key from the KMS instance in `existing_kms_instance_guid`. WARNING: An authorization policy must exist before an encrypted bucket can be created | `bool` | `false` | no |
 | <a name="input_skip_verification"></a> [skip\_verification](#input\_skip\_verification) | whether to verify the account after adding the account to cloudability. Requires cloudability\_auth\_header to be set. | `bool` | `false` | no |
 | <a name="input_sysdig_crn"></a> [sysdig\_crn](#input\_sysdig\_crn) | Cloud Monitoring crn for COS bucket (Optional) | `string` | `null` | no |
+| <a name="input_use_existing_iam_custom_role"></a> [use\_existing\_iam\_custom\_role](#input\_use\_existing\_iam\_custom\_role) | Whether the iam\_custom\_roles should be created or if they already exist and the they should be linked with a datasource | `bool` | `false` | no |
 | <a name="input_use_existing_resource_group"></a> [use\_existing\_resource\_group](#input\_use\_existing\_resource\_group) | Whether the value of `resource_group_name` input should be a new of existing resource\_group | `bool` | `true` | no |
 
 ### Outputs

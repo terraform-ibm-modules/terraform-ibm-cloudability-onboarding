@@ -81,6 +81,7 @@ No modules.
 | [ibm_iam_service_policy.cos_bucket_policy](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/iam_service_policy) | resource |
 | [ibm_iam_service_policy.cos_instance_policy](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/iam_service_policy) | resource |
 | [ibm_iam_service_policy.cos_resource_group_policy](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/iam_service_policy) | resource |
+| [ibm_iam_roles.cos_custom_role](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/iam_roles) | data source |
 
 ### Inputs
 
@@ -90,6 +91,7 @@ No modules.
 | <a name="input_cloudability_custom_role_name"></a> [cloudability\_custom\_role\_name](#input\_cloudability\_custom\_role\_name) | name of the custom role created access granted to cloudability service id to read from the billing reports cos bucket | `string` | `"CloudabilityStorageCustomRole"` | no |
 | <a name="input_policy_granularity"></a> [policy\_granularity](#input\_policy\_granularity) | Whether access to the cos bucket is controlled at the bucket (resource), cos instance (serviceInstance), or resource-group (resourceGroup). Note: `resource_group_id` is required in the case of the `resourceGroup`. `bucket_crn` is required otherwise. | `string` | `"resource"` | no |
 | <a name="input_resource_group_id"></a> [resource\_group\_id](#input\_resource\_group\_id) | The resource group that the cos buckets are deployed in. Required if `policy_granularity` is "resource-group". Not used otherwise. | `string` | `null` | no |
+| <a name="input_use_existing_iam_custom_role"></a> [use\_existing\_iam\_custom\_role](#input\_use\_existing\_iam\_custom\_role) | Whether the iam\_custom\_roles should be created or if they already exist and the they should be linked with a datasource | `bool` | `false` | no |
 
 ### Outputs
 
