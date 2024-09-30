@@ -70,6 +70,7 @@ module "cloudability_bucket_access" {
   source                        = "./modules/cloudability-bucket-access"
   policy_granularity            = var.policy_granularity
   bucket_crn                    = local.cos_bucket_crn
+  use_existing_iam_custom_role  = var.use_existing_iam_custom_role
   cloudability_custom_role_name = var.cloudability_custom_role_name
   resource_group_id             = module.resource_group.resource_group_id
 }
@@ -79,6 +80,7 @@ module "cloudability_enterprise_access" {
   # if same account then re-use the access group. Otherwise create a new one
   source                        = "./modules/cloudability-enterprise-access"
   enterprise_id                 = local.enterprise_id
+  use_existing_iam_custom_role  = var.use_existing_iam_custom_role
   cloudability_custom_role_name = var.cloudability_enterprise_custom_role_name
 }
 

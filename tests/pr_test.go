@@ -12,23 +12,26 @@ import (
 const resourceGroup = "geretain-test-resources"
 const defaultSolutionDir = "./"
 
-func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
+func setupOptions(t *testing.T, prefix string, dir string, terraformOptions map[string]interface{}) *testhelper.TestOptions {
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:      t,
-		TerraformDir: dir,
-		Region:       "us-south",
-		TerraformVars: map[string]interface{}{
-			"resource_group_name":         resourceGroup,
-			"use_existing_resource_group": true,
-		},
+		Testing:       t,
+		TerraformDir:  dir,
+		Region:        "us-south",
+		TerraformVars: terraformOptions,
 	})
 	return options
 }
 
 func TestRunDefaultSolution(t *testing.T) {
-	t.Parallel()
+	// Remove Parallel execution since Billing Exports can only be enabled once on an account at a given time. Running in parallel causes the tests to create a conflict by trying to enable billing reports twice on the account.
+	// t.Parallel()
 
-	options := setupOptions(t, "mod-template", defaultSolutionDir)
+	options := setupOptions(t, "mod-template", defaultSolutionDir, map[string]interface{}{
+		"resource_group_name":           resourceGroup,
+		"use_existing_resource_group":   true,
+		"use_existing_iam_custom_role":  true,
+		"cloudability_custom_role_name": "CldyStorageDefaultTest",
+	})
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -36,9 +39,15 @@ func TestRunDefaultSolution(t *testing.T) {
 }
 
 func TestRunUpgradeSolution(t *testing.T) {
-	t.Parallel()
+	// Remove Parallel execution since Billing Exports can only be enabled once on an account at a given time. Running in parallel causes the tests to create a conflict by trying to enable billing reports twice on the account.
+	// t.Parallel()
 
-	options := setupOptions(t, "mod-template-upg", defaultSolutionDir)
+	options := setupOptions(t, "mod-template-upg", defaultSolutionDir, map[string]interface{}{
+		"resource_group_name":           resourceGroup,
+		"use_existing_resource_group":   true,
+		"use_existing_iam_custom_role":  true,
+		"cloudability_custom_role_name": "CldyStorageDefaultTest",
+	})
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
