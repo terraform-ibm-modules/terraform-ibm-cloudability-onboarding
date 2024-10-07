@@ -35,6 +35,7 @@ resource "ibm_iam_service_policy" "enterprise_policy" {
 }
 
 resource "ibm_iam_service_policy" "billing_policy" {
+  count  = var.skip_cloudability_billing_policy ? 0 : 1
   iam_id = local.apptio_service_id
   roles  = ["Viewer"]
   resources {
