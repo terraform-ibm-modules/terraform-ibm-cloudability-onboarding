@@ -78,10 +78,11 @@ module "cloudability_bucket_access" {
 module "cloudability_enterprise_access" {
   count = var.enable_billing_exports ? 1 : 0
   # if same account then re-use the access group. Otherwise create a new one
-  source                        = "./modules/cloudability-enterprise-access"
-  enterprise_id                 = local.enterprise_id
-  use_existing_iam_custom_role  = var.use_existing_iam_custom_role
-  cloudability_custom_role_name = var.cloudability_enterprise_custom_role_name
+  source                           = "./modules/cloudability-enterprise-access"
+  enterprise_id                    = local.enterprise_id
+  use_existing_iam_custom_role     = var.use_existing_iam_custom_role
+  cloudability_custom_role_name    = var.cloudability_enterprise_custom_role_name
+  skip_cloudability_billing_policy = var.skip_cloudability_billing_policy
 }
 
 module "billing_exports" {

@@ -93,7 +93,7 @@
 								"diagram": {
 									"caption": "All inclusive Cloudability Onboarding",
 									"type": "image/svg+xml",
-									"url": "https://github.com/terraform-ibm-modules/terraform-ibm-cloudability-onboarding/blob/main/reference-architecture/cloudability-all-inclusive-onboarding.svg"
+									"url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-cloudability-onboarding/refs/heads/main/reference-architecture/cloudability-all-inclusive-onboarding.svg"
 								},
 								"description": "Billing exports are written to a Key Protect encrypted COS bucket. IBM Cloudability is granted access to read from this bucket to add ibm cloud billing reports daily. Key Protect and Cloud Object Storage are created in your desired region and resource group. Optionally, configure retention and archiving of the data in your bucket and enable monitoring and auditing to your cloud object storage bucket."
 							}
@@ -273,9 +273,9 @@
 							"required": false
 						},
 						{
-							"key": "existing_kms_instance_crn",
+							"key": "existing_kms_instance_guid",
 							"type": "string",
-							"description": "The CRN of the Key Protect or Hyper Protect instance in which the key specified in var.kms_key_crn is coming from. Required if var.skip_iam_authorization_policy is false in order to create an IAM Access Policy to allow Key Protect or Hyper Protect to access the newly created COS instance.",
+							"description": "The Guid of the Key Protect or Hyper Protect instance in which the key specified in var.kms_key_crn is coming from. Required if var.skip_iam_authorization_policy is false in order to create an IAM Access Policy to allow Key Protect or Hyper Protect to access the newly created COS instance.",
 							"required": false
 						},
 						{
