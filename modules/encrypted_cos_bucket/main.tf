@@ -76,6 +76,11 @@ module "cos_bucket" {
   archive_type                        = var.archive_type
   monitoring_crn                      = var.monitoring_crn
   activity_tracker_crn                = var.activity_tracker_crn
+  activity_tracker_read_data_events   = var.activity_tracker_read_data_events
+  activity_tracker_write_data_events  = var.activity_tracker_write_data_events
+  activity_tracker_management_events  = var.activity_tracker_management_events
+  request_metrics_enabled             = var.request_metrics_enabled
+  usage_metrics_enabled               = var.usage_metrics_enabled
   create_cos_instance                 = var.create_cos_instance
   existing_cos_instance_id            = var.existing_cos_instance_id
   skip_iam_authorization_policy       = var.skip_iam_authorization_policy # Required since cos_bucket1 creates the IAM authorization policy

@@ -305,18 +305,52 @@ variable "expire_days" {
 
 variable "activity_tracker_crn" {
   type        = string
-  description = "Activity tracker crn for COS bucket (Optional)"
+  description = "The CRN of an Activity Tracker instance to send Object Storage bucket events to. If no value passed, events are sent to the instance associated to the container's location unless otherwise specified in the Activity Tracker Event Routing service configuration."
   default     = null
   validation {
-    condition     = var.activity_tracker_crn != null ? can(regex("crn:v1:bluemix:public:logdnaat:(au-syd|eu-gb|eu-es|us-south|eu-de|us-east):a/[0-9a-f]{32}:[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}::", var.activity_tracker_crn)) : true
+    condition     = var.activity_tracker_crn != null ? can(regex("crn:v1:bluemix:public:logdnaat:(in-che|jp-tok|jp-osa|ca-tor|br-sao|au-syd|eu-gb|eu-es|us-south|eu-de|us-east):a/[0-9a-f]{32}:[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}::", var.activity_tracker_crn)) : true
     error_message = "Must be a valid activity tracker crn"
   }
 }
 
-variable "sysdig_crn" {
+variable "activity_tracker_read_data_events" {
+  type        = bool
+  description = "If set to true, all Object Storage bucket read events (i.e. downloads) will be sent to Activity Tracker."
+  default     = true
+}
+
+variable "activity_tracker_write_data_events" {
+  type        = bool
+  description = "If set to true, all Object Storage bucket write events (i.e. uploads) will be sent to Activity Tracker."
+  default     = true
+}
+
+variable "activity_tracker_management_events" {
+  type        = bool
+  description = "If set to true, all Object Storage management events will be sent to Activity Tracker. Only applies if `activity_tracker_crn` is not populated."
+  default     = true
+}
+
+variable "monitoring_crn" {
   type        = string
-  description = "Cloud Monitoring crn for COS bucket (Optional)"
+  description = "The CRN of an IBM Cloud Monitoring instance to to send Object Storage bucket metrics to. If no value passed, metrics are sent to the instance associated to the container's location unless otherwise specified in the Metrics Router service configuration."
   default     = null
+  validation {
+    condition     = var.monitoring_crn != null ? can(regex("crn:v1:bluemix:public:sysdig-monitor:(jp-tok|jp-osa|ca-tor|br-sao|au-syd|eu-gb|eu-es|us-south|eu-de|us-east):a/[0-9a-f]{32}:[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}::", var.monitoring_crn)) : true
+    error_message = "Must be a valid cloud monitoring crn"
+  }
+}
+
+variable "request_metrics_enabled" {
+  type        = bool
+  description = "If set to `true`, all Object Storage bucket request metrics will be sent to the monitoring service."
+  default     = true
+}
+
+variable "usage_metrics_enabled" {
+  type        = bool
+  description = "If set to `true`, all Object Storage bucket usage metrics will be sent to the monitoring service."
+  default     = true
 }
 
 ##############################################################################

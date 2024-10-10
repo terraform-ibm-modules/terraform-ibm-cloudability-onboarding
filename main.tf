@@ -59,7 +59,12 @@ module "cos_bucket" {
   archive_type                        = var.archive_type
   expire_days                         = var.expire_days
   activity_tracker_crn                = var.activity_tracker_crn
-  monitoring_crn                      = var.sysdig_crn
+  activity_tracker_read_data_events   = var.activity_tracker_read_data_events
+  activity_tracker_write_data_events  = var.activity_tracker_write_data_events
+  activity_tracker_management_events  = var.activity_tracker_management_events
+  monitoring_crn                      = var.monitoring_crn
+  request_metrics_enabled             = var.request_metrics_enabled
+  usage_metrics_enabled               = var.usage_metrics_enabled
   existing_kms_instance_guid          = var.existing_kms_instance_guid
   bucket_cbr_rules                    = var.bucket_cbr_rules
   instance_cbr_rules                  = var.instance_cbr_rules
