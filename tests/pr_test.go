@@ -50,6 +50,7 @@ func TestRunUpgradeSolution(t *testing.T) {
 		"use_existing_iam_custom_role":     true,
 		"cloudability_custom_role_name":    "CldyStorageDefaultTest",
 		"skip_cloudability_billing_policy": true,
+		"enable_billing_exports":           false,
 	})
 
 	output, err := options.RunTestUpgrade()
