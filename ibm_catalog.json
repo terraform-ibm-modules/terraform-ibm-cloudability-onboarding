@@ -248,14 +248,49 @@
 							"key": "activity_tracker_crn",
 							"type": "string",
 							"default_value": "__NULL__",
-							"description": "Optionally include an existing activity tracker instance CRN.",
+							"description": "The CRN of an Activity Tracker instance to send Object Storage bucket events to. If no value passed, events are sent to the instance associated to the container's location unless otherwise specified in the Activity Tracker Event Routing service configuration.",
 							"required": false
 						},
 						{
-							"key": "sysdig_crn",
+							"key": "activity_tracker_read_data_events",
+							"type": "boolean",
+							"default_value": "true",
+							"description": "If set to true, all Object Storage bucket read events (i.e. downloads) will be sent to Activity Tracker.",
+							"required": false
+						},
+						{
+							"key": "activity_tracker_write_data_events",
+							"type": "boolean",
+							"default_value": "true",
+							"description": "If set to true, all Object Storage bucket write events (i.e. uploads) will be sent to Activity Tracker.",
+							"required": false
+						},
+						{
+							"key": "activity_tracker_management_events",
+							"type": "boolean",
+							"default_value": "true",
+							"description": "If set to true, all Object Storage management events will be sent to Activity Tracker. Only applies if `activity_tracker_crn` is not populated.",
+							"required": false
+						},
+						{
+							"key": "monitoring_crn",
 							"type": "string",
 							"default_value": "__NULL__",
-							"description": "Optionally include an existing cloud monitoring instance CRN.",
+							"description": "The CRN of an IBM Cloud Monitoring instance to to send Object Storage bucket metrics to. If no value passed, metrics are sent to the instance associated to the container's location unless otherwise specified in the Metrics Router service configuration.",
+							"required": false
+						},
+						{
+							"key": "request_metrics_enabled",
+							"type": "boolean",
+							"default_value": "true",
+							"description": "If set to `true`, all Object Storage bucket request metrics will be sent to the monitoring service.",
+							"required": false
+						},
+						{
+							"key": "usage_metrics_enabled",
+							"type": "boolean",
+							"default_value": "true",
+							"description": "If set to `true`, all Object Storage bucket usage metrics will be sent to the monitoring service.",
 							"required": false
 						},
 						{
@@ -308,15 +343,15 @@
 						{
 							"key": "cos_instance_name",
 							"type": "string",
-							"default_value": "apptio-cldy-billing-reports",
-							"description": "Name of the cloud object storage instance where billing reports are created",
+							"default_value": "cldy-billing-reports",
+							"description": "Name of the cloud object storage instance to be created which will contain the where billing reports bucket",
 							"required": false
 						},
 						{
 							"key": "bucket_name",
 							"type": "string",
 							"default_value": "billing-snapshots",
-							"description": "Name of the COS bucket",
+							"description": "Name of the cloud object storage (COS) bucket where billing reports are stored",
 							"required": true
 						},
 						{
@@ -358,7 +393,7 @@
 							"key": "bucket_storage_class",
 							"type": "string",
 							"default_value": "smart",
-							"description": "The storage class of the newly provisioned COS bucket of a `standard` or `lite` plan instance. Not required for one rate instances are always ",
+							"description": "The storage class of the newly provisioned COS bucket of a `standard` or `lite` plan instance. Not required for one rate instances.",
 							"required": true,
 							"options": [
 								{
