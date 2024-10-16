@@ -49,11 +49,7 @@ module "cos_bucket" {
   add_bucket_name_suffix              = var.add_bucket_name_suffix
   bucket_storage_class                = local.bucket_storage_class
   management_endpoint_type_for_bucket = var.management_endpoint_type_for_bucket
-  retention_enabled                   = var.retention_enabled
-  retention_default                   = var.retention_default
-  retention_maximum                   = var.retention_maximum
-  retention_minimum                   = var.retention_minimum
-  retention_permanent                 = var.retention_permanent
+  retention_enabled                   = false
   object_versioning_enabled           = var.object_versioning_enabled
   archive_days                        = var.archive_days
   archive_type                        = var.archive_type
@@ -97,6 +93,7 @@ module "billing_exports" {
   cos_bucket_location = var.region
   cos_folder          = var.cos_folder
   resource_group_id   = module.resource_group.resource_group_id
+  versioning          = var.overwrite_existing_reports ? "overwrite" : "new"
 }
 
 module "cloudability_onboarding" {

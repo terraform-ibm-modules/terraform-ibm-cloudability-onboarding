@@ -118,7 +118,7 @@ variable "cross_region_location" {
 
 variable "bucket_name" {
   type        = string
-  description = "The name to give the newly provisioned COS bucket. Only required if 'create_cos_bucket' is true."
+  description = "The name to give the newly provisioned COS bucket."
   default     = "snapshots"
 }
 
@@ -130,7 +130,7 @@ variable "add_bucket_name_suffix" {
 
 variable "bucket_storage_class" {
   type        = string
-  description = "the storage class of the newly provisioned COS bucket. Only required if 'create_cos_bucket' is true. Supported values are 'standard', 'vault', 'cold', 'smart' and `onerate_active`."
+  description = "the storage class of the newly provisioned COS bucket. Supported values are 'standard', 'vault', 'cold', 'smart' and `onerate_active`."
   default     = "standard"
 
   validation {
@@ -150,13 +150,13 @@ variable "management_endpoint_type_for_bucket" {
 }
 
 variable "retention_enabled" {
-  description = "Retention enabled for COS bucket. Only used if 'create_cos_bucket' is true."
+  description = "Retention enabled for COS bucket."
   type        = bool
   default     = false
 }
 
 variable "retention_default" {
-  description = "Specifies default duration of time an object that can be kept unmodified for COS bucket. Only used if 'create_cos_bucket' is true."
+  description = "Specifies default duration of time an object that can be kept unmodified for COS bucket."
   type        = number
   default     = 90
   validation {
@@ -166,7 +166,7 @@ variable "retention_default" {
 }
 
 variable "retention_maximum" {
-  description = "Specifies maximum duration of time an object that can be kept unmodified for COS bucket. Only used if 'create_cos_bucket' is true."
+  description = "Specifies maximum duration of time an object that can be kept unmodified for COS bucket."
   type        = number
   default     = 350
   validation {
@@ -176,7 +176,7 @@ variable "retention_maximum" {
 }
 
 variable "retention_minimum" {
-  description = "Specifies minimum duration of time an object must be kept unmodified for COS bucket. Only used if 'create_cos_bucket' is true."
+  description = "Specifies minimum duration of time an object must be kept unmodified for COS bucket."
   type        = number
   default     = 90
   validation {
@@ -186,25 +186,25 @@ variable "retention_minimum" {
 }
 
 variable "retention_permanent" {
-  description = "Specifies a permanent retention status either enable or disable for COS bucket. Only used if 'create_cos_bucket' is true."
+  description = "Specifies a permanent retention status either enable or disable for COS bucket."
   type        = bool
   default     = false
 }
 
 variable "object_versioning_enabled" {
-  description = "Enable object versioning to keep multiple versions of an object in a bucket. Cannot be used with retention rule. Only used if 'create_cos_bucket' is true."
+  description = "Enable object versioning to keep multiple versions of an object in a bucket."
   type        = bool
   default     = false
 }
 
 variable "archive_days" {
-  description = "Specifies the number of days when the archive rule action takes effect. Only used if 'create_cos_bucket' is true. This must be set to null when when using var.cross_region_location as archive data is not supported with this feature."
+  description = "Specifies the number of days when the archive rule action takes effect. This must be set to null when when using var.cross_region_location as archive data is not supported with this feature."
   type        = number
   default     = null
 }
 
 variable "archive_type" {
-  description = "Specifies the storage class or archive type to which you want the object to transition. Only used if 'create_cos_bucket' is true."
+  description = "Specifies the storage class or archive type to which you want the object to transition."
   type        = string
   default     = "Glacier"
   validation {
@@ -214,7 +214,7 @@ variable "archive_type" {
 }
 
 variable "expire_days" {
-  description = "Specifies the number of days when the expire rule action takes effect. Only used if 'create_cos_bucket' is true."
+  description = "Specifies the number of days when the expire rule action takes effect."
   type        = number
   default     = null
 }
