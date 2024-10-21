@@ -97,7 +97,7 @@ No modules.
 | <a name="input_report_types"></a> [report\_types](#input\_report\_types) | billing report types | `list(string)` | `null` | no |
 | <a name="input_resource_group_id"></a> [resource\_group\_id](#input\_resource\_group\_id) | resource\_group\_id for the polcicy creation of the service to service authorization | `string` | `null` | no |
 | <a name="input_skip_authorization_policy"></a> [skip\_authorization\_policy](#input\_skip\_authorization\_policy) | Whether to skip the authorization policy. May be used when deploying across accounts. | `bool` | `false` | no |
-| <a name="input_versioning"></a> [versioning](#input\_versioning) | Add new reports or overwrite existing reports | `string` | `"new"` | no |
+| <a name="input_versioning"></a> [versioning](#input\_versioning) | Add new reports or overwrite existing reports | `string` | `"overwrite"` | no |
 
 ### Outputs
 

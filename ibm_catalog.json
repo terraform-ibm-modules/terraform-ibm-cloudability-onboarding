@@ -4,10 +4,7 @@
 			"label": "IBM Cloudability Enablement",
 			"name": "deploy-arch-ibm-cloudability",
 			"product_kind": "solution",
-			"tags": [
-				"ibm_created",
-				"integration"
-			],
+			"tags": ["ibm_created", "integration"],
 			"keywords": [
 				"Billing",
 				"Apptio",
@@ -85,6 +82,12 @@
 								"crn:v1:bluemix:public:iam::::serviceRole:Manager",
 								"crn:v1:bluemix:public:iam::::role:Editor"
 							]
+						},
+						{
+							"service_name": "account-management",
+							"role_crns": [
+								"crn:v1:bluemix:public:iam::::role:Administrator"
+							]
 						}
 					],
 					"architecture": {
@@ -95,7 +98,7 @@
 									"type": "image/svg+xml",
 									"url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-cloudability-onboarding/refs/heads/main/reference-architecture/cloudability-all-inclusive-onboarding.svg"
 								},
-								"description": "Billing exports are written to a Key Protect encrypted COS bucket. IBM Cloudability is granted access to read from this bucket to add ibm cloud billing reports daily. Key Protect and Cloud Object Storage are created in your desired region and resource group. Optionally, configure retention and archiving of the data in your bucket and enable monitoring and auditing to your cloud object storage bucket."
+								"description": "Billing exports are written to a Key Protect encrypted COS bucket. IBM Cloudability is granted access to read from this bucket to add ibm cloud billing reports daily. Key Protect and Cloud Object Storage are created in your desired region and resource group. Optionally, configure archiving of the data in your bucket and enable monitoring and auditing to your cloud object storage bucket."
 							}
 						],
 						"features": [
@@ -175,16 +178,16 @@
 							"required": true,
 							"options": [
 								{
-								  "displayname": "Dallas (us-south) w/ kms failover",
-								  "value": "us-south"
+									"displayname": "Dallas (us-south) w/ kms failover",
+									"value": "us-south"
 								},
 								{
-								  "displayname": "Frankfurt (eu-de) w/ kms failover",
-								  "value": "eu-de"
+									"displayname": "Frankfurt (eu-de) w/ kms failover",
+									"value": "eu-de"
 								},
 								{
-								  "displayname": "Tokyo (jp-tok) w/ kms failover",
-								  "value": "jp-tok"
+									"displayname": "Tokyo (jp-tok) w/ kms failover",
+									"value": "jp-tok"
 								},
 								{
 									"displayname": "Washington DC (us-east)",
@@ -385,7 +388,7 @@
 						{
 							"key": "bucket_storage_class",
 							"type": "string",
-							"default_value": "smart",
+							"default_value": "standard",
 							"description": "The storage class of the newly provisioned COS bucket of a `standard` or `lite` plan instance. Not required for one rate instances.",
 							"required": true,
 							"options": [
@@ -408,6 +411,23 @@
 							]
 						},
 						{
+							"key": "overwrite_existing_reports",
+							"type": "boolean",
+							"default_value": "true",
+							"description": "Whether each update overwrites the existing report version or a new version of report is created leaving the existing report.",
+							"required": false,
+							"options": [
+								{
+									"displayname": "Yes",
+									"value": "true"
+								},
+								{
+									"displayname": "No",
+									"value": "false"
+								}
+							]
+						},
+						{
 							"key": "object_versioning_enabled",
 							"type": "boolean",
 							"default_value": "false",
@@ -417,7 +437,7 @@
 						{
 							"key": "archive_days",
 							"type": "number",
-							"default_value": 62,
+							"default_value": 7,
 							"description": "Specifies the number of days when the archive rule action takes effect.",
 							"required": false
 						},
@@ -441,8 +461,8 @@
 						{
 							"key": "expire_days",
 							"type": "number",
-							"default_value": 180,
-							"description": "Specifies the number of days when the expire rule action takes effect.",
+							"default_value": 90,
+							"description": "Specifies the number of days when the expire rule action takes effect. [Learn more](/docs/cloud-object-storage?topic=cloud-object-storage-expiry)",
 							"required": false
 						},
 						{
@@ -453,8 +473,8 @@
 							"hidden": true,
 							"options": [
 								{
-								  "displayname": "Bucket",
-								  "value": "resource"
+									"displayname": "Bucket",
+									"value": "resource"
 								},
 								{
 									"displayname": "Instance",
@@ -464,7 +484,7 @@
 									"displayname": "Resource Group",
 									"value": "resourceGroup"
 								}
-							  ]
+							]
 						},
 						{
 							"key": "cloudability_custom_role_name",
@@ -489,12 +509,12 @@
 					],
 					"outputs": [
 						{
-						  "key": "resource_group_id",
-						  "description": "Resource Group ID"
+							"key": "resource_group_id",
+							"description": "Resource Group ID"
 						},
 						{
-						  "key": "s3_endpoint_public",
-						  "description": "public endpoint to the cos bucket"
+							"key": "s3_endpoint_public",
+							"description": "public endpoint to the cos bucket"
 						},
 						{
 							"key": "bucket_id",
@@ -502,15 +522,15 @@
 						},
 						{
 							"key": "bucket_crn",
-							"description": "crn of the  cos bucket"
+							"description": "crn of the cos bucket"
 						},
 						{
 							"key": "bucket_name",
-							"description": "name of the  cos bucket"
+							"description": "name of the cos bucket"
 						},
 						{
 							"key": "bucket_storage_class",
-							"description": "storage class of the  cos bucket"
+							"description": "storage class of the cos bucket"
 						},
 						{
 							"key": "kms_key_crn",

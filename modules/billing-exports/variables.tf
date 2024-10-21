@@ -45,7 +45,7 @@ variable "report_types" {
 variable "versioning" {
   type        = string
   description = "Add new reports or overwrite existing reports"
-  default     = "new"
+  default     = "overwrite"
 }
 
 variable "skip_authorization_policy" {
