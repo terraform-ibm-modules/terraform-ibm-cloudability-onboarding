@@ -38,6 +38,7 @@ locals {
 resource "restapi_object" "cloudability_ibm_account" {
   path         = "${local.cloudability_host}/v3/vendors/ibm/accounts"
   data         = local.cloudability_ibm_account_body
+  query_string = "include=permissions&viewId=0"
   id_attribute = "result/id"
   lifecycle {
     postcondition {

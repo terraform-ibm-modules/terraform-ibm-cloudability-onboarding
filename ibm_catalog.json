@@ -82,6 +82,12 @@
 								"crn:v1:bluemix:public:iam::::serviceRole:Manager",
 								"crn:v1:bluemix:public:iam::::role:Editor"
 							]
+						},
+						{
+							"service_name": "account-management",
+							"role_crns": [
+								"crn:v1:bluemix:public:iam::::role:Administrator"
+							]
 						}
 					],
 					"architecture": {
@@ -382,7 +388,7 @@
 						{
 							"key": "bucket_storage_class",
 							"type": "string",
-							"default_value": "smart",
+							"default_value": "standard",
 							"description": "The storage class of the newly provisioned COS bucket of a `standard` or `lite` plan instance. Not required for one rate instances.",
 							"required": true,
 							"options": [

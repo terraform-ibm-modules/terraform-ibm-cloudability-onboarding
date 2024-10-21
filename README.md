@@ -75,9 +75,11 @@ You need the following permissions to run this module:
 - Account management services
     - **Billing** service
         - `Administrator` platform access
-    - **Enterprise** service (only for enterprise accounts)
-        - `Viewer` platform access
-    - **IAM Access Management** service (only for enterprise accounts)
+    - **Enterprise** service (only for enterprise accounts ie. `is_enterprise_account` is true)
+        - `Administrator` platform access
+    - **IAM Access Management** service
+        - `Administrator` platform access
+    - **All Account Management** service (only if `use_existing_resource_group` is true)
         - `Administrator` platform access
 
 <!-- NO PERMISSIONS FOR MODULE
