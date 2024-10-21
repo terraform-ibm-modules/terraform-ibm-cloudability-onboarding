@@ -75,7 +75,6 @@ module "cos_bucket" {
   archive_days                        = var.archive_days
   archive_type                        = var.archive_type
   monitoring_crn                      = var.monitoring_crn
-  activity_tracker_crn                = var.activity_tracker_crn
   activity_tracker_read_data_events   = var.activity_tracker_read_data_events
   activity_tracker_write_data_events  = var.activity_tracker_write_data_events
   activity_tracker_management_events  = var.activity_tracker_management_events

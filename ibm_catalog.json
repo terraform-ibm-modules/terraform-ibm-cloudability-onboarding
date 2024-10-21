@@ -245,13 +245,6 @@
 							"required": false
 						},
 						{
-							"key": "activity_tracker_crn",
-							"type": "string",
-							"default_value": "__NULL__",
-							"description": "The CRN of an Activity Tracker instance to send Object Storage bucket events to. If no value passed, events are sent to the instance associated to the container's location unless otherwise specified in the Activity Tracker Event Routing service configuration.",
-							"required": false
-						},
-						{
 							"key": "activity_tracker_read_data_events",
 							"type": "boolean",
 							"default_value": "true",
@@ -269,7 +262,7 @@
 							"key": "activity_tracker_management_events",
 							"type": "boolean",
 							"default_value": "true",
-							"description": "If set to true, all Object Storage management events will be sent to Activity Tracker. Only applies if `activity_tracker_crn` is not populated.",
+							"description": "If set to true, all Object Storage management events will be sent to Activity Tracker.",
 							"required": false
 						},
 						{
