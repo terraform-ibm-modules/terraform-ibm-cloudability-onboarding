@@ -303,16 +303,6 @@ variable "expire_days" {
   default     = null
 }
 
-variable "activity_tracker_crn" {
-  type        = string
-  description = "The CRN of an Activity Tracker instance to send Object Storage bucket events to. If no value passed, events are sent to the instance associated to the container's location unless otherwise specified in the Activity Tracker Event Routing service configuration."
-  default     = null
-  validation {
-    condition     = var.activity_tracker_crn != null ? can(regex("crn:v1:bluemix:public:logdnaat:(in-che|jp-tok|jp-osa|ca-tor|br-sao|au-syd|eu-gb|eu-es|us-south|eu-de|us-east):a/[0-9a-f]{32}:[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}::", var.activity_tracker_crn)) : true
-    error_message = "Must be a valid activity tracker crn"
-  }
-}
-
 variable "activity_tracker_read_data_events" {
   type        = bool
   description = "If set to true, all Object Storage bucket read events (i.e. downloads) will be sent to Activity Tracker."
@@ -327,7 +317,7 @@ variable "activity_tracker_write_data_events" {
 
 variable "activity_tracker_management_events" {
   type        = bool
-  description = "If set to true, all Object Storage management events will be sent to Activity Tracker. Only applies if `activity_tracker_crn` is not populated."
+  description = "If set to true, all Object Storage management events will be sent to Activity Tracker."
   default     = true
 }
 
