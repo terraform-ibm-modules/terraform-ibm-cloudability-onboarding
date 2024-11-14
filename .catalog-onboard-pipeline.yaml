@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+offerings:
+- name: deploy-arch-ibm-cloudability
+  kind: solution
+  catalog_id: cda5c842-ca01-468e-9614-0be561a792dc
+  offering_id: 1b3dcf22-f451-4443-b885-01ba1847443c
+  variations:
+    - name: cloudability-all-inclusive
+      mark_ready: true
+      install_type: fullstack
+      validation_type: projects
+      project_id: "6eab1267-cb17-47e8-8e3f-20d7675b651e"
+      target_account_name: "IBM Cloudability Enablement"
+      destroy_resources_on_failure: true
+      destroy_workspace_on_failure: false
+      validation_rg: catalog-versions
+      scc:
+        instance_id: 5b401773-7d1f-4489-9504-8356a44c1fed
+        region: us-south

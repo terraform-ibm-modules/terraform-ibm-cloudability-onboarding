@@ -1,5 +1,7 @@
 {
   "ibmcloud_api_key": $VALIDATION_APIKEY,
-  "resource_group_name": $PREFIX,
-  "use_existing_resource_group": false
+  "cloudability_api_key": $CLOUDABILITY_APIKEY,
+  "resource_group_name": "validation-infra-scan",
+  "use_existing_resource_group": false,
+  "skip_verification": true
 }
