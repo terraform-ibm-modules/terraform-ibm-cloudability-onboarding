@@ -100,12 +100,6 @@ variable "region" {
 # Key_protect
 ########################################################################################################################
 
-variable "create_key_protect_instance" {
-  type        = bool
-  description = "Key Protect instance name"
-  default     = true
-}
-
 variable "key_protect_instance_name" {
   type        = string
   description = "Key Protect instance name"
@@ -144,12 +138,6 @@ variable "key_name" {
 # COS instance variables
 ##############################################################################
 
-variable "create_cos_instance" {
-  description = "Set as true to create a new Cloud Object Storage instance."
-  type        = bool
-  default     = true
-}
-
 variable "cos_instance_name" {
   description = "The name to give the cloud object storage instance that will be provisioned by this module. Only required if 'create_cos_instance' is true."
   type        = string
@@ -163,7 +151,7 @@ variable "cos_instance_name" {
 variable "cos_plan" {
   description = "Plan to be used for creating cloud object storage instance. Only used if 'create_cos_instance' it true."
   type        = string
-  default     = "standard"
+  default     = "cos-one-rate-plan"
   validation {
     condition     = contains(["standard", "lite", "cos-one-rate-plan"], var.cos_plan)
     error_message = "The specified cos_plan is not a valid selection!"
@@ -214,7 +202,7 @@ variable "add_bucket_name_suffix" {
 
 variable "bucket_storage_class" {
   type        = string
-  description = "the storage class of the newly provisioned COS bucket. Supported values are 'standard', 'vault', 'cold', 'smart' and `onerate_active`."
+  description = "The storage class of the newly provisioned COS bucket. Supported values are 'standard', 'vault', 'cold', 'smart' and `onerate_active`."
   default     = "standard"
 
   validation {
@@ -264,7 +252,7 @@ variable "archive_type" {
 variable "expire_days" {
   description = "Specifies the number of days when the expire rule action takes effect."
   type        = number
-  default     = null
+  default     = 3
 }
 
 variable "activity_tracker_read_data_events" {
@@ -396,13 +384,13 @@ variable "skip_cloudability_billing_policy" {
 
 variable "cloudability_custom_role_name" {
   type        = string
-  description = "name of the custom role created access granted to cloudability service id to read from the billing reports cos bucket"
+  description = "Name of the custom role created access granted to cloudability service id to read from the billing reports cos bucket"
   default     = "CloudabilityStorageCustomRole"
 }
 
 variable "cloudability_enterprise_custom_role_name" {
   type        = string
-  description = "name of the custom role to granting access to a cloudability service id to read the enterprise information. Only used of var.is_enterprise_account is set."
+  description = "Name of the custom role to granting access to a cloudability service id to read the enterprise information. Only used of var.is_enterprise_account is set."
   default     = "CloudabilityListAccCustomRole"
 }
 
@@ -414,7 +402,7 @@ variable "cos_folder" {
 
 variable "skip_verification" {
   type        = bool
-  description = "whether to verify the account after adding the account to cloudability. Requires cloudability_auth_header to be set."
+  description = "Whether to verify the account after adding the account to cloudability. Requires cloudability_auth_header to be set."
   default     = false
 }
 

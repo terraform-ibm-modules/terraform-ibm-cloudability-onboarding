@@ -3,46 +3,46 @@
 ##############################################################################
 
 output "resource_group_id" {
-  description = "Resource Group ID"
+  description = "ID of the resource group where all resources are deployed into"
   value       = module.resource_group.resource_group_id
 }
 output "s3_endpoint_public" {
-  description = "S3 public endpoint"
+  description = "Public endpoint to the cos bucket where billing reports are written to"
   value       = module.cos_bucket.s3_endpoint_public
 }
 
 output "bucket_id" {
-  description = "Bucket id"
+  description = "ID of the cos bucket where billing reports are written to"
   value       = module.cos_bucket.bucket_id
 }
 
 output "bucket_crn" {
-  description = "Bucket CRN"
+  description = "CRN of the cos bucket where billing reports are written to"
   value       = module.cos_bucket.bucket_crn
 }
 
 output "bucket_name" {
-  description = "Bucket name"
+  description = "Name of the cos bucket where billing reports are written to"
   value       = module.cos_bucket.bucket_name
 }
 
 output "bucket_storage_class" {
-  description = "Bucket Storage Class"
+  description = "Storage class of the Object Storage bucket where billing reports are written to"
   value       = module.cos_bucket.bucket_storage_class
 }
 
 output "kms_key_crn" {
-  description = "The CRN of the KMS key used to encrypt the COS bucket"
+  description = "The CRN of the KMS key used to encrypt the object storage bucket"
   value       = module.cos_bucket.kms_key_crn
 }
 
 output "cos_instance_id" {
-  description = "The ID of the Cloud Object Storage Instance where the buckets are created"
+  description = "The ID of the cloud object storage Instance where the buckets are created"
   value       = module.cos_bucket.cos_instance_id
 }
 
 output "cos_instance_guid" {
-  description = "The GUID of the Cloud Object Storage Instance where the buckets are created"
+  description = "The GUID of the cloud object storage instance where the buckets are created"
   value       = module.cos_bucket.cos_instance_guid
 }
 
@@ -62,7 +62,7 @@ output "cbr_rule_ids" {
 }
 
 output "key_protect_guid" {
-  description = "Key Protect GUID"
+  description = "ID of the Key Protect instance which contains the encryption key for the object storage bucket"
   value       = module.cos_bucket.key_protect_guid
 }
 
@@ -72,7 +72,7 @@ output "key_protect_id" {
 }
 
 output "key_protect_name" {
-  description = "Key Protect Name"
+  description = "Name of the Key Protect instance"
   value       = module.cos_bucket.key_protect_name
 }
 
@@ -92,7 +92,7 @@ output "keys" {
 }
 output "enterprise_account_id" {
   value       = local.enterprise_account_id
-  description = "primary account id of the enterprise if `is_enterprise_account` is enabled"
+  description = "ID of the IBM Cloud account or, in the case of an enterprise, the ID of the primary account in the enterprise"
 }
 
 output "enterprise_id" {

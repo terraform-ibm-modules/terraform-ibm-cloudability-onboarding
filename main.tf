@@ -11,12 +11,14 @@ data "ibm_enterprises" "enterprises" {
   }
 }
 locals {
-  should_fetch_enterprise = var.is_enterprise_account && var.enterprise_id == null
-  enterprise              = local.should_fetch_enterprise ? data.ibm_enterprises.enterprises[0].enterprises[0] : null
-  enterprise_id           = local.enterprise != null ? local.enterprise.id : var.enterprise_id
-  enterprise_account_id   = data.ibm_iam_account_settings.billing_exports_account.account_id
-  cos_bucket_crn          = module.cos_bucket.bucket_crn
-  bucket_storage_class    = var.cos_plan == "cos-one-rate-plan" ? "onerate_active" : var.bucket_storage_class
+  should_fetch_enterprise     = var.is_enterprise_account && var.enterprise_id == null
+  enterprise                  = local.should_fetch_enterprise ? data.ibm_enterprises.enterprises[0].enterprises[0] : null
+  enterprise_id               = local.enterprise != null ? local.enterprise.id : var.enterprise_id
+  enterprise_account_id       = data.ibm_iam_account_settings.billing_exports_account.account_id
+  cos_bucket_crn              = module.cos_bucket.bucket_crn
+  bucket_storage_class        = var.cos_plan == "cos-one-rate-plan" ? "onerate_active" : var.bucket_storage_class
+  create_key_protect_instance = var.existing_kms_instance_guid == null
+  create_cos_instance         = var.existing_cos_instance_id == null
 }
 
 module "resource_group" {
@@ -35,11 +37,11 @@ module "cos_bucket" {
   resource_group_id                   = module.resource_group.resource_group_id
   resource_tags                       = var.resource_tags
   region                              = var.region
-  create_key_protect_instance         = var.create_key_protect_instance
+  create_key_protect_instance         = local.create_key_protect_instance
   key_protect_instance_name           = var.key_protect_instance_name
   key_ring_name                       = var.key_ring_name
   key_name                            = var.key_name
-  create_cos_instance                 = var.create_cos_instance
+  create_cos_instance                 = local.create_cos_instance
   cos_instance_name                   = var.cos_instance_name
   cos_plan                            = var.cos_plan
   access_tags                         = var.access_tags
