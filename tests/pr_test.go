@@ -52,6 +52,7 @@ func TestRunUpgradeSolution(t *testing.T) {
 		"skip_cloudability_billing_policy": true,
 		"enable_billing_exports":           false,
 		"cos_plan":                         "standard",
+		"expire_days":                      7,
 	})
 
 	output, err := options.RunTestUpgrade()
