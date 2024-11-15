@@ -1,7 +1,7 @@
 
 variable "ibmcloud_api_key" {
   type        = string
-  description = "The IBM Cloud API key which will enable billing exports"
+  description = "The IBM Cloud API key corresponding to the cloud account that will be added to Cloudability. For enterprise accounts this should be the primary enterprise account"
   sensitive   = true
 }
 
@@ -14,13 +14,13 @@ variable "cloudability_api_key" {
 
 variable "is_enterprise_account" {
   type        = bool
-  description = "Whether billing exports are enabled for the enterprise account"
+  description = "Whether the account being added to Cloudability is the primary account within an enterprise. The `ibmcloud_api_key` should be created within the primary enterprise account."
   default     = false
 }
 
 variable "enterprise_id" {
   type        = string
-  description = "Id of the enterprise. Can be automatically retrieved if `is_enterprise_account` is true"
+  description = "The ID of the enterprise. If `__NULL__` then it is automatically retrieved if `is_enterprise_account` is `true`. Providing this value reduces the access policies that are required to run the DA."
   default     = null
   validation {
     condition     = var.enterprise_id != null ? can(regex("^[0-9a-f]{32}$", var.enterprise_id)) : true
@@ -50,13 +50,13 @@ variable "policy_granularity" {
 
 variable "use_existing_resource_group" {
   type        = bool
-  description = "Whether the value of `resource_group_name` input should be a new of existing resource_group"
+  description = "Whether `resource_group_name` input represents the name of an existing resource group or a new resource group should be created"
   default     = true
 }
 
 variable "resource_group_name" {
   type        = string
-  description = "The name of an existing resource group to provision resources in to."
+  description = "The name of a new or existing resource group where resources will be created"
   default     = "Default"
 
   validation {
@@ -149,7 +149,7 @@ variable "cos_instance_name" {
 }
 
 variable "cos_plan" {
-  description = "Plan to be used for creating cloud object storage instance. Only used if 'create_cos_instance' it true."
+  description = "Plan to be used for creating cloud object storage instance. Only used if 'create_cos_instance' is true."
   type        = string
   default     = "cos-one-rate-plan"
   validation {
@@ -263,7 +263,7 @@ variable "activity_tracker_read_data_events" {
 
 variable "activity_tracker_write_data_events" {
   type        = bool
-  description = "If set to true, all Object Storage bucket write events (i.e. uploads) will be sent to Activity Tracker."
+  description = "If set to true, all Object Storage bucket read events (i.e. downloads) will be sent to Activity Tracker."
   default     = true
 }
 
@@ -384,13 +384,13 @@ variable "skip_cloudability_billing_policy" {
 
 variable "cloudability_custom_role_name" {
   type        = string
-  description = "Name of the custom role created access granted to cloudability service id to read from the billing reports cos bucket"
+  description = "Name of the custom role which grants access to the Cloudability service id to read the billing reports from the object storage bucket"
   default     = "CloudabilityStorageCustomRole"
 }
 
 variable "cloudability_enterprise_custom_role_name" {
   type        = string
-  description = "Name of the custom role to granting access to a cloudability service id to read the enterprise information. Only used of var.is_enterprise_account is set."
+  description = "Name of the custom role which grants access to the Cloudability service ID to read the enterprise information. Only used if `is_enterprise_account` is `true`."
   default     = "CloudabilityListAccCustomRole"
 }
 
