@@ -1,5 +1,5 @@
 <!-- Update the title -->
-# Apptio cloudability COS bucket access
+# Apptio cloudability Object Storage bucket access
 
 <!-- Add a description of module(s) in this repo -->
 This module grants the IBM Cloudability ServiceID access to the bucket containing the billing exports (see [Exporting your usage data for continual insights](https://cloud.ibm.com/docs/billing-usage?topic=billing-usage-exporting-your-usage&interface=terraform)). The module uses [iam custom roles](https://cloud.ibm.com/docs/account?topic=account-custom-roles&interface=ui) so that Apptio cloudability has only the minimum required access to the storage bucket.
@@ -87,9 +87,9 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_bucket_crn"></a> [bucket\_crn](#input\_bucket\_crn) | crn of the cos bucket. Required if policy\_granularity is `resource` or `instance` | `string` | `null` | no |
-| <a name="input_cloudability_custom_role_name"></a> [cloudability\_custom\_role\_name](#input\_cloudability\_custom\_role\_name) | Name of the custom role created access granted to cloudability service id to read from the billing reports cos bucket | `string` | `"CloudabilityStorageCustomRole"` | no |
-| <a name="input_policy_granularity"></a> [policy\_granularity](#input\_policy\_granularity) | Whether access to the cos bucket is controlled at the bucket (resource), cos instance (serviceInstance), or resource-group (resourceGroup). Note: `resource_group_id` is required in the case of the `resourceGroup`. `bucket_crn` is required otherwise. | `string` | `"resource"` | no |
+| <a name="input_bucket_crn"></a> [bucket\_crn](#input\_bucket\_crn) | crn of the Object Storage bucket. Required if policy\_granularity is `resource` or `instance` | `string` | `null` | no |
+| <a name="input_cloudability_custom_role_name"></a> [cloudability\_custom\_role\_name](#input\_cloudability\_custom\_role\_name) | Name of the custom role which grants access to the Cloudability service id to read the billing reports from the object storage bucket | `string` | `"CloudabilityStorageCustomRole"` | no |
+| <a name="input_policy_granularity"></a> [policy\_granularity](#input\_policy\_granularity) | Whether access to the Object Storage bucket is controlled at the bucket (resource), cos instance (serviceInstance), or resource-group (resourceGroup). Note: `resource_group_id` is required in the case of the `resourceGroup`. `bucket_crn` is required otherwise. | `string` | `"resource"` | no |
 | <a name="input_resource_group_id"></a> [resource\_group\_id](#input\_resource\_group\_id) | The resource group that the cos buckets are deployed in. Required if `policy_granularity` is "resource-group". Not used otherwise. | `string` | `null` | no |
 | <a name="input_use_existing_iam_custom_role"></a> [use\_existing\_iam\_custom\_role](#input\_use\_existing\_iam\_custom\_role) | Whether the iam\_custom\_roles should be created or if they already exist and the they should be linked with a datasource | `bool` | `false` | no |
 

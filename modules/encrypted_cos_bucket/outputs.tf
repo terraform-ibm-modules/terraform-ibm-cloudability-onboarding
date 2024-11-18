@@ -43,7 +43,7 @@ output "bucket_storage_class" {
 }
 
 output "kms_key_crn" {
-  description = "The CRN of the KMS key used to encrypt the COS bucket"
+  description = "The CRN of the KMS key used to encrypt the Object Storage bucket"
   value       = module.cos_bucket.kms_key_crn
 }
 
@@ -58,7 +58,7 @@ output "cos_instance_guid" {
 }
 
 output "bucket_cbr_rules" {
-  description = "COS bucket rules"
+  description = "Object Storage bucket rules"
   value       = module.cos_bucket.bucket_cbr_rules
 }
 

@@ -7,22 +7,22 @@ output "resource_group_id" {
   value       = module.resource_group.resource_group_id
 }
 output "s3_endpoint_public" {
-  description = "Public endpoint to the cos bucket where billing reports are written to"
+  description = "Public endpoint to the Object Storage bucket where billing reports are written to"
   value       = module.cos_bucket.s3_endpoint_public
 }
 
 output "bucket_id" {
-  description = "ID of the cos bucket where billing reports are written to"
+  description = "ID of the Object Storage bucket where billing reports are written to"
   value       = module.cos_bucket.bucket_id
 }
 
 output "bucket_crn" {
-  description = "CRN of the cos bucket where billing reports are written to"
+  description = "CRN of the Object Storage bucket where billing reports are written to"
   value       = module.cos_bucket.bucket_crn
 }
 
 output "bucket_name" {
-  description = "Name of the cos bucket where billing reports are written to"
+  description = "Name of the Object Storage bucket where billing reports are written to"
   value       = module.cos_bucket.bucket_name
 }
 
@@ -47,7 +47,7 @@ output "cos_instance_guid" {
 }
 
 output "bucket_cbr_rules" {
-  description = "COS bucket rules"
+  description = "Object Storage bucket rules"
   value       = module.cos_bucket.bucket_cbr_rules
 }
 
@@ -108,5 +108,5 @@ output "enterprise_cloudability_custom_role_display_name" {
 
 output "bucket_account_cloudability_custom_role_display_name" {
   value       = module.cloudability_bucket_access.custom_role_display_name
-  description = "Display name of the custom role that grants cloudability access to read the billing reports from the cos bucket"
+  description = "Display name of the custom role that grants cloudability access to read the billing reports from the Object Storage bucket"
 }

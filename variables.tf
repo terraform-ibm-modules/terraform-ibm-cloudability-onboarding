@@ -36,7 +36,7 @@ variable "enable_billing_exports" {
 
 variable "policy_granularity" {
   type        = string
-  description = "Whether access to the cos bucket is controlled at the bucket (resource), cos instance (serviceInstance), or resource-group (resourceGroup)."
+  description = "Whether access to the Object Storage bucket is controlled at the bucket (resource), cos instance (serviceInstance), or resource-group (resourceGroup)."
   default     = "resource"
   validation {
     condition     = contains(["resource", "serviceInstance", "resourceGroup"], var.policy_granularity)
@@ -124,7 +124,7 @@ variable "key_ring_name" {
 
 variable "key_name" {
   type        = string
-  description = "Name of the cos bucket encryption key"
+  description = "Name of the Object Storage bucket encryption key"
   default     = null
   validation {
     condition     = var.key_name != null ? can(regex("^[a-zA-Z0-9-_]{2,90}$", var.key_name)) : true
@@ -170,7 +170,7 @@ variable "existing_cos_instance_id" {
 }
 
 ##############################################################################
-# COS bucket variables
+# Object Storage bucket variables
 ##############################################################################
 
 variable "cross_region_location" {
@@ -186,7 +186,7 @@ variable "cross_region_location" {
 
 variable "bucket_name" {
   type        = string
-  description = "The name to give the newly provisioned COS bucket."
+  description = "The name to give the newly provisioned Object Storage bucket."
   default     = "apptio-cldy-billing-snapshots"
   validation {
     condition     = can(regex("^[a-z][0-9a-z\\.\\-]{1,57}$", var.bucket_name))
@@ -196,13 +196,13 @@ variable "bucket_name" {
 
 variable "add_bucket_name_suffix" {
   type        = bool
-  description = "Add random generated suffix (4 characters long) to the newly provisioned COS bucket name (Optional)."
+  description = "Add random generated suffix (4 characters long) to the newly provisioned Object Storage bucket name (Optional)."
   default     = true
 }
 
 variable "bucket_storage_class" {
   type        = string
-  description = "The storage class of the newly provisioned COS bucket. Supported values are 'standard', 'vault', 'cold', 'smart' and `onerate_active`."
+  description = "The storage class of the newly provisioned Object Storage bucket. Supported values are 'standard', 'vault', 'cold', 'smart' and `onerate_active`."
   default     = "standard"
 
   validation {
@@ -296,7 +296,7 @@ variable "usage_metrics_enabled" {
 }
 
 ##############################################################################
-# COS bucket encryption variables
+# Object Storage bucket encryption variables
 ##############################################################################
 
 variable "existing_kms_instance_guid" {
@@ -396,7 +396,7 @@ variable "cloudability_enterprise_custom_role_name" {
 
 variable "cos_folder" {
   type        = string
-  description = "Folder in the COS bucket to store the account data"
+  description = "Folder in the Object Storage bucket to store the account data"
   default     = "IBMCloud-Billing-Reports"
 }
 

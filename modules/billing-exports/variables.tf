@@ -16,12 +16,12 @@ variable "resource_group_id" {
 
 variable "cos_bucket_crn" {
   type        = string
-  description = "CRN of the COS bucket"
+  description = "CRN of the Object Storage bucket"
 }
 
 variable "cos_bucket_location" {
   type        = string
-  description = "location of the cos bucket"
+  description = "location of the Object Storage bucket"
 }
 
 variable "interval" {
@@ -32,7 +32,7 @@ variable "interval" {
 
 variable "cos_folder" {
   type        = string
-  description = "Folder in the COS bucket to store the account data"
+  description = "Folder in the Object Storage bucket to store the account data"
   default     = "IBMCloud-Billing-Reports"
 }
 

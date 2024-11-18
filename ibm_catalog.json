@@ -340,7 +340,7 @@
 							"key": "bucket_storage_class",
 							"type": "string",
 							"default_value": "smart",
-							"description": "The storage class of the newly provisioned COS bucket of a `standard` or `lite` plan instance. Not required for one rate instances.",
+							"description": "The storage class of the newly provisioned Object Storage bucket of a `standard` or `lite` plan instance. Not required for one rate instances.",
 							"required": true,
 							"options": [
 								{
@@ -489,23 +489,23 @@
 						},
 						{
 							"key": "s3_endpoint_public",
-							"description": "public endpoint to the cos bucket"
+							"description": "public endpoint to the Object Storage bucket"
 						},
 						{
 							"key": "bucket_id",
-							"description": "ID of the cos bucket where billing reports are written to"
+							"description": "ID of the Object Storage bucket where billing reports are written to"
 						},
 						{
 							"key": "bucket_crn",
-							"description": "crn of the  cos bucket"
+							"description": "crn of the  Object Storage bucket"
 						},
 						{
 							"key": "bucket_name",
-							"description": "name of the  cos bucket"
+							"description": "name of the  Object Storage bucket"
 						},
 						{
 							"key": "bucket_storage_class",
-							"description": "storage class of the  cos bucket"
+							"description": "storage class of the  Object Storage bucket"
 						},
 						{
 							"key": "kms_key_crn",

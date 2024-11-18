@@ -15,8 +15,8 @@ Update status and "latest release" badges:
 
 This Deployable Architecture will fully onboard a standard IBM Cloud account or an entire IBM Cloud enterprise to IBM Cloudability. The DA performs the following actions:
 
-- Creates an encrypted COS bucket to store billing reports
-- Enables daily Billing Report exports to the COS Bucket
+- Creates an encrypted Object Storage bucket to store billing reports
+- Enables daily Billing Report exports to the Object Storage bucket
 - Grants Cloudability access to read the billing reports from the bucket for ingestion
     - *If the account is an enterprise*: Grants cloudability access to read the list of child accounts in the enterprise
     - Cloudability access is controlled in a custom role so only the minimum access is given.
@@ -126,17 +126,17 @@ statement instead the previous block.
 | <a name="input_activity_tracker_management_events"></a> [activity\_tracker\_management\_events](#input\_activity\_tracker\_management\_events) | If set to true, all Object Storage management events will be sent to Activity Tracker. | `bool` | `true` | no |
 | <a name="input_activity_tracker_read_data_events"></a> [activity\_tracker\_read\_data\_events](#input\_activity\_tracker\_read\_data\_events) | If set to true, all Object Storage bucket read events (i.e. downloads) will be sent to Activity Tracker. | `bool` | `true` | no |
 | <a name="input_activity_tracker_write_data_events"></a> [activity\_tracker\_write\_data\_events](#input\_activity\_tracker\_write\_data\_events) | If set to true, all Object Storage bucket read events (i.e. downloads) will be sent to Activity Tracker. | `bool` | `true` | no |
-| <a name="input_add_bucket_name_suffix"></a> [add\_bucket\_name\_suffix](#input\_add\_bucket\_name\_suffix) | Add random generated suffix (4 characters long) to the newly provisioned COS bucket name (Optional). | `bool` | `true` | no |
+| <a name="input_add_bucket_name_suffix"></a> [add\_bucket\_name\_suffix](#input\_add\_bucket\_name\_suffix) | Add random generated suffix (4 characters long) to the newly provisioned Object Storage bucket name (Optional). | `bool` | `true` | no |
 | <a name="input_archive_days"></a> [archive\_days](#input\_archive\_days) | Specifies the number of days when the archive rule action takes effect. This must be set to null when when using var.cross\_region\_location as archive data is not supported with this feature. | `number` | `null` | no |
 | <a name="input_archive_type"></a> [archive\_type](#input\_archive\_type) | Specifies the storage class or archive type to which you want the object to transition. | `string` | `"Glacier"` | no |
 | <a name="input_bucket_cbr_rules"></a> [bucket\_cbr\_rules](#input\_bucket\_cbr\_rules) | (Optional, list) List of CBR rules to create for the bucket | <pre>list(object({<br/>    description = string<br/>    account_id  = string<br/>    rule_contexts = list(object({<br/>      attributes = optional(list(object({<br/>        name  = string<br/>        value = string<br/>    }))) }))<br/>    enforcement_mode = string<br/>    tags = optional(list(object({<br/>      name  = string<br/>      value = string<br/>    })), [])<br/>    operations = optional(list(object({<br/>      api_types = list(object({<br/>        api_type_id = string<br/>      }))<br/>    })))<br/>  }))</pre> | `[]` | no |
-| <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | The name to give the newly provisioned COS bucket. | `string` | `"apptio-cldy-billing-snapshots"` | no |
-| <a name="input_bucket_storage_class"></a> [bucket\_storage\_class](#input\_bucket\_storage\_class) | The storage class of the newly provisioned COS bucket. Supported values are 'standard', 'vault', 'cold', 'smart' and `onerate_active`. | `string` | `"standard"` | no |
+| <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | The name to give the newly provisioned Object Storage bucket. | `string` | `"apptio-cldy-billing-snapshots"` | no |
+| <a name="input_bucket_storage_class"></a> [bucket\_storage\_class](#input\_bucket\_storage\_class) | The storage class of the newly provisioned Object Storage bucket. Supported values are 'standard', 'vault', 'cold', 'smart' and `onerate_active`. | `string` | `"standard"` | no |
 | <a name="input_cloudability_api_key"></a> [cloudability\_api\_key](#input\_cloudability\_api\_key) | Cloudability API Key. Retrieve your Api Key from https://app.apptio.com/cloudability#/settings/preferences under the section **Cloudability API** select **Enable API** which will generate an api key. Setting this value to __NULL__ will skip adding the IBM Cloud account to Cloudability and only configure IBM Cloud so that the IBM Cloud Account can be added to Cloudability manually | `string` | `null` | no |
 | <a name="input_cloudability_custom_role_name"></a> [cloudability\_custom\_role\_name](#input\_cloudability\_custom\_role\_name) | Name of the custom role which grants access to the Cloudability service id to read the billing reports from the object storage bucket | `string` | `"CloudabilityStorageCustomRole"` | no |
 | <a name="input_cloudability_enterprise_custom_role_name"></a> [cloudability\_enterprise\_custom\_role\_name](#input\_cloudability\_enterprise\_custom\_role\_name) | Name of the custom role which grants access to the Cloudability service ID to read the enterprise information. Only used if `is_enterprise_account` is `true`. | `string` | `"CloudabilityListAccCustomRole"` | no |
 | <a name="input_cloudability_host"></a> [cloudability\_host](#input\_cloudability\_host) | IBM Cloudability host name as described in https://help.apptio.com/en-us/cloudability/api/v3/getting_started_with_the_cloudability.htm#authentication | `string` | `"api.cloudability.com"` | no |
-| <a name="input_cos_folder"></a> [cos\_folder](#input\_cos\_folder) | Folder in the COS bucket to store the account data | `string` | `"IBMCloud-Billing-Reports"` | no |
+| <a name="input_cos_folder"></a> [cos\_folder](#input\_cos\_folder) | Folder in the Object Storage bucket to store the account data | `string` | `"IBMCloud-Billing-Reports"` | no |
 | <a name="input_cos_instance_name"></a> [cos\_instance\_name](#input\_cos\_instance\_name) | The name to give the cloud object storage instance that will be provisioned by this module. Only required if 'create\_cos\_instance' is true. | `string` | `"ibm-cloudability"` | no |
 | <a name="input_cos_plan"></a> [cos\_plan](#input\_cos\_plan) | Plan to be used for creating cloud object storage instance. Only used if 'create\_cos\_instance' is true. | `string` | `"cos-one-rate-plan"` | no |
 | <a name="input_cross_region_location"></a> [cross\_region\_location](#input\_cross\_region\_location) | Specify the cross-regional bucket location. Supported values are 'us', 'eu', and 'ap'. If you pass a value for this, ensure to set the value of var.region to null. | `string` | `null` | no |
@@ -149,14 +149,14 @@ statement instead the previous block.
 | <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | The IBM Cloud API key corresponding to the cloud account that will be added to Cloudability. For enterprise accounts this should be the primary enterprise account | `string` | n/a | yes |
 | <a name="input_instance_cbr_rules"></a> [instance\_cbr\_rules](#input\_instance\_cbr\_rules) | (Optional, list) List of CBR rules to create for the instance | <pre>list(object({<br/>    description = string<br/>    account_id  = string<br/>    rule_contexts = list(object({<br/>      attributes = optional(list(object({<br/>        name  = string<br/>        value = string<br/>    }))) }))<br/>    enforcement_mode = string<br/>    tags = optional(list(object({<br/>      name  = string<br/>      value = string<br/>    })), [])<br/>    operations = optional(list(object({<br/>      api_types = list(object({<br/>        api_type_id = string<br/>      }))<br/>    })))<br/>  }))</pre> | `[]` | no |
 | <a name="input_is_enterprise_account"></a> [is\_enterprise\_account](#input\_is\_enterprise\_account) | Whether the account being added to Cloudability is the primary account within an enterprise. The `ibmcloud_api_key` should be created within the primary enterprise account. | `bool` | `false` | no |
-| <a name="input_key_name"></a> [key\_name](#input\_key\_name) | Name of the cos bucket encryption key | `string` | `null` | no |
+| <a name="input_key_name"></a> [key\_name](#input\_key\_name) | Name of the Object Storage bucket encryption key | `string` | `null` | no |
 | <a name="input_key_protect_instance_name"></a> [key\_protect\_instance\_name](#input\_key\_protect\_instance\_name) | Key Protect instance name | `string` | `"cloudability-bucket-encryption"` | no |
 | <a name="input_key_ring_name"></a> [key\_ring\_name](#input\_key\_ring\_name) | Name of the key ring to group keys | `string` | `"bucket-encryption"` | no |
 | <a name="input_management_endpoint_type_for_bucket"></a> [management\_endpoint\_type\_for\_bucket](#input\_management\_endpoint\_type\_for\_bucket) | The type of endpoint for the IBM terraform provider to use to manage the bucket. (public, private or direct) | `string` | `"public"` | no |
 | <a name="input_monitoring_crn"></a> [monitoring\_crn](#input\_monitoring\_crn) | The CRN of an IBM Cloud Monitoring instance to to send Object Storage bucket metrics to. If no value passed, metrics are sent to the instance associated to the container's location unless otherwise specified in the Metrics Router service configuration. | `string` | `null` | no |
 | <a name="input_object_versioning_enabled"></a> [object\_versioning\_enabled](#input\_object\_versioning\_enabled) | Enable [object versioning](/docs/cloud-object-storage?topic=cloud-object-storage-versioning) to keep multiple versions of an object in a bucket. | `bool` | `false` | no |
 | <a name="input_overwrite_existing_reports"></a> [overwrite\_existing\_reports](#input\_overwrite\_existing\_reports) | A new version of report is created or the existing report version is overwritten with every update. | `bool` | `true` | no |
-| <a name="input_policy_granularity"></a> [policy\_granularity](#input\_policy\_granularity) | Whether access to the cos bucket is controlled at the bucket (resource), cos instance (serviceInstance), or resource-group (resourceGroup). | `string` | `"resource"` | no |
+| <a name="input_policy_granularity"></a> [policy\_granularity](#input\_policy\_granularity) | Whether access to the Object Storage bucket is controlled at the bucket (resource), cos instance (serviceInstance), or resource-group (resourceGroup). | `string` | `"resource"` | no |
 | <a name="input_region"></a> [region](#input\_region) | Region where resources will be created | `string` | `"us-south"` | no |
 | <a name="input_request_metrics_enabled"></a> [request\_metrics\_enabled](#input\_request\_metrics\_enabled) | If set to `true`, all Object Storage bucket request metrics will be sent to the monitoring service. | `bool` | `true` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of a new or existing resource group where resources will be created | `string` | `"Default"` | no |
@@ -172,11 +172,11 @@ statement instead the previous block.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_bucket_account_cloudability_custom_role_display_name"></a> [bucket\_account\_cloudability\_custom\_role\_display\_name](#output\_bucket\_account\_cloudability\_custom\_role\_display\_name) | Display name of the custom role that grants cloudability access to read the billing reports from the cos bucket |
-| <a name="output_bucket_cbr_rules"></a> [bucket\_cbr\_rules](#output\_bucket\_cbr\_rules) | COS bucket rules |
-| <a name="output_bucket_crn"></a> [bucket\_crn](#output\_bucket\_crn) | CRN of the cos bucket where billing reports are written to |
-| <a name="output_bucket_id"></a> [bucket\_id](#output\_bucket\_id) | ID of the cos bucket where billing reports are written to |
-| <a name="output_bucket_name"></a> [bucket\_name](#output\_bucket\_name) | Name of the cos bucket where billing reports are written to |
+| <a name="output_bucket_account_cloudability_custom_role_display_name"></a> [bucket\_account\_cloudability\_custom\_role\_display\_name](#output\_bucket\_account\_cloudability\_custom\_role\_display\_name) | Display name of the custom role that grants cloudability access to read the billing reports from the Object Storage bucket |
+| <a name="output_bucket_cbr_rules"></a> [bucket\_cbr\_rules](#output\_bucket\_cbr\_rules) | Object Storage bucket rules |
+| <a name="output_bucket_crn"></a> [bucket\_crn](#output\_bucket\_crn) | CRN of the Object Storage bucket where billing reports are written to |
+| <a name="output_bucket_id"></a> [bucket\_id](#output\_bucket\_id) | ID of the Object Storage bucket where billing reports are written to |
+| <a name="output_bucket_name"></a> [bucket\_name](#output\_bucket\_name) | Name of the Object Storage bucket where billing reports are written to |
 | <a name="output_bucket_storage_class"></a> [bucket\_storage\_class](#output\_bucket\_storage\_class) | Storage class of the Object Storage bucket where billing reports are written to |
 | <a name="output_cbr_rule_ids"></a> [cbr\_rule\_ids](#output\_cbr\_rule\_ids) | List of all rule ids |
 | <a name="output_cos_instance_guid"></a> [cos\_instance\_guid](#output\_cos\_instance\_guid) | The GUID of the cloud object storage instance where the buckets are created |
@@ -193,7 +193,7 @@ statement instead the previous block.
 | <a name="output_keys"></a> [keys](#output\_keys) | IDs of new Keys created by the module |
 | <a name="output_kms_key_crn"></a> [kms\_key\_crn](#output\_kms\_key\_crn) | The CRN of the KMS key used to encrypt the object storage bucket |
 | <a name="output_resource_group_id"></a> [resource\_group\_id](#output\_resource\_group\_id) | ID of the resource group where all resources are deployed into |
-| <a name="output_s3_endpoint_public"></a> [s3\_endpoint\_public](#output\_s3\_endpoint\_public) | Public endpoint to the cos bucket where billing reports are written to |
+| <a name="output_s3_endpoint_public"></a> [s3\_endpoint\_public](#output\_s3\_endpoint\_public) | Public endpoint to the Object Storage bucket where billing reports are written to |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 
