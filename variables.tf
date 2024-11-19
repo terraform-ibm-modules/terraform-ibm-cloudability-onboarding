@@ -1,7 +1,7 @@
 
 variable "ibmcloud_api_key" {
   type        = string
-  description = "The IBM Cloud API key which will enable billing exports"
+  description = "The IBM Cloud API key corresponding to the cloud account that will be added to Cloudability. For enterprise accounts this should be the primary enterprise account"
   sensitive   = true
 }
 
@@ -14,13 +14,13 @@ variable "cloudability_api_key" {
 
 variable "is_enterprise_account" {
   type        = bool
-  description = "Whether billing exports are enabled for the enterprise account"
+  description = "Whether the account being added to Cloudability is the primary account within an enterprise. The `ibmcloud_api_key` should be created within the primary enterprise account."
   default     = false
 }
 
 variable "enterprise_id" {
   type        = string
-  description = "Id of the enterprise. Can be automatically retrieved if `is_enterprise_account` is true"
+  description = "The ID of the enterprise. If `__NULL__` then it is automatically retrieved if `is_enterprise_account` is `true`. Providing this value reduces the access policies that are required to run the DA."
   default     = null
   validation {
     condition     = var.enterprise_id != null ? can(regex("^[0-9a-f]{32}$", var.enterprise_id)) : true
@@ -36,7 +36,7 @@ variable "enable_billing_exports" {
 
 variable "policy_granularity" {
   type        = string
-  description = "Whether access to the cos bucket is controlled at the bucket (resource), cos instance (serviceInstance), or resource-group (resourceGroup)."
+  description = "Whether access to the Object Storage bucket is controlled at the bucket (resource), cos instance (serviceInstance), or resource-group (resourceGroup)."
   default     = "resource"
   validation {
     condition     = contains(["resource", "serviceInstance", "resourceGroup"], var.policy_granularity)
@@ -50,13 +50,13 @@ variable "policy_granularity" {
 
 variable "use_existing_resource_group" {
   type        = bool
-  description = "Whether the value of `resource_group_name` input should be a new of existing resource_group"
+  description = "Whether `resource_group_name` input represents the name of an existing resource group or a new resource group should be created"
   default     = true
 }
 
 variable "resource_group_name" {
   type        = string
-  description = "The name of an existing resource group to provision resources in to."
+  description = "The name of a new or existing resource group where resources will be created"
   default     = "Default"
 
   validation {
@@ -100,12 +100,6 @@ variable "region" {
 # Key_protect
 ########################################################################################################################
 
-variable "create_key_protect_instance" {
-  type        = bool
-  description = "Key Protect instance name"
-  default     = true
-}
-
 variable "key_protect_instance_name" {
   type        = string
   description = "Key Protect instance name"
@@ -130,7 +124,7 @@ variable "key_ring_name" {
 
 variable "key_name" {
   type        = string
-  description = "Name of the cos bucket encryption key"
+  description = "Name of the Object Storage bucket encryption key"
   default     = null
   validation {
     condition     = var.key_name != null ? can(regex("^[a-zA-Z0-9-_]{2,90}$", var.key_name)) : true
@@ -144,12 +138,6 @@ variable "key_name" {
 # COS instance variables
 ##############################################################################
 
-variable "create_cos_instance" {
-  description = "Set as true to create a new Cloud Object Storage instance."
-  type        = bool
-  default     = true
-}
-
 variable "cos_instance_name" {
   description = "The name to give the cloud object storage instance that will be provisioned by this module. Only required if 'create_cos_instance' is true."
   type        = string
@@ -161,9 +149,9 @@ variable "cos_instance_name" {
 }
 
 variable "cos_plan" {
-  description = "Plan to be used for creating cloud object storage instance. Only used if 'create_cos_instance' it true."
+  description = "Plan to be used for creating cloud object storage instance. Only used if 'create_cos_instance' is true."
   type        = string
-  default     = "standard"
+  default     = "cos-one-rate-plan"
   validation {
     condition     = contains(["standard", "lite", "cos-one-rate-plan"], var.cos_plan)
     error_message = "The specified cos_plan is not a valid selection!"
@@ -182,7 +170,7 @@ variable "existing_cos_instance_id" {
 }
 
 ##############################################################################
-# COS bucket variables
+# Object Storage bucket variables
 ##############################################################################
 
 variable "cross_region_location" {
@@ -198,7 +186,7 @@ variable "cross_region_location" {
 
 variable "bucket_name" {
   type        = string
-  description = "The name to give the newly provisioned COS bucket."
+  description = "The name to give the newly provisioned Object Storage bucket."
   default     = "apptio-cldy-billing-snapshots"
   validation {
     condition     = can(regex("^[a-z][0-9a-z\\.\\-]{1,57}$", var.bucket_name))
@@ -208,13 +196,13 @@ variable "bucket_name" {
 
 variable "add_bucket_name_suffix" {
   type        = bool
-  description = "Add random generated suffix (4 characters long) to the newly provisioned COS bucket name (Optional)."
+  description = "Add random generated suffix (4 characters long) to the newly provisioned Object Storage bucket name (Optional)."
   default     = true
 }
 
 variable "bucket_storage_class" {
   type        = string
-  description = "the storage class of the newly provisioned COS bucket. Supported values are 'standard', 'vault', 'cold', 'smart' and `onerate_active`."
+  description = "The storage class of the newly provisioned Object Storage bucket. Supported values are 'standard', 'vault', 'cold', 'smart' and `onerate_active`."
   default     = "standard"
 
   validation {
@@ -264,7 +252,7 @@ variable "archive_type" {
 variable "expire_days" {
   description = "Specifies the number of days when the expire rule action takes effect."
   type        = number
-  default     = null
+  default     = 3
 }
 
 variable "activity_tracker_read_data_events" {
@@ -275,7 +263,7 @@ variable "activity_tracker_read_data_events" {
 
 variable "activity_tracker_write_data_events" {
   type        = bool
-  description = "If set to true, all Object Storage bucket write events (i.e. uploads) will be sent to Activity Tracker."
+  description = "If set to true, all Object Storage bucket read events (i.e. downloads) will be sent to Activity Tracker."
   default     = true
 }
 
@@ -308,7 +296,7 @@ variable "usage_metrics_enabled" {
 }
 
 ##############################################################################
-# COS bucket encryption variables
+# Object Storage bucket encryption variables
 ##############################################################################
 
 variable "existing_kms_instance_guid" {
@@ -396,25 +384,25 @@ variable "skip_cloudability_billing_policy" {
 
 variable "cloudability_custom_role_name" {
   type        = string
-  description = "name of the custom role created access granted to cloudability service id to read from the billing reports cos bucket"
+  description = "Name of the custom role which grants access to the Cloudability service id to read the billing reports from the object storage bucket"
   default     = "CloudabilityStorageCustomRole"
 }
 
 variable "cloudability_enterprise_custom_role_name" {
   type        = string
-  description = "name of the custom role to granting access to a cloudability service id to read the enterprise information. Only used of var.is_enterprise_account is set."
+  description = "Name of the custom role which grants access to the Cloudability service ID to read the enterprise information. Only used if `is_enterprise_account` is `true`."
   default     = "CloudabilityListAccCustomRole"
 }
 
 variable "cos_folder" {
   type        = string
-  description = "Folder in the COS bucket to store the account data"
+  description = "Folder in the Object Storage bucket to store the account data"
   default     = "IBMCloud-Billing-Reports"
 }
 
 variable "skip_verification" {
   type        = bool
-  description = "whether to verify the account after adding the account to cloudability. Requires cloudability_auth_header to be set."
+  description = "Whether to verify the account after adding the account to cloudability. Requires cloudability_auth_header to be set."
   default     = false
 }
 

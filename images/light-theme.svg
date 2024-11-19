@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Build_icon_here" data-name="Build icon here" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        mask: url(#mask);
+      }
+
+      .cls-3 {
+        fill: #001d6c;
+      }
+
+      .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-5 {
+        fill: url(#linear-gradient-3);
+      }
+
+      .cls-6 {
+        fill: url(#linear-gradient-2);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="1659.13" y1="-4916.12" x2="1667.67" y2="-4906.59" gradientTransform="translate(-1649.84 4932.48)" gradientUnits="userSpaceOnUse">
+      <stop offset=".33" stop-color="#000"/>
+      <stop offset=".68" stop-color="#000" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="-4758.5" y1="-1729.5" x2="-4753.5" y2="-1729.5" gradientTransform="translate(1746.5 -4743.5) rotate(-90)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000"/>
+      <stop offset=".8" stop-color="#000" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="mask" x="2" y="8" width="24" height="17.98" maskUnits="userSpaceOnUse">
+      <g>
+        <path class="cls-4" d="M15.16,18.18l1.19,1.62-3.7,2.21-.04,.02-1.33,.78-1.77,1.05c-.16,.09-.33,.14-.51,.14s-.35-.05-.51-.14l-6-3.55c-.3-.18-.49-.51-.49-.86v-6.9c0-.35,.19-.68,.49-.86l6-3.55c.16-.09,.33-.14,.51-.14s.35,.05,.51,.14l1.77,1.05,1.33,.78,.04,.02,1.71,1.02-1.02,1.72-1.71-1.02-.04-.02-1.31-.77-1.28-.76-5,2.96v5.76l5,2.96,1.28-.76,1.31-.77,.04-.02,3.53-2.11Z"/>
+        <rect class="cls-1" x="8.5" y="15.5" width="9" height="10" transform="translate(35.83 12.25) rotate(102.51)"/>
+        <rect x="11" y="14" width="6" height="1"/>
+        <rect x="11" y="13" width="6" height="1"/>
+        <rect x="13.45" y="11.26" width="2.95" height="2.46" transform="translate(-3.36 19.17) rotate(-60)"/>
+        <path class="cls-4" d="M25,15h-4.11c1.3-1.27,2.11-3.04,2.11-5v-2s-2,0-2,0v2c0,2.76-2.24,5-5,5h-7s0,2,0,2h7c2.76,0,5,2.24,5,5v2s2,0,2,0v-2c0-1.96-.81-3.73-2.11-5h4.11s0-2,0-2Z"/>
+        <polygon class="cls-6" points="26 10 26 15 8 15 8 14 17 14 17 10 26 10"/>
+        <rect x="11" y="14" width="6" height="1"/>
+      </g>
+    </mask>
+    <linearGradient id="linear-gradient-3" x1="-1358" y1="32" x2="-1390" y2="0" gradientTransform="translate(1390 32) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset=".1" stop-color="#08bbb8"/>
+      <stop offset=".9" stop-color="#0f62fc"/>
+    </linearGradient>
+  </defs>
+  <g class="cls-2">
+    <rect class="cls-5" width="32" height="32" transform="translate(32 32) rotate(180)"/>
+  </g>
+  <circle class="cls-3" cx="29" cy="16" r="2"/>
+  <circle class="cls-3" cx="22" cy="4" r="2"/>
+  <circle class="cls-3" cx="22" cy="28" r="2"/>
+</svg>

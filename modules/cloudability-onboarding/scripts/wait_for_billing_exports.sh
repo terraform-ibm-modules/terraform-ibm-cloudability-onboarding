@@ -22,7 +22,7 @@ for ((i = 1; i <= number_of_tries; i++)); do
   # Count is used to verify that a file exists in the bucket. It is parsed into a number
   # shellcheck disable=SC2034
   count=$(($(ibmcloud cos objects --bucket "$bucket_name" --prefix "$bucket_prefix" --region "$region" --json | jq -r  ".Contents? | length")+0))
-  echo "Waiting for billing reports to exist in cos bucket '$bucket_name'... ($${i}/$${number_of_tries})"
+  echo "Waiting for billing reports to exist in Object Storage bucket '$bucket_name'... ($${i}/$${number_of_tries})"
   # shellcheck disable=SC2071
   # shellcheck disable=SC2050
   if [[ count > 0 ]]; then
