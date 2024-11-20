@@ -47,7 +47,7 @@ https://terraform-ibm-modules.github.io/documentation/#/implementation-guideline
 -->
 ## Reference architectures
 
-![cloudability-all-inclusive-onboarding](./reference-architecture/cloudability-all-inclusive-onboarding.svg)
+![cloudability-all-inclusive-onboarding](./reference-architectures/cloudability-all-inclusive-onboarding.svg)
 
 <!-- This heading should always match the name of the root level module (aka the repo name) -->
 ## terraform-ibm-cloudability-onboarding

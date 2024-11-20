@@ -99,7 +99,7 @@
 								"diagram": {
 									"caption": "All inclusive Cloudability Onboarding",
 									"type": "image/svg+xml",
-									"url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-cloudability-onboarding/refs/heads/main/reference-architecture/cloudability-all-inclusive-onboarding.svg"
+									"url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-cloudability-onboarding/refs/heads/main/reference-architectures/cloudability-all-inclusive-onboarding.svg"
 								},
 								"description": "Billing reports are written to a Key Protect encrypted object storage bucket. IBM Cloudability is granted access to read from this bucket. Your IBM Cloud account is added to Cloudability so that it knows how to read the data from the object storage bucket."
 							}
