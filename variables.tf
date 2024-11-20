@@ -234,7 +234,7 @@ variable "object_versioning_enabled" {
 }
 
 variable "archive_days" {
-  description = "Specifies the number of days when the archive rule action takes effect. This must be set to null when when using var.cross_region_location as archive data is not supported with this feature."
+  description = "Specifies the number of days when the archive rule action takes effect. A value of `null` disables archiving. A value of `0` immediately archives uploaded objects to the bucket."
   type        = number
   default     = null
 }

@@ -372,23 +372,23 @@
 							"key": "archive_days",
 							"type": "number",
 							"default_value": "__NULL__",
-							"description": "Specifies the number of days when the archive rule action takes effect.",
+							"description": "Specifies the number of days when the archive rule action takes effect. A value of `__NULL__` disables archiving. A value of `0` immediately archives uploaded objects to the bucket.",
 							"required": false
 						},
 						{
 							"key": "archive_type",
 							"type": "string",
-							"default_value": "GLACIER",
+							"default_value": "Glacier",
 							"description": "Specifies the storage class or archive type to which you want the object to transition.",
 							"required": false,
 							"options": [
 								{
-									"displayname": "Glacier",
-									"value": "GLACIER"
+									"displayname": "Archive (restore in < 12 hours)",
+									"value": "Glacier"
 								},
 								{
-									"displayname": "Accelerated",
-									"value": "ACCELERATED"
+									"displayname": "Accelerated Archive (restore in < 2 hours)",
+									"value": "Accelerated"
 								}
 							]
 						},
