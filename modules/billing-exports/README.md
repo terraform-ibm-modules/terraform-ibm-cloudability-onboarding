@@ -90,9 +90,9 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_billing_account_id"></a> [billing\_account\_id](#input\_billing\_account\_id) | Account id which billing exports are enabled in. Defaults to the account id of the api key | `string` | `null` | no |
-| <a name="input_cos_bucket_crn"></a> [cos\_bucket\_crn](#input\_cos\_bucket\_crn) | CRN of the COS bucket | `string` | n/a | yes |
-| <a name="input_cos_bucket_location"></a> [cos\_bucket\_location](#input\_cos\_bucket\_location) | location of the cos bucket | `string` | n/a | yes |
-| <a name="input_cos_folder"></a> [cos\_folder](#input\_cos\_folder) | Folder in the COS bucket to store the account data | `string` | `"IBMCloud-Billing-Reports"` | no |
+| <a name="input_cos_bucket_crn"></a> [cos\_bucket\_crn](#input\_cos\_bucket\_crn) | CRN of the Object Storage bucket | `string` | n/a | yes |
+| <a name="input_cos_bucket_location"></a> [cos\_bucket\_location](#input\_cos\_bucket\_location) | location of the Object Storage bucket | `string` | n/a | yes |
+| <a name="input_cos_folder"></a> [cos\_folder](#input\_cos\_folder) | Folder in the Object Storage bucket to store the account data | `string` | `"IBMCloud-Billing-Reports"` | no |
 | <a name="input_interval"></a> [interval](#input\_interval) | Billing granularity | `string` | `"daily"` | no |
 | <a name="input_report_types"></a> [report\_types](#input\_report\_types) | billing report types | `list(string)` | `null` | no |
 | <a name="input_resource_group_id"></a> [resource\_group\_id](#input\_resource\_group\_id) | resource\_group\_id for the polcicy creation of the service to service authorization | `string` | `null` | no |

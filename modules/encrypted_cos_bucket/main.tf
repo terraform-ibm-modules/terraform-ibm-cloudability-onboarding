@@ -15,7 +15,7 @@ locals {
   kms_key_crn                    = local.key_management_enabled ? module.key_protect_all_inclusive[0].keys[local.key_id].crn : null
 }
 
-# create the key protect instance to encrypt the cos bucket
+# create the key protect instance to encrypt the Object Storage bucket
 module "key_protect_all_inclusive" {
   providers = {
     ibm = ibm
@@ -43,7 +43,7 @@ module "key_protect_all_inclusive" {
 ##############################################################################
 
 # Create COS instance and Key Protect instance.
-# Create COS bucket-1 with:
+# Create Object Storage bucket-1 with:
 # - Encryption
 # - Monitoring
 # - Activity Tracking

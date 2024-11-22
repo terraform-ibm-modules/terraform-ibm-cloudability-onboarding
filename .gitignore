@@ -66,6 +66,10 @@ terraform.rc
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
+# Draw.io files
+*.drawio.bkp
+*.drawio.dtmp
+
 # Dependency directories (remove the comment below to include it)
 # vendor/
 

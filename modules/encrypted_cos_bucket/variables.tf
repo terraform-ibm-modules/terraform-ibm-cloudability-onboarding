@@ -40,7 +40,7 @@ variable "key_ring_name" {
 
 variable "key_name" {
   type        = string
-  description = "Name of the cos bucket encryption key"
+  description = "Name of the Object Storage bucket encryption key"
   default     = null
 }
 
@@ -102,7 +102,7 @@ variable "existing_cos_instance_id" {
 }
 
 ##############################################################################
-# COS bucket variables
+# Object Storage bucket variables
 ##############################################################################
 
 variable "cross_region_location" {
@@ -118,19 +118,19 @@ variable "cross_region_location" {
 
 variable "bucket_name" {
   type        = string
-  description = "The name to give the newly provisioned COS bucket."
+  description = "The name to give the newly provisioned Object Storage bucket."
   default     = "snapshots"
 }
 
 variable "add_bucket_name_suffix" {
   type        = bool
-  description = "Add random generated suffix (4 characters long) to the newly provisioned COS bucket name (Optional)."
+  description = "Add random generated suffix (4 characters long) to the newly provisioned Object Storage bucket name (Optional)."
   default     = false
 }
 
 variable "bucket_storage_class" {
   type        = string
-  description = "the storage class of the newly provisioned COS bucket. Supported values are 'standard', 'vault', 'cold', 'smart' and `onerate_active`."
+  description = "the storage class of the newly provisioned Object Storage bucket. Supported values are 'standard', 'vault', 'cold', 'smart' and `onerate_active`."
   default     = "standard"
 
   validation {
@@ -150,13 +150,13 @@ variable "management_endpoint_type_for_bucket" {
 }
 
 variable "retention_enabled" {
-  description = "Retention enabled for COS bucket."
+  description = "Retention enabled for Object Storage bucket."
   type        = bool
   default     = false
 }
 
 variable "retention_default" {
-  description = "Specifies default duration of time an object that can be kept unmodified for COS bucket."
+  description = "Specifies default duration of time an object that can be kept unmodified for Object Storage bucket."
   type        = number
   default     = 90
   validation {
@@ -166,7 +166,7 @@ variable "retention_default" {
 }
 
 variable "retention_maximum" {
-  description = "Specifies maximum duration of time an object that can be kept unmodified for COS bucket."
+  description = "Specifies maximum duration of time an object that can be kept unmodified for Object Storage bucket."
   type        = number
   default     = 350
   validation {
@@ -176,7 +176,7 @@ variable "retention_maximum" {
 }
 
 variable "retention_minimum" {
-  description = "Specifies minimum duration of time an object must be kept unmodified for COS bucket."
+  description = "Specifies minimum duration of time an object must be kept unmodified for Object Storage bucket."
   type        = number
   default     = 90
   validation {
@@ -186,7 +186,7 @@ variable "retention_minimum" {
 }
 
 variable "retention_permanent" {
-  description = "Specifies a permanent retention status either enable or disable for COS bucket."
+  description = "Specifies a permanent retention status either enable or disable for Object Storage bucket."
   type        = bool
   default     = false
 }
@@ -257,7 +257,7 @@ variable "usage_metrics_enabled" {
 }
 
 ##############################################################################
-# COS bucket encryption variables
+# Object Storage bucket encryption variables
 ##############################################################################
 
 variable "existing_kms_instance_guid" {

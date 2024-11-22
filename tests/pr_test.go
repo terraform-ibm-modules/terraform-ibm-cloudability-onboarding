@@ -51,6 +51,8 @@ func TestRunUpgradeSolution(t *testing.T) {
 		"cloudability_custom_role_name":    "CldyStorageDefaultTest",
 		"skip_cloudability_billing_policy": true,
 		"enable_billing_exports":           false,
+		"cos_plan":                         "standard",
+		"expire_days":                      7,
 	})
 
 	output, err := options.RunTestUpgrade()

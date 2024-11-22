@@ -1,6 +1,6 @@
 variable "bucket_crn" {
   type        = string
-  description = "crn of the cos bucket. Required if policy_granularity is `resource` or `instance`"
+  description = "crn of the Object Storage bucket. Required if policy_granularity is `resource` or `instance`"
   default     = null
 }
 
@@ -12,7 +12,7 @@ variable "resource_group_id" {
 
 variable "policy_granularity" {
   type        = string
-  description = "Whether access to the cos bucket is controlled at the bucket (resource), cos instance (serviceInstance), or resource-group (resourceGroup). Note: `resource_group_id` is required in the case of the `resourceGroup`. `bucket_crn` is required otherwise. "
+  description = "Whether access to the Object Storage bucket is controlled at the bucket (resource), cos instance (serviceInstance), or resource-group (resourceGroup). Note: `resource_group_id` is required in the case of the `resourceGroup`. `bucket_crn` is required otherwise. "
   default     = "resource"
   validation {
     condition     = contains(["resource", "serviceInstance", "resourceGroup"], var.policy_granularity)
@@ -28,6 +28,6 @@ variable "use_existing_iam_custom_role" {
 
 variable "cloudability_custom_role_name" {
   type        = string
-  description = "name of the custom role created access granted to cloudability service id to read from the billing reports cos bucket"
+  description = "Name of the custom role which grants access to the Cloudability service id to read the billing reports from the object storage bucket"
   default     = "CloudabilityStorageCustomRole"
 }

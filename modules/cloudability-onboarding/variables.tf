@@ -18,12 +18,12 @@ variable "cost_report_name" {
 
 variable "cos_bucket_crn" {
   type        = string
-  description = "CRN of the COS bucket"
+  description = "CRN of the Object Storage bucket"
 }
 
 variable "cos_bucket_location" {
   type        = string
-  description = "Location of the cos bucket."
+  description = "Location of the Object Storage bucket."
 }
 
 variable "cos_bucket_prefix" {
