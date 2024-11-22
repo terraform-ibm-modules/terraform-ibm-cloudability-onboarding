@@ -435,7 +435,7 @@
 							"key": "key_name",
 							"type": "string",
 							"default_value": "__NULL__",
-							"description": "Name of the Object Storage bucket encryption key. If `__NULL__` then uses the name of the object storage bucket.",
+							"description": "Name of the Key Protect key for encryption of the Object Storage bucket. If `__NULL__` then uses the name of the object storage bucket.",
 							"required": false
 						},
 						{
