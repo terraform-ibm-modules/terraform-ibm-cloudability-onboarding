@@ -26,7 +26,7 @@ variable "use_existing_iam_custom_role" {
   default     = false
 }
 
-variable "cloudability_custom_role_name" {
+variable "cloudability_iam_custom_role_name" {
   type        = string
   description = "Name of the custom role which grants access to the Cloudability service id to read the billing reports from the object storage bucket"
   default     = "CloudabilityStorageCustomRole"
