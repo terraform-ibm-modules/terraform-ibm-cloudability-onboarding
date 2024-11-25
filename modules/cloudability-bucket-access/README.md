@@ -26,7 +26,7 @@ module "cloudability_bucket_access" {
   bucket_crn                    = "crn:v1:bluemix:public:cloud-object-storage:global:a/81ee25188545f05150650a0a4ee015bb:a2deec95-0836-4720-bfc7-ca41c28a8c66:bucket:tf-listbuckettest"
   resource_group_id             = data.ibm_resource_group.group.id
   policy_granularity            = "resource"
-  cloudability_custom_role_name = "CloudabilityStorageCustomRole"
+  cloudability_iam_custom_role_name = "CloudabilityStorageCustomRole"
 }
 ```
 
@@ -88,7 +88,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_bucket_crn"></a> [bucket\_crn](#input\_bucket\_crn) | crn of the Object Storage bucket. Required if policy\_granularity is `resource` or `instance` | `string` | `null` | no |
-| <a name="input_cloudability_custom_role_name"></a> [cloudability\_custom\_role\_name](#input\_cloudability\_custom\_role\_name) | Name of the custom role which grants access to the Cloudability service id to read the billing reports from the object storage bucket | `string` | `"CloudabilityStorageCustomRole"` | no |
+| <a name="input_cloudability_iam_custom_role_name"></a> [cloudability\_iam\_custom\_role\_name](#input\_cloudability\_iam\_custom\_role\_name) | Name of the custom role which grants access to the Cloudability service id to read the billing reports from the object storage bucket | `string` | `"CloudabilityStorageCustomRole"` | no |
 | <a name="input_policy_granularity"></a> [policy\_granularity](#input\_policy\_granularity) | Whether access to the Object Storage bucket is controlled at the bucket (resource), cos instance (serviceInstance), or resource-group (resourceGroup). Note: `resource_group_id` is required in the case of the `resourceGroup`. `bucket_crn` is required otherwise. | `string` | `"resource"` | no |
 | <a name="input_resource_group_id"></a> [resource\_group\_id](#input\_resource\_group\_id) | The resource group that the cos buckets are deployed in. Required if `policy_granularity` is "resource-group". Not used otherwise. | `string` | `null` | no |
 | <a name="input_use_existing_iam_custom_role"></a> [use\_existing\_iam\_custom\_role](#input\_use\_existing\_iam\_custom\_role) | Whether the iam\_custom\_roles should be created or if they already exist and the they should be linked with a datasource | `bool` | `false` | no |

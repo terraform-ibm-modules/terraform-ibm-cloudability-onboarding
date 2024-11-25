@@ -17,8 +17,8 @@ locals {
 # Define a custom IAM role for Cloud Storage with specific actions.
 resource "ibm_iam_custom_role" "cos_custom_role" {
   count        = var.use_existing_iam_custom_role ? 0 : 1
-  name         = var.cloudability_custom_role_name
-  display_name = var.cloudability_custom_role_name
+  name         = var.cloudability_iam_custom_role_name
+  display_name = var.cloudability_iam_custom_role_name
   description  = "This is a custom role to read Cloud Storage"
   service      = "cloud-object-storage"
   actions = [
@@ -38,9 +38,9 @@ data "ibm_iam_roles" "cos_custom_role" {
 }
 
 locals {
-  custom_role = var.use_existing_iam_custom_role ? one([for role in data.ibm_iam_roles.cos_custom_role[0].roles : role.name if role.name == var.cloudability_custom_role_name]) : ibm_iam_custom_role.cos_custom_role[0].display_name
+  custom_role = var.use_existing_iam_custom_role ? one([for role in data.ibm_iam_roles.cos_custom_role[0].roles : role.name if role.name == var.cloudability_iam_custom_role_name]) : ibm_iam_custom_role.cos_custom_role[0].display_name
   # tflint-ignore: terraform_unused_declarations
-  validate_custom_role = local.custom_role == null ? (var.use_existing_iam_custom_role ? tobool("Custom role `${var.cloudability_custom_role_name}` not found in a account. Found ${join(",", [for role in data.ibm_iam_roles.cos_custom_role[0].roles : role.name])}") : tobool("Custom role name is not defined")) : null
+  validate_custom_role = local.custom_role == null ? (var.use_existing_iam_custom_role ? tobool("Custom role `${var.cloudability_iam_custom_role_name}` not found in an account. Found ${join(",", [for role in data.ibm_iam_roles.cos_custom_role[0].roles : role.name])}") : tobool("Custom role name is not defined")) : null
 }
 
 resource "ibm_iam_service_policy" "cos_bucket_policy" {
