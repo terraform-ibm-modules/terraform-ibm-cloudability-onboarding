@@ -15,7 +15,7 @@ variable "skip_cloudability_billing_policy" {
   default     = false
 }
 
-variable "cloudability_custom_role_name" {
+variable "cloudability_iam_custom_role_name" {
   type        = string
   description = "Name of the custom role which grants access to the Cloudability service ID to read the enterprise information. Only used if `is_enterprise_account` is `true`."
   default     = "CloudabilityListAccCustomRole"

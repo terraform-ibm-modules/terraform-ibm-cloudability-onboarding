@@ -51,13 +51,13 @@ variable "policy_granularity" {
 variable "use_existing_resource_group" {
   type        = bool
   description = "Whether `resource_group_name` input represents the name of an existing resource group or a new resource group should be created"
-  default     = true
+  default     = false
 }
 
 variable "resource_group_name" {
   type        = string
   description = "The name of a new or existing resource group where resources will be created"
-  default     = "Default"
+  default     = "cloudability-enablement"
 
   validation {
     condition     = can(regex("^[a-zA-Z0-9-_ ]+$", var.resource_group_name)) && length(var.resource_group_name) < 40
@@ -141,7 +141,7 @@ variable "key_name" {
 variable "cos_instance_name" {
   description = "The name to give the cloud object storage instance that will be provisioned by this module. Only required if 'create_cos_instance' is true."
   type        = string
-  default     = "ibm-cloudability"
+  default     = "billing-report-exports"
   validation {
     condition     = can(regex("^([^[:ascii:]]|[a-zA-Z0-9-._: ]){0,179}$", var.cos_instance_name))
     error_message = "must be a valid resource instance name"
@@ -187,7 +187,7 @@ variable "cross_region_location" {
 variable "bucket_name" {
   type        = string
   description = "The name to give the newly provisioned Object Storage bucket."
-  default     = "apptio-cldy-billing-snapshots"
+  default     = "billing-reports"
   validation {
     condition     = can(regex("^[a-z][0-9a-z\\.\\-]{1,57}$", var.bucket_name))
     error_message = "must be a valid bucket name between 3 and 58 characters long and composed of lowercase letters, numbers, dots (periods) or dashes (hyphens). Bucket names must begin and end with a lowercase letter or number. see https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-compatibility-api-bucket-operations#compatibility-api-new-bucket"
@@ -382,13 +382,13 @@ variable "skip_cloudability_billing_policy" {
   default     = false
 }
 
-variable "cloudability_custom_role_name" {
+variable "cloudability_iam_custom_role_name" {
   type        = string
   description = "Name of the custom role which grants access to the Cloudability service id to read the billing reports from the object storage bucket"
   default     = "CloudabilityStorageCustomRole"
 }
 
-variable "cloudability_enterprise_custom_role_name" {
+variable "cloudability_iam_enterprise_custom_role_name" {
   type        = string
   description = "Name of the custom role which grants access to the Cloudability service ID to read the enterprise information. Only used if `is_enterprise_account` is `true`."
   default     = "CloudabilityListAccCustomRole"
