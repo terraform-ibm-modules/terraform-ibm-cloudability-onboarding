@@ -22,7 +22,7 @@
 			"offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-cloudability-onboarding/refs/heads/main/images/light-theme.svg",
 			"features": [
 				{
-					"title": "Store your latest IBM Cloud billing reports in a Cloud Object Storage",
+					"title": "Store your latest IBM Cloud billing reports in Cloud Object Storage",
 					"description": "Cloudability reads CSV billing reports from an Object Storage bucket for each account in your enterprise. The billing reports are updated on a daily basis."
 				},
 				{
@@ -111,7 +111,7 @@
 									"type": "image/svg+xml",
 									"url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-cloudability-onboarding/refs/heads/main/reference-architectures/cloudability-all-inclusive-onboarding.svg"
 								},
-								"description": "Billing reports are written by IBM Cloud Billing to a Key Protect encrypted object storage bucket. IBM Cloudability is granted access to read the billing reports from this bucket which are updated every day. Your IBM Cloud account is added to Cloudability so that it knows is aware of the the object storage bucket to pull the billing data from. Optionally, monitoring and activity events are sent to IBM Cloud Monitoring and IBM Cloud Logs respectively to be able to audit access to the object storage bucket. For more details visit the [reference architecture documentation](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-cloudability-enablement)"
+								"description": "Billing reports are written by IBM Cloud Billing to a Key Protect encrypted object storage bucket. IBM Cloudability is granted access to read the billing reports from this bucket which are updated every day. Your IBM Cloud account is added to Cloudability so that it is aware of the the object storage bucket to pull the billing data from. Optionally, monitoring and activity events are sent to IBM Cloud Monitoring and IBM Cloud Logs respectively to be able to audit access to the object storage bucket. For more details visit the [reference architecture documentation](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-cloudability-enablement)"
 							}
 						],
 						"features": [
