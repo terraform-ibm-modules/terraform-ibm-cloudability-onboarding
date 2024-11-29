@@ -60,7 +60,7 @@ module "cos_bucket" {
     ibm = ibm
   }
   source                              = "terraform-ibm-modules/cos/ibm"
-  version                             = "8.15.2"
+  version                             = "8.15.3"
   bucket_name                         = var.bucket_name
   add_bucket_name_suffix              = var.add_bucket_name_suffix
   management_endpoint_type_for_bucket = var.management_endpoint_type_for_bucket
