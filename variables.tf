@@ -315,7 +315,6 @@ variable "existing_kms_instance_crn" {
   }
 }
 
-
 variable "key_protect_allowed_network" {
   type        = string
   description = "The type of the allowed network to be set for the Key Protect instance. Possible values are 'private-only', or 'public-and-private'. Only used if 'create_key_protect_instance' is true."
@@ -325,6 +324,63 @@ variable "key_protect_allowed_network" {
     error_message = "The key_protect_allowed_network value must be 'private-only' or 'public-and-private'."
   }
 }
+
+
+##############################################################
+# Context-based restriction (CBR)
+##############################################################
+
+variable "bucket_cbr_rules" {
+  type = list(object({
+    description = string
+    account_id  = string
+    rule_contexts = list(object({
+      attributes = optional(list(object({
+        name  = string
+        value = string
+    }))) }))
+    enforcement_mode = string
+    tags = optional(list(object({
+      name  = string
+      value = string
+    })), [])
+    operations = optional(list(object({
+      api_types = list(object({
+        api_type_id = string
+      }))
+    })))
+  }))
+  description = "(Optional, list) List of CBR rules to create for the bucket"
+  default     = []
+  # Validation happens in the rule module
+}
+
+variable "instance_cbr_rules" {
+  type = list(object({
+    description = string
+    account_id  = string
+    rule_contexts = list(object({
+      attributes = optional(list(object({
+        name  = string
+        value = string
+    }))) }))
+    enforcement_mode = string
+    tags = optional(list(object({
+      name  = string
+      value = string
+    })), [])
+    operations = optional(list(object({
+      api_types = list(object({
+        api_type_id = string
+      }))
+    })))
+  }))
+  description = "(Optional, list) List of CBR rules to create for the instance"
+  default     = []
+  # Validation happens in the rule module
+}
+
+
 
 variable "kms_endpoint_type" {
   type        = string

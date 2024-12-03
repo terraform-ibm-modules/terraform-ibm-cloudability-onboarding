@@ -52,6 +52,19 @@ output "kms_key_crn" {
   value       = module.cos_bucket.kms_key_crn
 }
 
+output "instance_cbr_rules" {
+  description = "COS instance rules"
+  value       = module.cos_bucket.instance_cbr_rules
+}
+
+output "cbr_rule_ids" {
+  description = "List of all rule ids"
+  value       = module.cos_bucket.cbr_rule_ids
+}
+output "bucket_cbr_rules" {
+  description = "Object Storage bucket rules"
+  value       = module.cos_bucket.bucket_cbr_rules
+}
 output "cos_instance_id" {
   description = "The ID of the Cloud Object Storage Instance where the buckets are created"
   value       = module.cos_bucket.cos_instance_id

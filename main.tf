@@ -68,6 +68,8 @@ module "cos_bucket" {
   rotation_enabled                    = var.kms_rotation_enabled
   key_endpoint_type                   = var.kms_endpoint_type
   key_ring_endpoint_type              = var.kms_endpoint_type
+  cos_bucket_cbr_rules                = var.bucket_cbr_rules
+  cos_instance_cbr_rules              = var.instance_cbr_rules
   skip_iam_authorization_policy       = var.skip_iam_authorization_policy
   key_protect_allowed_network         = var.key_protect_allowed_network
 }

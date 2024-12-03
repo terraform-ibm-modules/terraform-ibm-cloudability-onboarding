@@ -113,6 +113,8 @@ module "cos_bucket" {
   existing_kms_instance_guid          = local.existing_kms_instance_guid
   kms_encryption_enabled              = local.key_management_enabled
   kms_key_crn                         = local.kms_key_crn
+  bucket_cbr_rules                    = var.cos_bucket_cbr_rules
+  instance_cbr_rules                  = var.cos_instance_cbr_rules
   expire_days                         = var.expire_days
   retention_default                   = var.retention_default
   retention_maximum                   = var.retention_maximum
