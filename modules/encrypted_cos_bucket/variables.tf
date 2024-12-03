@@ -6,7 +6,7 @@ variable "resource_tags" {
 
 # region needs to provide cross region support.
 variable "region" {
-  description = "Region where resources will be created"
+  description = "Region where resources are created"
   type        = string
   default     = "us-south"
 
@@ -67,13 +67,13 @@ variable "create_cos_instance" {
 }
 
 variable "cos_instance_name" {
-  description = "The name to give the cloud object storage instance that will be provisioned by this module. Only required if 'create_cos_instance' is true."
+  description = "The name to give the Cloud Object Storage instance that will be provisioned by this module. Only required if 'create_cos_instance' is true."
   type        = string
   default     = "billing_snapshots"
 }
 
 variable "cos_plan" {
-  description = "Plan to be used for creating cloud object storage instance. Only used if 'create_cos_instance' it true."
+  description = "Plan to be used for creating Cloud Object Storage instance. Only used if 'create_cos_instance' it true."
   type        = string
   default     = "standard"
   validation {
@@ -96,7 +96,7 @@ variable "access_tags" {
 }
 
 variable "existing_cos_instance_id" {
-  description = "The ID of an existing cloud object storage instance. Required if 'var.create_cos_instance' is false."
+  description = "The ID of an existing Cloud Object Storage instance. Required if 'var.create_cos_instance' is false."
   type        = string
   default     = null
 }
@@ -140,7 +140,7 @@ variable "bucket_storage_class" {
 }
 
 variable "management_endpoint_type_for_bucket" {
-  description = "The type of endpoint for the IBM terraform provider to use to manage the bucket. (public, private or direct)"
+  description = "The type of endpoint for the IBM terraform provider to use to manage the bucket. (public, private, or direct)"
   type        = string
   default     = "public"
   validation {
@@ -221,13 +221,13 @@ variable "expire_days" {
 
 variable "activity_tracker_read_data_events" {
   type        = bool
-  description = "If set to true, all Object Storage bucket read events (i.e. downloads) will be sent to Activity Tracker."
+  description = "If set to true, all Object Storage bucket read events (downloads) will be sent to Activity Tracker."
   default     = true
 }
 
 variable "activity_tracker_write_data_events" {
   type        = bool
-  description = "If set to true, all Object Storage bucket write events (i.e. uploads) will be sent to Activity Tracker."
+  description = "If set to true, all Object Storage bucket write events (uploads) will be sent to Activity Tracker."
   default     = true
 }
 
@@ -239,7 +239,7 @@ variable "activity_tracker_management_events" {
 
 variable "monitoring_crn" {
   type        = string
-  description = "The CRN of an IBM Cloud Monitoring instance to to send Object Storage bucket metrics to. If no value passed, metrics are sent to the instance associated to the container's location unless otherwise specified in the Metrics Router service configuration."
+  description = "The CRN of an IBM Cloud Monitoring instance to send Object Storage bucket metrics to. If no value passed, metrics are sent to the instance associated to the container's location unless otherwise specified in the Metrics Router service configuration."
   default     = null
 }
 
@@ -256,72 +256,56 @@ variable "usage_metrics_enabled" {
   default     = true
 }
 
-##############################################################################
-# Object Storage bucket encryption variables
-##############################################################################
-
-variable "existing_kms_instance_guid" {
-  description = "The GUID of the Key Protect or Hyper Protect instance in which the key specified in var.kms_key_crn is coming from. Required if var.skip_iam_authorization_policy is false in order to create an IAM Access Policy to allow Key Protect or Hyper Protect to access the newly created COS instance."
+variable "existing_kms_instance_crn" {
   type        = string
+  description = "The CRN of an existing Key Protect or Hyper Protect Crypto Services instance. Required if 'create_key_protect_instance' is false."
   default     = null
 }
 
-##############################################################
-# Context-based restriction (CBR)
-##############################################################
-
-variable "bucket_cbr_rules" {
-  type = list(object({
-    description = string
-    account_id  = string
-    rule_contexts = list(object({
-      attributes = optional(list(object({
-        name  = string
-        value = string
-    }))) }))
-    enforcement_mode = string
-    tags = optional(list(object({
-      name  = string
-      value = string
-    })), [])
-    operations = optional(list(object({
-      api_types = list(object({
-        api_type_id = string
-      }))
-    })))
-  }))
-  description = "(Optional, list) List of CBR rules to create for the bucket"
-  default     = []
-  # Validation happens in the rule module
+variable "key_protect_allowed_network" {
+  type        = string
+  description = "The type of the allowed network to be set for the Key Protect instance. Possible values are 'private-only', or 'public-and-private'. Only used if 'create_key_protect_instance' is true."
+  default     = "public-and-private"
+  validation {
+    condition     = can(regex("private-only|public-and-private", var.key_protect_allowed_network))
+    error_message = "The key_protect_allowed_network value must be 'private-only' or 'public-and-private'."
+  }
 }
 
-variable "instance_cbr_rules" {
-  type = list(object({
-    description = string
-    account_id  = string
-    rule_contexts = list(object({
-      attributes = optional(list(object({
-        name  = string
-        value = string
-    }))) }))
-    enforcement_mode = string
-    tags = optional(list(object({
-      name  = string
-      value = string
-    })), [])
-    operations = optional(list(object({
-      api_types = list(object({
-        api_type_id = string
-      }))
-    })))
-  }))
-  description = "(Optional, list) List of CBR rules to create for the instance"
-  default     = []
-  # Validation happens in the rule module
+variable "key_ring_endpoint_type" {
+  type        = string
+  description = "The type of endpoint to be used for creating key rings. Accepts 'public' or 'private'"
+  default     = "public"
+  validation {
+    condition     = can(regex("public|private", var.key_ring_endpoint_type))
+    error_message = "The endpoint_type value must be 'public' or 'private'."
+  }
+}
+
+variable "key_endpoint_type" {
+  type        = string
+  description = "The type of endpoint to be used for creating keys. Accepts 'public' or 'private'"
+  default     = "public"
+  validation {
+    condition     = can(regex("public|private", var.key_endpoint_type))
+    error_message = "The endpoint_type value must be 'public' or 'private'."
+  }
+}
+
+variable "rotation_enabled" {
+  type        = bool
+  description = "If set to true, Key Protect enables a rotation policy on the Key Protect instance. Only used if 'create_key_protect_instance' is true."
+  default     = true
+}
+
+variable "rotation_interval_month" {
+  type        = number
+  description = "Specifies the number of months for the encryption key to be rotated.. Must be between 1 and 12 inclusive. Only used if 'create_key_protect_instance' is true."
+  default     = 1
 }
 
 variable "skip_iam_authorization_policy" {
   type        = bool
-  description = "Set to true to skip the creation of an IAM authorization policy that permits the COS instance created to read the encryption key from the KMS instance in `existing_kms_instance_guid`. WARNING: An authorization policy must exist before an encrypted bucket can be created"
+  description = "Set to true to skip the creation of an IAM authorization policy that permits the COS instance created to read the encryption key from the KMS instance in `existing_kms_instance_crn`. WARNING: An authorization policy must exist before an encrypted bucket can be created"
   default     = false
 }

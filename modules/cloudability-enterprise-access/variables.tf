@@ -5,7 +5,7 @@ variable "enterprise_id" {
 }
 variable "use_existing_iam_custom_role" {
   type        = bool
-  description = "Whether the iam_custom_roles should be created or if they already exist and the they should be linked with a datasource"
+  description = "Whether the iam_custom_roles should be created or if they already exist and they should be linked with a datasource"
   default     = false
 }
 

@@ -81,9 +81,9 @@ The IDs, such as {: #title-id} are required for publishing this reference archit
 the toc attributes on the H1, repeating the values from the YAML header.
  -->
 
-The Cloudability Enablement deployable architecture(DA) is designed to automate the deployment and configuration of adding your {{site.data.keyword.Bluemix_notm}} account or enterprise to an existing {{site.data.keyword.IBM_notm}} Cloudability account. Once enabled, {{site.data.keyword.Bluemix_notm}} billing data is made available to Cloudability allowing the tracking and analysis of {{site.data.keyword.Bluemix_notm}} expenses. Billing data is made available to Cloudability by granting access to a Cloud Object Storage (COS) bucket that contains the billing reports, which are regularly updated by {{site.data.keyword.Bluemix_notm}}.
+The Cloudability Enablement deployable architecture(DA) is designed to automate the deployment and configuration of adding your {{site.data.keyword.Bluemix_notm}} account or enterprise to an existing {{site.data.keyword.IBM_notm}} Cloudability account. Once enabled, {{site.data.keyword.Bluemix_notm}} billing data is made available to Cloudability allowing the tracking and analysis of {{site.data.keyword.Bluemix_notm}} expenses. Billing data is made available to Cloudability by granting access to a Cloud Object Storage (COS) bucket which contains the billing reports, which {{site.data.keyword.Bluemix_notm}} Billing updates daily.
 
-A typical use case is to aggregate billing data from multiple cloud vendors or multiple {{site.data.keyword.Bluemix_notm}} accounts within Cloudability. This aggregation helps create a more complete view of a companies cloud expenses. Additionally, it allows costs to be allocated based on business division, unit, or team using Cloudability business mappings (synthetic resource tagging). This helps drive accountability of cloud costs across your organization.
+A typical use case is to aggregate billing data from multiple cloud vendors or multiple {{site.data.keyword.Bluemix_notm}} accounts within Cloudability. This aggregation helps create a complete view of a companies cloud expenses. Also, it allows costs to be allocated based on business division, unit, or team by using Cloudability business mappings (synthetic resource tagging). This helps drive accountability of cloud costs across your organization.
 
 <!-- :information_source: **Tip:** For more information about this template, see [Creating reference architectures](https://test.cloud.ibm.com/docs/writing?topic=writing-reference-architectures).
 
@@ -96,12 +96,12 @@ After the introduction, include a summary of the typical use case for the archit
 
 ![Architecture diagram for the Cloudability Enablement deployable architecture](cloudability-all-inclusive-onboarding.svg "Architecture diagram for the Cloudability Enablement deployable architecture") {: caption="Figure 1. Cloudability Enablement deployable architecture" caption-side="bottom"}{: external download="cloudability-all-inclusive-onboarding.svg"}
 
-The Cloudability Enablement deployable architecture creates an instance of {{site.data.keyword.cos_full_notm}} in a target {{site.data.keyword.Bluemix_notm}} account, resource group, and region. An IBM Key Protect instance is created in this same resource group and region to provide a [custom encryption key](/docs/key-protect?topic=key-protect-integrate-cos). Then, it configures [billing reports](/docs/account?topic=account-exporting-your-usage&interface=ui#enable-export-usage) to be written to tthe Object Storage bucket. Cloudability is granted access by the DA to read the billing reports within the bucket. Next, the {{site.data.keyword.Bluemix_notm}} account is added to Cloudability so that it is made aware of how to pull the data from Object Storage bucker. Monitoring and activity tracker audit events are enabled by default to help track changes made to the Object Storage bucket.
+The Cloudability Enablement deployable architecture creates an instance of {{site.data.keyword.cos_full_notm}} in a target {{site.data.keyword.Bluemix_notm}} account, resource group, and region. An IBM Key Protect instance is created in this same resource group and region to provide a [custom encryption key](/docs/key-protect?topic=key-protect-integrate-cos). Then, it configures [billing reports](/docs/account?topic=account-exporting-your-usage&interface=ui#enable-export-usage) to be written to the Object Storage bucket. Cloudability is granted access by the DA to read the billing reports within the bucket. Next, the {{site.data.keyword.Bluemix_notm}} account is added to Cloudability so that it is made aware of how to pull the data from Object Storage bucker. Events are sent to Monitoring and Activity Tracker by default to help track changes that are made to the Object Storage bucket.
 
-The `Key Protect` instance must be co-located in the same region as the {{site.data.keyword.cos_full_notm}} instance.
+The key management service instance (`Key Protect` or `Hyper Protect Crypto`) must be colocated in the same region as the {{site.data.keyword.cos_full_notm}} instance.
 {: important}
 
-Billing report exports can only be enabled for a single account.
+An account can enable billing report exports for a single account.
 {: important}
 
 ## Design concepts
@@ -119,24 +119,25 @@ The following table outlines the requirements that are addressed in this archite
 | -------------- | -------------- |
 | Enterprise applications | Setup and grant access to {{site.data.keyword.IBM_notm}} Cloudability to read billing reports for all accounts within an enterprise. |
 | Storage            | Provide storage that meets the application performance and security requirements |
-| Security           | * Protect boundaries against denial of service and application layer attacks.  \n * Encrypt all application data in transit and at rest to protect from unauthorized disclosure.  \n * Encrypt all security data (operational and audit logs) to protect from unauthorized disclosure.  \n * Protect secrets through their entire lifecycle and secure them using access control measures. |
-| Resiliency         | * Support application availability targets and business continuity policies.  \n * Ensure availability of the services in the event of planned and unplanned outages |
+| Security           | * Encrypt all application data in transit and at rest to protect it from unauthorized disclosure. \n * Encrypt all security data (operational and audit logs) to protect from unauthorized disclosure. \n * Protect secrets through their entire lifecycle and secure them using access control measures. \n * Restrict access to data to only allowed members with the minimal required access. |
+| Resiliency         | * Ensure availability of the services in the event of planned and unplanned outages |
 | Service Management | Monitor audit logs to track changes and detect potential security problems. |
 {: caption="Table 1. Requirements" caption-side="bottom"}
 
 ## Components
 {: #components}
 
-The following table outlines the services used in the architecture for each aspect.
+The following table outlines the services that are used in the architecture for each aspect.
 
 | Aspects | Architecture components | How the component is used |
 | -------------- | -------------- | -------------- |
 | Storage | Cloud Object Storage | Stores {{site.data.keyword.Bluemix_notm}} [billing reports](/docs/account?topic=account-exporting-your-usage&interface=ui#storing-usage-data) for an {{site.data.keyword.Bluemix_notm}} account or all accounts within an enterprise |
-| Security | IAM | {{site.data.keyword.iamlong}} authenticates and authorizes Cloudability access to read the billing report objects and, in the case of an enterprise, the list of accounts within an enterprise. |
+| Security | IAM | {{site.data.keyword.iamlong}} authenticates and authorizes Cloudability access to read the billing report objects and in the case of an enterprise, the list of accounts within an enterprise. |
 |  | Key Protect | Key Management Service used to encrypt the object storage bucket with a custom key |
+|  | Context-based restrictions | restricts access to Object Storage bucket and Key Management Service keys to only required members based on IP address |
 | Resiliency | Key Protect | Support the selection of [{{site.data.keyword.keymanagementserviceshort}} failover regions](/docs/key-protect?topic=key-protect-ha-dr#availability) if needed. |
-| Service Management | IBM Cloud Monitoring | Object Storage operational monitoring enabled by default. |
-|  | Activity Tracker Event Routing | Object Storage operational logs enabled by default. |
+| Service Management | IBM Cloud Monitoring | Operational monitoring of your Object Storage bucket is enabled by default. |
+|  | Activity Tracker Event Routing | Object Storage operational logs are enabled by default. |
 {: caption="Table 2. Components" caption-side="bottom"}
 
 <!-- ## Compliance
@@ -147,4 +148,4 @@ _Optional section._ Feedback from users implies that architects want only the hi
 ## Next steps
 {: #next-steps}
 
-If you don't have access to an {{site.data.keyword.IBM_notm}} Cloudability account then you can will need to [create one](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-accessing-cloudability). Once you have access to a Cloudability account, then [configure access to run the deployable architecture](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning), and [deploy the cloud resources](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-deploy-cloud).
+If you don't have access to an {{site.data.keyword.IBM_notm}} Cloudability account, then you need to [create one](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-accessing-cloudability). Once you have access to a Cloudability account, then [configure access to run the deployable architecture](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning), and [deploy the cloud resources](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-deploy-cloud).

@@ -11,6 +11,16 @@ output "s3_endpoint_public" {
   value       = module.cos_bucket.s3_endpoint_public
 }
 
+output "s3_endpoint_private" {
+  description = "Private endpoint to the Object Storage bucket where billing reports are written to"
+  value       = module.cos_bucket.s3_endpoint_private
+}
+
+output "s3_endpoint_direct" {
+  description = "Direct endpoint to the Object Storage bucket where billing reports are written to"
+  value       = module.cos_bucket.s3_endpoint_direct
+}
+
 output "bucket_id" {
   description = "ID of the Object Storage bucket where billing reports are written to"
   value       = module.cos_bucket.bucket_id
@@ -18,7 +28,12 @@ output "bucket_id" {
 
 output "bucket_crn" {
   description = "CRN of the Object Storage bucket where billing reports are written to"
-  value       = module.cos_bucket.bucket_crn
+  value       = local.cos_bucket_crn
+}
+
+output "bucket_region" {
+  description = "CRN of the Object Storage bucket where billing reports are written to"
+  value       = module.cos_bucket.bucket_region
 }
 
 output "bucket_name" {
@@ -31,34 +46,29 @@ output "bucket_storage_class" {
   value       = module.cos_bucket.bucket_storage_class
 }
 
-output "kms_key_crn" {
-  description = "The CRN of the KMS key used to encrypt the object storage bucket"
-  value       = module.cos_bucket.kms_key_crn
-}
-
 output "cos_instance_id" {
-  description = "The ID of the cloud object storage Instance where the buckets are created"
+  description = "The ID of the Cloud Object Storage instance where the billing reports bucket is created"
   value       = module.cos_bucket.cos_instance_id
 }
 
 output "cos_instance_guid" {
-  description = "The GUID of the cloud object storage instance where the buckets are created"
+  description = "The GUID of the Cloud Object Storage instance where the billing reports bucket is created"
   value       = module.cos_bucket.cos_instance_guid
 }
 
-output "bucket_cbr_rules" {
-  description = "Object Storage bucket rules"
-  value       = module.cos_bucket.bucket_cbr_rules
+output "cos_instance_name" {
+  description = "Name of the Cloud Object Storage instance"
+  value       = local.cos_instance_name
 }
 
-output "instance_cbr_rules" {
-  description = "COS instance rules"
-  value       = module.cos_bucket.instance_cbr_rules
+output "cos_bucket_folder" {
+  description = "Folder in the Object Storage bucket to store the account data"
+  value       = var.cos_folder
 }
 
-output "cbr_rule_ids" {
-  description = "List of all rule ids"
-  value       = module.cos_bucket.cbr_rule_ids
+output "kms_key_crn" {
+  description = "The CRN of the KMS key used to encrypt the object storage bucket"
+  value       = module.cos_bucket.kms_key_crn
 }
 
 output "key_protect_guid" {
@@ -66,9 +76,9 @@ output "key_protect_guid" {
   value       = module.cos_bucket.key_protect_guid
 }
 
-output "key_protect_id" {
-  description = "Key Protect service instance ID when an instance is created, otherwise null"
-  value       = module.cos_bucket.key_protect_id
+output "kms_crn" {
+  description = "CRN of the KMS instance when an instance"
+  value       = module.cos_bucket.kms_crn
 }
 
 output "key_protect_name" {
@@ -99,7 +109,6 @@ output "enterprise_id" {
   value       = local.enterprise_id
   description = "id of the enterprise if `is_enterprise_account` is enabled"
 }
-
 
 output "enterprise_cloudability_custom_role_display_name" {
   value       = !var.enable_cloudability_access ? module.cloudability_enterprise_access[0].custom_role_display_name : null

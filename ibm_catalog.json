@@ -13,29 +13,31 @@
 				"Apptio",
 				"Cloudability",
 				"FinOps",
-				"Cloud Spend"
+				"expenses",
+				"chargeback",
+				"costs"
 			],
 			"short_description": "Add your IBM Cloud account or enterprise to IBM Cloudability to start analyzing and tracking all of your cloud expenses.",
-			"long_description": "Easily add your IBM Cloud account(s) to your IBM Cloudability account with this deployable architecture (DA). All of the necessary steps to add your IBM Cloud billing data to an existing IBM Cloudability account are managed for you using infrastructure as code (IaC). This includes the following:\n\n1. Creating a Key Protect encrypted Object Storage bucket to store your billing reports.\n2. Enabling IBM Cloud [billing report exports](/docs/account?topic=account-exporting-your-usage&interface=ui) to receive billing reports updated daily.\n3. Grant IBM Cloudability access to read the reports from the bucket\n4. Add your IBM Cloud account to Cloudability.\n5. Verify that the IBM Cloud integration with Cloudability is successful.\n\nYour IBM Cloud billing data will begin showing up in IBM Cloudability the next day. \nIf you don't have an IBM Cloudability account then start by creating your [free trial](https://www.apptio.com/products/cloudability/#cldy-trial)\n. If you already have access to IBM Cloudability and are ready to add your IBM Cloud account then start by [creating your access credentials](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning) and then [deploying with projects](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-deploy-cloud). \n\nFor more details refer to the [Cloudability Enablement deployment guide](/docs/track-spend-with-cloudability) for more information.",
+			"long_description": "Easily add your IBM Cloud account or enterprise to your IBM Cloudability account with this deployable architecture (DA). All of the necessary steps to add your IBM Cloud billing data to an existing IBM Cloudability account are managed for you using infrastructure as code (IaC). These steps include:\n\n1. Creating a Key Protect encrypted Object Storage bucket to store your billing reports.\n2. Enabling IBM Cloud [billing report exports](/docs/account?topic=account-exporting-your-usage&interface=ui) to receive billing reports updated daily.\n3. Grant IBM Cloudability access to read the reports from the bucket\n4. Add your IBM Cloud account to Cloudability.\n5. Verify that the IBM Cloud integration with Cloudability is successful.\n\nYour IBM Cloud billing data will begin showing up in IBM Cloudability the next day. \nIf you don't have an IBM Cloudability account, then start by creating your [free trial](https://www.apptio.com/products/cloudability/#cldy-trial)\n. If you have access to IBM Cloudability and are ready to add your IBM Cloud account, then start by [creating your access credentials](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning) and then [deploying with projects](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-deploy-cloud). \n\nFor more details, refer to the [Cloudability Enablement deployment guide](/docs/track-spend-with-cloudability) for more information.",
 			"provider_name": "IBM",
 			"offering_docs_url": "https://cloud.ibm.com/docs/track-spend-with-cloudability",
 			"offering_icon_url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-cloudability-onboarding/refs/heads/main/images/light-theme.svg",
 			"features": [
 				{
 					"title": "Store your latest IBM Cloud billing reports in Cloud Object Storage",
-					"description": "Cloudability reads CSV billing reports from an Object Storage bucket for each account in your enterprise. The billing reports are updated on a daily basis."
+					"description": "Cloudability reads CSV billing reports from an Object Storage bucket for each account in your enterprise. The billing reports are updated daily."
 				},
 				{
 					"title": "Secured with Key Protect",
-					"description": "Your Object Storage bucket which contains your accounts billing reports is encrypted with a Key Protect encryption key with automated rotation. See [encrypting a bucket with Key Protect](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-tutorial-kp-encrypt-bucket) for more details."
+					"description": "Your Object Storage bucket containing billing reports is encrypted with a Key Protect encryption key with automated rotation. See [encrypting a bucket with Key Protect](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-tutorial-kp-encrypt-bucket) for more details."
 				},
 				{
 					"title": "Least Privileged Operations to Cloudability",
-					"description": "Custom IAM access roles are created so that Cloudability only has the minimal required access that it needs to integrate with your IBM Cloud Account."
+					"description": "Custom IAM access roles are used so that Cloudability is granted the minimal required access to integrate with your IBM Cloud Account."
 				},
 				{
 					"title": "Track cloud expense for your entire enterprise",
-					"description": "Deploying in your main Enterprise account will automatically add any existing and future accounts in your enterprise to IBM Cloudability. This allows your organization to organize, monitor, and analyze your expenses for all your accounts."
+					"description": "Deploying in your main Enterprise account will automatically add any existing and future accounts in your enterprise to IBM Cloudability. By adding your billing data to Cloudability, your organization can organize, monitor, and analyze your expenses for all your accounts."
 				},
 				{
 					"title": "Integration validation",
@@ -111,13 +113,13 @@
 									"type": "image/svg+xml",
 									"url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-cloudability-onboarding/refs/heads/main/reference-architectures/cloudability-all-inclusive-onboarding.svg"
 								},
-								"description": "Billing reports are written by IBM Cloud Billing to a Key Protect encrypted object storage bucket. IBM Cloudability is granted access to read the billing reports from this bucket which are updated every day. Your IBM Cloud account is added to Cloudability so that it is aware of the the object storage bucket to pull the billing data from. Optionally, monitoring and activity events are sent to IBM Cloud Monitoring and IBM Cloud Logs respectively to be able to audit access to the object storage bucket. For more details visit the [reference architecture documentation](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-cloudability-enablement)"
+								"description": "IBM Cloud Billing writes billing reports to a Key Protect encrypted object storage bucket. IBM Cloudability is granted access to read the billing reports from this bucket which are updated daily. Your IBM Cloud account is added to Cloudability so that it is aware of the object storage bucket to pull the billing data from. Optionally, monitoring and activity events are sent to IBM Cloud Monitoring and IBM Cloud Logs respectively to be able to audit access to the object storage bucket. For more details visit the [reference architecture documentation](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-cloudability-enablement)"
 							}
 						],
 						"features": [
 							{
 								"title": "Easily add your IBM Cloud account",
-								"description": "Performs all of the steps you need to add your IBM Cloud account to your existing IBM Cloudability accounts."
+								"description": "Use automation to reliably and consistently perform all of steps to add your IBM Cloud account to an existing IBM Cloudability account."
 							},
 							{
 								"title": "Integration validation",
@@ -133,13 +135,13 @@
 						{
 							"key": "ibmcloud_api_key",
 							"type": "password",
-							"description": "The IBM Cloud API key corresponding to the cloud account that is to be added to Cloudability. For enterprise accounts this should be the primary enterprise account.  See [configuring IBM Cloud IAM permissions](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#cloudability-iam-prereqs)",
+							"description": "The IBM Cloud API key corresponding to the cloud account that is to be added to Cloudability. For enterprise accounts, create the api key in the primary enterprise account in order to add all child accounts within your enterprise. See [configuring IBM Cloud IAM permissions](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#cloudability-iam-prereqs)",
 							"required": true
 						},
 						{
 							"key": "cloudability_api_key",
 							"type": "password",
-							"description": "Cloudability API Key used to add the IBM Cloud account to Cloudability. See [how to retrieve your Cloudability API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#api-key) or visit the [cloudability preferences page](https://app.apptio.com/cloudability#/settings/preferences). Setting this value to `__NULL__ `will skip adding the IBM Cloud account to Cloudability allowing the IBM Cloud Account to be added to Cloudability manually.",
+							"description": "Cloudability API Key used to add the IBM Cloud account to Cloudability. See [how to retrieve your Cloudability API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#api-key) or visit the [cloudability preferences page](https://app.apptio.com/cloudability#/settings/preferences). Setting this value to `__NULL__` skips adding the IBM Cloud account to Cloudability allowing the IBM Cloud Account to be added to Cloudability manually.",
 							"default_value": "__NULL__",
 							"required": true
 						},
@@ -147,7 +149,7 @@
 							"key": "cloudability_host",
 							"type": "string",
 							"default_value": "api.cloudability.com",
-							"description": "IBM Cloudability hostname which depends on the region where Cloudability is created. See [Cloudability documentation](https://help.apptio.com/en-us/cloudability/api/v3/getting_started_with_the_cloudability.htm#authentication)",
+							"description": "IBM Cloudability hostname which depends on the region where Cloudability is created. See [Cloudability API documentation](https://help.apptio.com/en-us/cloudability/api/v3/getting%20started%20with%20the%20cloudability.htm)",
 							"required": true,
 							"options": [
 								{
@@ -161,6 +163,10 @@
 								{
 									"displayname": "api-au.cloudability.com",
 									"value": "api-au.cloudability.com"
+								},
+								{
+									"displayname": "api-me.cloudability.com",
+									"value": "api-me.cloudability.com"
 								}
 							]
 						},
@@ -168,7 +174,7 @@
 							"key": "skip_verification",
 							"type": "boolean",
 							"default_value": "false",
-							"description": "Whether to verify the account after the account is added to Cloudability. This step is not strictly necessary for adding the account to Cloudability",
+							"description": "Whether to verify that the IBM Cloud account is successfully integrated with Cloudability. This step is not strictly necessary for adding the account to Cloudability",
 							"required": false
 						},
 						{
@@ -179,15 +185,15 @@
 							"required": true,
 							"options": [
 								{
-									"displayname": "Dallas (us-south) w/ kms failover",
+									"displayname": "Dallas (us-south) with kms failover",
 									"value": "us-south"
 								},
 								{
-									"displayname": "Frankfurt (eu-de) w/ kms failover",
+									"displayname": "Frankfurt (eu-de) with kms failover",
 									"value": "eu-de"
 								},
 								{
-									"displayname": "Tokyo (jp-tok) w/ kms failover",
+									"displayname": "Tokyo (jp-tok) with kms failover",
 									"value": "jp-tok"
 								},
 								{
@@ -224,7 +230,7 @@
 							"key": "is_enterprise_account",
 							"type": "boolean",
 							"default_value": "false",
-							"description": "Whether the account being added to Cloudability is the primary account within an enterprise. The `ibmcloud_api_key` should be created within the primary enterprise account.",
+							"description": "Whether the account corresponding to the `ibmcloud_api_key` is an enterprise account and, if so, is the primary account within the enterprise",
 							"required": true
 						},
 						{
@@ -238,7 +244,7 @@
 							"key": "use_existing_resource_group",
 							"type": "boolean",
 							"default_value": "false",
-							"description": "Whether the `resource_group_name` input represents the name of an existing resource group or a newly created resource group.",
+							"description": "Whether the value of `resource_group_name` input is a new (true) or an existing (false) resource group",
 							"required": true
 						},
 						{
@@ -283,13 +289,13 @@
 							"key": "cos_folder",
 							"type": "string",
 							"default_value": "IBMCloud-Billing-Reports",
-							"description": "Directory for your accounts billing report objects in the the object storage bucket",
+							"description": "Directory for your accounts billing report objects in the object storage bucket",
 							"required": false
 						},
 						{
 							"key": "existing_cos_instance_id",
 							"type": "string",
-							"description": "The ID of an existing cloud object storage instance. If `__NULL__` then a new instance is created.",
+							"description": "The ID of an existing Object Storage instance. If `__NULL__` then a new instance is created.",
 							"default_value": "__NULL__",
 							"required": false
 						},
@@ -297,7 +303,7 @@
 							"key": "cos_instance_name",
 							"type": "string",
 							"default_value": "billing-report-exports",
-							"description": "The name of the newly created cloud object storage instance which contains the billing reports bucket. Only used if `existing_cos_instance_id` is not defined.",
+							"description": "The name of the newly created Cloud Object storage instance which contains the billing reports bucket. Only used if `existing_cos_instance_id` is not defined.",
 							"required": false
 						},
 						{
@@ -311,14 +317,14 @@
 							"key": "add_bucket_name_suffix",
 							"type": "boolean",
 							"default_value": "true",
-							"description": "Add a random generated suffix (4 characters long) to the `bucket_name` to ensure global uniqueness.",
+							"description": "Add a randomly generated suffix (4 characters long) to the `bucket_name` to ensure global uniqueness.",
 							"required": false
 						},
 						{
 							"key": "cos_plan",
 							"type": "string",
 							"default_value": "cos-one-rate-plan",
-							"description": "Plan to be used for creating cloud object storage instance. Only used if `existing_cos_instance_id` is not defined.",
+							"description": "Plan to be used for creating Cloud Object Storage instance. Only used if `existing_cos_instance_id` is not defined.",
 							"required": false,
 							"options": [
 								{
@@ -406,16 +412,37 @@
 							"required": false
 						},
 						{
-							"key": "existing_kms_instance_guid",
+							"key": "management_endpoint_type_for_bucket",
+							"description": "The type of endpoint for the IBM terraform provider to use to manage the bucket. (public, private, or direct)",
+							"type": "boolean",
+							"hidden": true,
+							"default_value": "private",
+							"options": [
+								{
+									"displayname": "public",
+									"value": "public"
+								},
+								{
+									"displayname": "private",
+									"value": "private"
+								},
+								{
+									"displayname": "direct",
+									"value": "direct"
+								}
+							]
+						},
+						{
+							"key": "existing_kms_instance_crn",
 							"type": "string",
-							"description": "The ID of an existing Key Protect or Hyper Protect Crypto Services instance to be used to create the object storage encryption key.",
+							"description": "The CRN of an existing Key Protect or Hyper Protect Crypto Services instance to be used to create the Object Storage encryption key.",
 							"default_value": "__NULL__",
 							"required": false
 						},
 						{
 							"key": "skip_iam_authorization_policy",
 							"type": "boolean",
-							"description": "Whether to skip the creation of an IAM authorization policy that permits the Object Storage instance to read the encryption key from the Key Protect instance. WARNING: An authorization policy must exist before an encrypted bucket can be created.",
+							"description": "Whether to skip the creation of an IAM authorization policy that permits the Object Storage instance to read the encryption key from the Key Protect instance.\n**WARNING**: An authorization policy must exist before an encrypted bucket can be created.",
 							"default_value": "false",
 							"required": false
 						},
@@ -423,63 +450,144 @@
 							"key": "key_protect_instance_name",
 							"type": "string",
 							"default_value": "cloudability-bucket-encryption",
-							"description": "Name of the Key Protect instance that stores the object storage encryption key. Not needed if `existing_kms_instance_guid` is used.",
+							"description": "Name of the Key Protect instance that stores the Object Storage encryption key. Not needed if `existing_kms_instance_crn` is used.",
 							"required": false
 						},
 						{
 							"key": "key_ring_name",
 							"type": "string",
 							"default_value": "bucket-encryption",
-							"description": "Name of the Key Protect key ring to store the object storage encryption key.",
+							"description": "Name of the Key Protect key ring to store the Object Storage encryption key.",
 							"required": false
 						},
 						{
 							"key": "key_name",
 							"type": "string",
 							"default_value": "__NULL__",
-							"description": "Name of the Key Protect key for encryption of the Object Storage bucket. If `__NULL__` then uses the name of the object storage bucket.",
+							"description": "Name of the Key Protect key for encryption of the Object Storage bucket. If `__NULL__` then the name of the Object Storage bucket is used instead.",
 							"required": false
+						},
+						{
+							"key": "kms_rotation_enabled",
+							"type": "boolean",
+							"description": "If set to true, Key Protect enables a rotation policy on the Key Protect instance.",
+							"default_value": "true",
+							"required": false
+						},
+						{
+							"key": "kms_rotation_interval_month",
+							"type": "number",
+							"description": "Specifies the number of months for the encryption key to be rotated.. Must be between 1 and 12 inclusive.",
+							"default_value": 1,
+							"required": false,
+							"options": [
+								{
+									"displayname": "1 month",
+									"value": 1
+								},
+								{
+									"displayname": "2 months",
+									"value": 2
+								},
+								{
+									"displayname": "3 months",
+									"value": 3
+								},
+								{
+									"displayname": "4 months",
+									"value": 4
+								},
+								{
+									"displayname": "5 months",
+									"value": 5
+								},
+								{
+									"displayname": "6 months",
+									"value": 6
+								},
+								{
+									"displayname": "7 months",
+									"value": 7
+								},
+								{
+									"displayname": "8 months",
+									"value": 8
+								},
+								{
+									"displayname": "9 months",
+									"value": 9
+								},
+								{
+									"displayname": "10 months",
+									"value": 10
+								},
+								{
+									"displayname": "11 months",
+									"value": 11
+								},
+								{
+									"displayname": "12 months",
+									"value": 12
+								}
+							]
+						},
+						{
+							"key": "kms_endpoint_type",
+							"description": "The type of endpoint to be used for management of key protect.",
+							"type": "boolean",
+							"hidden": true,
+							"default_value": "private",
+							"options": [
+								{
+									"displayname": "public",
+									"value": "public"
+								},
+								{
+									"displayname": "private",
+									"value": "private"
+								}
+							]
 						},
 						{
 							"key": "activity_tracker_read_data_events",
 							"type": "boolean",
 							"default_value": "true",
-							"description": "If set to `true`, all Object Storage bucket read events (i.e. downloads) will be sent to Activity Tracker.",
+							"description": "If set to `true`, all Object Storage bucket read events (downloads) are sent to Activity Tracker.",
 							"required": false
 						},
 						{
 							"key": "activity_tracker_write_data_events",
 							"type": "boolean",
 							"default_value": "true",
-							"description": "If set to true, all Object Storage bucket write events (i.e. uploads) will be sent to Activity Tracker.",
+							"description": "If set to true, all Object Storage bucket write events (uploads) are sent to Activity Tracker.",
 							"required": false
 						},
 						{
 							"key": "activity_tracker_management_events",
 							"type": "boolean",
 							"default_value": "true",
-							"description": "If set to true, all Object Storage management events will be sent to Activity Tracker.",
+							"description": "If set to true, all Object Storage management events are sent to Activity Tracker.",
 							"required": false
 						},
 						{
 							"key": "monitoring_crn",
 							"type": "string",
 							"default_value": "__NULL__",
-							"description": "The CRN of an IBM Cloud Monitoring instance to to send Object Storage bucket metrics to. If no value passed, metrics are sent to the instance associated to the container's location unless otherwise specified in the Metrics Router service configuration.",
+							"description": "The CRN of an IBM Cloud Monitoring instance to send Object Storage bucket metrics to. If no value is passed, metrics are sent to the instance associated to the container's location unless otherwise specified in the Metrics Router service configuration.",
 							"required": false
 						},
 						{
 							"key": "request_metrics_enabled",
 							"type": "boolean",
 							"default_value": "true",
-							"description": "If set to `true`, all Object Storage bucket request metrics will be sent to the monitoring service.",
+							"description": "If set to `true`, all Object Storage bucket request metrics are sent to the monitoring service.",
 							"required": false
 						},
 						{
 							"key": "usage_metrics_enabled",
 							"type": "boolean",
 							"default_value": "true",
-							"description": "If set to `true`, all Object Storage bucket usage metrics will be sent to the monitoring service.",
+							"description": "If set to `true`, all Object Storage bucket usage metrics are sent to the monitoring service.",
 							"required": false
 						},
 						{
@@ -506,7 +614,7 @@
 							"key": "cloudability_iam_custom_role_name",
 							"type": "string",
 							"default_value": "CloudabilityStorageCustomRole",
-							"description": "Name of the custom role, that is used to grant the Cloudability service ID read access to the billing reports within the Object Storage bucket",
+							"description": "Name of the custom role that is used to grant the Cloudability service ID read access to the billing reports within the Object Storage bucket",
 							"required": false
 						},
 						{
@@ -531,6 +639,14 @@
 						{
 							"key": "s3_endpoint_public",
 							"description": "public endpoint to the Object Storage bucket"
+						},
+						{
+							"key": "s3_endpoint_private",
+							"description": "private endpoint to the Object Storage bucket"
+						},
+						{
+							"key": "s3_endpoint_direct",
+							"description": "direct endpoint to the Object Storage bucket"
 						},
 						{
 							"key": "bucket_id",
@@ -558,15 +674,19 @@
 						},
 						{
 							"key": "cos_instance_guid",
-							"description": "The GUID of the cloud object storage instance where the buckets are created"
+							"description": "The GUID of the Cloud Object Storage instance where the buckets are created"
+						},
+						{
+							"key": "cos_instance_name",
+							"description": "Name of the Object Storage Instance"
 						},
 						{
 							"key": "key_protect_guid",
 							"description": "ID of the Key Protect instance which contains the encryption key for the object storage bucket"
 						},
 						{
-							"key": "key_protect_id",
-							"description": "Key Protect service instance crn when an instance is created"
+							"key": "kms_crn",
+							"description": "Key managed service instance crn"
 						},
 						{
 							"key": "key_protect_name",
@@ -574,7 +694,7 @@
 						},
 						{
 							"key": "enterprise_account_id",
-							"description": "ID of the IBM Cloud account or, in the case of an enterprise, the ID of the primary account in the enterprise."
+							"description": "ID of the IBM Cloud account or in the case of an enterprise, the ID of the primary account in the enterprise."
 						},
 						{
 							"key": "enterprise_id",

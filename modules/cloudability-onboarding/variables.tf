@@ -39,13 +39,13 @@ variable "skip_verification" {
 }
 
 variable "cos_instance_name" {
-  description = "The name to give the cloud object storage instance that will be provisioned by this module. If not specified then the instance name is retrieved from the instance crn from the bucket"
+  description = "The name to give the Cloud Object Storage instance that will be provisioned by this module. If not specified then the instance name is retrieved from the instance crn from the bucket"
   type        = string
   default     = null
 }
 
 variable "cloudability_host" {
-  description = "IBM Cloudability host name as described in https://help.apptio.com/en-us/cloudability/api/v3/getting_started_with_the_cloudability.htm#authentication"
+  description = "IBM Cloudability host name as described in https://help.apptio.com/en-us/cloudability/api/v3/getting%20started%20with%20the%20cloudability.htm"
   type        = string
   default     = "api.cloudability.com"
 }

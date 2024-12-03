@@ -42,6 +42,11 @@ output "bucket_storage_class" {
   value       = module.cos_bucket.bucket_storage_class
 }
 
+output "bucket_region" {
+  description = "Bucket region if you create a regional bucket"
+  value       = module.cos_bucket.bucket_region
+}
+
 output "kms_key_crn" {
   description = "The CRN of the KMS key used to encrypt the Object Storage bucket"
   value       = module.cos_bucket.kms_key_crn
@@ -57,47 +62,33 @@ output "cos_instance_guid" {
   value       = module.cos_bucket.cos_instance_guid
 }
 
-output "bucket_cbr_rules" {
-  description = "Object Storage bucket rules"
-  value       = module.cos_bucket.bucket_cbr_rules
-}
-
-output "instance_cbr_rules" {
-  description = "COS instance rules"
-  value       = module.cos_bucket.instance_cbr_rules
-}
-
-output "cbr_rule_ids" {
-  description = "List of all rule ids"
-  value       = module.cos_bucket.cbr_rule_ids
+output "kms_crn" {
+  description = "CRN of the KMS instance when an instance"
+  value       = local.existing_kms_instance_crn
 }
 
 output "key_protect_guid" {
-  description = "Key Protect GUID"
-  value       = local.key_management_enabled ? module.key_protect_all_inclusive[0].kms_guid : null
+  description = "ID of the Key Protect instance which contains the encryption key for the object storage bucket"
+  value       = local.existing_kms_instance_guid
 }
 
-output "key_protect_id" {
-  description = "Key Protect service instance ID when an instance is created, otherwise null"
-  value       = local.key_management_enabled ? module.key_protect_all_inclusive[0].key_protect_id : null
-}
 
 output "key_protect_name" {
   description = "Key Protect Name"
-  value       = local.key_management_enabled ? module.key_protect_all_inclusive[0].key_protect_name : null
+  value       = module.key_protect_all_inclusive.key_protect_name
 }
 
 output "key_protect_instance_policies" {
   description = "Instance Polices of the Key Protect instance"
-  value       = local.key_management_enabled ? module.key_protect_all_inclusive[0].key_protect_instance_policies : null
+  value       = module.key_protect_all_inclusive.key_protect_instance_policies
 }
 
 output "key_rings" {
   description = "IDs of new Key Rings created by the module"
-  value       = local.key_management_enabled ? module.key_protect_all_inclusive[0].key_rings : null
+  value       = module.key_protect_all_inclusive.key_rings
 }
 
 output "keys" {
   description = "IDs of new Keys created by the module"
-  value       = local.key_management_enabled ? module.key_protect_all_inclusive[0].keys : null
+  value       = module.key_protect_all_inclusive.keys
 }
