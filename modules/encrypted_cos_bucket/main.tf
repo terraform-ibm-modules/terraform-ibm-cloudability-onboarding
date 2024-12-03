@@ -27,8 +27,8 @@ locals {
   key_name                    = var.key_name == null ? var.bucket_name : var.key_name
   key_id                      = "${var.use_existing_key_ring ? "existing-key-ring" : local.key_ring_name}.${local.key_name}"
   existing_kms_instance_parts = var.existing_kms_instance_crn != null ? split(":", var.existing_kms_instance_crn) : []
-  existing_kms_instance_guid  = local.key_management_enabled ? module.key_protect_all_inclusive.kms_guid : local.existing_kms_instance_parts[7]
-  existing_kms_instance_crn   = local.key_management_enabled ? module.key_protect_all_inclusive.key_protect_crn : var.existing_kms_instance_crn
+  existing_kms_instance_guid  = var.create_key_protect_instance ? module.key_protect_all_inclusive.kms_guid : local.existing_kms_instance_parts[7]
+  existing_kms_instance_crn   = var.create_key_protect_instance ? module.key_protect_all_inclusive.key_protect_crn : var.existing_kms_instance_crn
 }
 
 # create the key protect instance to encrypt the Object Storage bucket
