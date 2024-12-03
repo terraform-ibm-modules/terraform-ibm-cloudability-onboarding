@@ -121,6 +121,7 @@ No resources.
 | <a name="input_rotation_interval_month"></a> [rotation\_interval\_month](#input\_rotation\_interval\_month) | Specifies the number of months for the encryption key to be rotated.. Must be between 1 and 12 inclusive. Only used if 'create\_key\_protect\_instance' is true. | `number` | `1` | no |
 | <a name="input_skip_iam_authorization_policy"></a> [skip\_iam\_authorization\_policy](#input\_skip\_iam\_authorization\_policy) | Set to true to skip the creation of an IAM authorization policy that permits the COS instance created to read the encryption key from the KMS instance in `existing_kms_instance_crn`. WARNING: An authorization policy must exist before an encrypted bucket can be created | `bool` | `false` | no |
 | <a name="input_usage_metrics_enabled"></a> [usage\_metrics\_enabled](#input\_usage\_metrics\_enabled) | If set to `true`, all Object Storage bucket usage metrics will be sent to the monitoring service. | `bool` | `true` | no |
+| <a name="input_use_existing_key_ring"></a> [use\_existing\_key\_ring](#input\_use\_existing\_key\_ring) | Whether the `key_ring_name` corresponds to an existing key ring or a new key ring for storing the encryption key | `string` | `false` | no |
 
 ### Outputs
 

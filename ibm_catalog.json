@@ -461,6 +461,13 @@
 							"required": false
 						},
 						{
+							"key": "use_existing_key_ring",
+							"type": "boolean",
+							"description": "Whether the `key_ring_name` corresponds to an existing key ring or a new key ring for storing the encryption key",
+							"default_value": "false",
+							"required": false
+						},
+						{
 							"key": "key_name",
 							"type": "string",
 							"default_value": "__NULL__",

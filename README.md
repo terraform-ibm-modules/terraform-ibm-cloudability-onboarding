@@ -169,6 +169,7 @@ statement instead the previous block.
 | <a name="input_skip_verification"></a> [skip\_verification](#input\_skip\_verification) | Whether to verify the account after adding the account to cloudability. Requires cloudability\_auth\_header to be set. | `bool` | `false` | no |
 | <a name="input_usage_metrics_enabled"></a> [usage\_metrics\_enabled](#input\_usage\_metrics\_enabled) | If set to `true`, all Object Storage bucket usage metrics will be sent to the monitoring service. | `bool` | `true` | no |
 | <a name="input_use_existing_iam_custom_role"></a> [use\_existing\_iam\_custom\_role](#input\_use\_existing\_iam\_custom\_role) | Whether the iam\_custom\_roles should be created or if they already exist and they should be linked with a datasource | `bool` | `false` | no |
+| <a name="input_use_existing_key_ring"></a> [use\_existing\_key\_ring](#input\_use\_existing\_key\_ring) | Whether the `key_ring_name` corresponds to an existing key ring or a new key ring for storing the encryption key | `string` | `false` | no |
 | <a name="input_use_existing_resource_group"></a> [use\_existing\_resource\_group](#input\_use\_existing\_resource\_group) | Whether `resource_group_name` input represents the name of an existing resource group or a new resource group should be created | `bool` | `false` | no |
 
 ### Outputs

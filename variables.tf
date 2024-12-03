@@ -119,7 +119,12 @@ variable "key_ring_name" {
     condition     = can(regex("^[a-zA-Z0-9-]{2,100}$", var.key_ring_name))
     error_message = "Possible values: 2 ≤ length ≤ 100, Value must match regular expression ^[a-zA-Z0-9-]{2,100}$"
   }
+}
 
+variable "use_existing_key_ring" {
+  type        = string
+  description = "Whether the `key_ring_name` corresponds to an existing key ring or a new key ring for storing the encryption key"
+  default     = false
 }
 
 variable "key_name" {

@@ -38,6 +38,12 @@ variable "key_ring_name" {
   default     = "bucket-encryption"
 }
 
+variable "use_existing_key_ring" {
+  type        = string
+  description = "Whether the `key_ring_name` corresponds to an existing key ring or a new key ring for storing the encryption key"
+  default     = false
+}
+
 variable "key_name" {
   type        = string
   description = "Name of the Object Storage bucket encryption key"

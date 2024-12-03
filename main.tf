@@ -62,6 +62,7 @@ module "cos_bucket" {
   monitoring_crn                      = var.monitoring_crn
   request_metrics_enabled             = var.request_metrics_enabled
   usage_metrics_enabled               = var.usage_metrics_enabled
+  use_existing_key_ring               = var.use_existing_key_ring
   existing_kms_instance_crn           = var.existing_kms_instance_crn
   rotation_interval_month             = var.kms_rotation_interval_month
   rotation_enabled                    = var.kms_rotation_enabled

@@ -12,10 +12,10 @@ locals {
   rg_validate_check = regex("^${local.rg_validate_msg}$", (!local.rg_validate_condition ? local.rg_validate_msg : ""))
 
   # variable validation around new instance vs existing
-  instance_validate_condition = var.create_key_protect_instance && var.existing_kms_instance_crn != null
-  instance_validate_msg       = "'create_key_protect_instance' cannot be true when passing a value for 'existing_kms_instance_crn'"
+  key_management_enabled = var.create_key_protect_instance && var.existing_kms_instance_crn != null
+  instance_validate_msg  = "'create_key_protect_instance' cannot be true when passing a value for 'existing_kms_instance_crn'"
   # tflint-ignore: terraform_unused_declarations
-  instance_validate_check = regex("^${local.instance_validate_msg}$", (!local.instance_validate_condition ? local.instance_validate_msg : ""))
+  instance_validate_check = regex("^${local.instance_validate_msg}$", (!local.key_management_enabled ? local.instance_validate_msg : ""))
 
   # variable validation when not creating new instance
   existing_instance_validate_condition = !var.create_key_protect_instance && var.existing_kms_instance_crn == null
@@ -23,15 +23,12 @@ locals {
   # tflint-ignore: terraform_unused_declarations
   existing_instance_validate_check = regex("^${local.existing_instance_validate_msg}$", (!local.existing_instance_validate_condition ? local.existing_instance_validate_msg : ""))
 
-  key_ring_name          = var.key_ring_name
-  key_name               = var.key_name == null ? var.bucket_name : var.key_name
-  key_management_enabled = var.create_key_protect_instance
-  # tflint-ignore: terraform_unused_declarations
-  validate_key_protect_variables = local.key_ring_name != null && local.key_name != null
-  key_id                         = local.key_management_enabled ? "${local.key_ring_name}.${local.key_name}" : null
-  existing_kms_instance_parts    = var.existing_kms_instance_crn != null ? split(":", var.existing_kms_instance_crn) : []
-  existing_kms_instance_guid     = local.key_management_enabled ? module.key_protect_all_inclusive.kms_guid : local.existing_kms_instance_parts[7]
-  existing_kms_instance_crn      = local.key_management_enabled ? module.key_protect_all_inclusive.key_protect_crn : var.existing_kms_instance_crn
+  key_ring_name               = var.key_ring_name
+  key_name                    = var.key_name == null ? var.bucket_name : var.key_name
+  key_id                      = "${var.use_existing_key_ring ? "existing-key-ring" : local.key_ring_name}.${local.key_name}"
+  existing_kms_instance_parts = var.existing_kms_instance_crn != null ? split(":", var.existing_kms_instance_crn) : []
+  existing_kms_instance_guid  = local.key_management_enabled ? module.key_protect_all_inclusive.kms_guid : local.existing_kms_instance_parts[7]
+  existing_kms_instance_crn   = local.key_management_enabled ? module.key_protect_all_inclusive.key_protect_crn : var.existing_kms_instance_crn
 }
 
 # create the key protect instance to encrypt the Object Storage bucket
@@ -53,10 +50,12 @@ module "key_protect_all_inclusive" {
   key_protect_allowed_network = var.key_protect_allowed_network
   region                      = var.region
   keys = [{
-    key_ring_name = local.key_ring_name
+    key_ring_name     = local.key_ring_name
+    existing_key_ring = var.use_existing_key_ring
     keys = [
       {
-        key_name = local.key_name
+        key_name                = local.key_name
+        rotation_interval_month = var.rotation_interval_month
       }
     ]
   }]
@@ -80,6 +79,7 @@ module "key_protect_all_inclusive" {
 
 locals {
   bucket_storage_class = var.cos_plan == "cos-one-rate-plan" ? "onerate_active" : var.bucket_storage_class
+  kms_key_crn          = module.key_protect_all_inclusive.keys[local.key_id].crn
 }
 module "cos_bucket" {
   providers = {
@@ -112,7 +112,7 @@ module "cos_bucket" {
   retention_enabled                   = var.retention_enabled             # disable retention for test environments - enable for stage/prod
   existing_kms_instance_guid          = local.existing_kms_instance_guid
   kms_encryption_enabled              = local.key_management_enabled
-  kms_key_crn                         = module.key_protect_all_inclusive.keys[local.key_id].crn
+  kms_key_crn                         = local.kms_key_crn
   expire_days                         = var.expire_days
   retention_default                   = var.retention_default
   retention_maximum                   = var.retention_maximum
