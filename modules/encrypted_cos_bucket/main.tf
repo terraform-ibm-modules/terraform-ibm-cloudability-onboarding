@@ -66,6 +66,47 @@ module "key_protect_all_inclusive" {
   access_tags   = var.access_tags
 }
 
+locals {
+  default_operations = [{
+    api_types = [{
+      api_type_id = "crn:v1:bluemix:public:context-based-restrictions::::api-type:"
+    }]
+  }]
+}
+
+module "key_protect_key_cbr_rule" {
+  count            = length(var.kms_key_cbr_rules) > 0 ? length(var.kms_key_cbr_rules) : 0
+  source           = "terraform-ibm-modules/cbr/ibm//modules/cbr-rule-module"
+  version          = "1.29.0"
+  rule_description = var.kms_key_cbr_rules[count.index].description
+  enforcement_mode = var.kms_key_cbr_rules[count.index].enforcement_mode
+  rule_contexts    = var.kms_key_cbr_rules[count.index].rule_contexts
+  resources = [{
+    attributes = [
+      {
+        name  = "accountId"
+        value = var.kms_key_cbr_rules[count.index].account_id
+      },
+      {
+        name     = "serviceInstance"
+        value    = local.existing_kms_instance_guid
+        operator = "stringEquals"
+      },
+      {
+        name  = "serviceName"
+        value = "kms"
+      },
+      {
+        name     = "resource"
+        value    = local.key_name
+        operator = "stringEquals"
+      }
+    ],
+    tags = var.kms_key_cbr_rules[count.index].tags
+  }]
+  operations = var.kms_key_cbr_rules[count.index].operations == null ? local.default_operations : var.kms_key_cbr_rules[count.index].operations
+}
+
 ##############################################################################
 # Get Cloud Account ID
 ##############################################################################

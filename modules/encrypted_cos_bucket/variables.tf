@@ -297,7 +297,7 @@ variable "cos_bucket_cbr_rules" {
   # Validation happens in the rule module
 }
 
-variable "cos_instance_cbr_rules" {
+variable "instance_cbr_rules" {
   type = list(object({
     description = string
     account_id  = string
@@ -362,6 +362,31 @@ variable "rotation_interval_month" {
   type        = number
   description = "Specifies the number of months for the encryption key to be rotated.. Must be between 1 and 12 inclusive. Only used if 'create_key_protect_instance' is true."
   default     = 1
+}
+
+variable "kms_key_cbr_rules" {
+  type = list(object({
+    description = string
+    account_id  = string
+    rule_contexts = list(object({
+      attributes = optional(list(object({
+        name  = string
+        value = string
+    }))) }))
+    enforcement_mode = string
+    tags = optional(list(object({
+      name  = string
+      value = string
+    })), [])
+    operations = optional(list(object({
+      api_types = list(object({
+        api_type_id = string
+      }))
+    })))
+  }))
+  description = "(Optional, list) List of CBR rules to create for the instance"
+  default     = []
+  # Validation happens in the rule module
 }
 
 variable "skip_iam_authorization_policy" {

@@ -19,6 +19,7 @@ locals {
   bucket_storage_class        = var.cos_plan == "cos-one-rate-plan" ? "onerate_active" : var.bucket_storage_class
   create_key_protect_instance = var.existing_kms_instance_crn == null
   create_cos_instance         = var.existing_cos_instance_id == null
+  additional_zone_addresses   = [for ip_addresses in var.additional_allowed_cbr_bucket_ip_addresses : length(regexall("^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$", ip_addresses)) > 0 ? { type = "ipAddress", value = ip_addresses } : { type = "ipRange", value = ip_addresses }]
 }
 
 module "resource_group" {
@@ -27,6 +28,191 @@ module "resource_group" {
   # if an existing resource group is not set (null) create a new one using prefix
   resource_group_name          = var.use_existing_resource_group == false ? var.resource_group_name : null
   existing_resource_group_name = var.use_existing_resource_group == true ? var.resource_group_name : null
+}
+
+##############################################################################
+# Create CBR Zone
+##############################################################################
+
+module "cbr_zone_ibmcloud_billing" {
+  source           = "terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module"
+  version          = "1.29.0"
+  name             = var.cbr_billing_zone_name
+  zone_description = "IBM Cloud Billing report exports to object storage. Managed by IBM Cloudability Enablement deployable architecture"
+  account_id       = data.ibm_iam_account_settings.billing_exports_account.account_id
+  addresses = [
+    {
+      type = "serviceRef", # to bind a schematics to the zone
+      ref = {
+        # Allow all schematics instances from all geographies
+        account_id   = data.ibm_iam_account_settings.billing_exports_account.account_id
+        service_name = "billing"
+      }
+    }
+    # {
+    #   type  = "ipRange",
+    #   value = "169.47.98.0-169.47.98.255"
+    #   }, {
+    #   type  = "ipRange",
+    #   value = "169.60.75.0-169.60.75.255"
+    #   },
+    #   {
+    #     type  = "ipRange",
+    #     value = "169.61.58.0-169.61.58.255"
+    #   },
+    #   {
+    #     type  = "ipRange",
+    #     value = "169.62.146.0-169.62.146.255"
+    #   },
+    #   {
+    #     type  = "ipRange",
+    #     value = "169.63.133.0-169.63.133.255"
+    # }
+  ]
+}
+
+module "cbr_zone_cloudability" {
+  source           = "terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module"
+  version          = "1.29.0"
+  name             = var.cbr_cloudability_zone_name
+  zone_description = "IBM Cloudability access to billing reports object storage bucket. Managed by IBM Cloudability Enablement deployable architecture"
+  account_id       = data.ibm_iam_account_settings.billing_exports_account.account_id
+  addresses = [
+    {
+      type = "serviceRef",
+      ref = {
+        # Allow all schematics instances from all geographies
+        account_id   = data.ibm_iam_account_settings.billing_exports_account.account_id
+        service_name = "cloudability"
+      }
+    }
+    #   {
+    #     type  = "ipRange",
+    #     value = "103.195.128.0-103.195.128.255"
+    #   },
+    #   {
+    #     type  = "ipRange",
+    #     value = "103.195.130.0-103.195.130.255"
+    #   }
+  ]
+}
+
+
+module "cbr_zone_additional" {
+  count            = length(local.additional_zone_addresses) > 0 ? 1 : 0
+  source           = "terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module"
+  version          = "1.29.0"
+  name             = var.cbr_additional_zone_name
+  zone_description = "Additional IP Addresses allowed to access the billing reports bucket. Managed by IBM Cloudability Enablement deployable architecture"
+  account_id       = data.ibm_iam_account_settings.billing_exports_account.account_id
+  addresses        = local.additional_zone_addresses
+}
+
+module "cbr_zone_schematics" {
+  source           = "terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module"
+  version          = "1.29.0"
+  name             = var.cbr_schematics_zone_name
+  zone_description = "Schematics access to manage the Object storage bucket through Projects. Managed by IBM Cloudability Enablement deployable architecture"
+  account_id       = data.ibm_iam_account_settings.billing_exports_account.account_id
+  addresses = [{
+    type = "serviceRef", # to bind a schematics to the zone
+    ref = {
+      # Allow all schematics instances from all geographies
+      account_id   = data.ibm_iam_account_settings.billing_exports_account.account_id
+      service_name = "schematics"
+    }
+  }]
+}
+
+module "cbr_zone_cos" {
+  source           = "terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module"
+  version          = "1.29.0"
+  name             = var.cbr_cos_zone_name
+  zone_description = "Cloud Object storage can access the encryption key to manage the Object storage bucket. Managed by IBM Cloudability Enablement deployable architecture"
+  account_id       = data.ibm_iam_account_settings.billing_exports_account.account_id
+  addresses = [{
+    type = "serviceRef", # to bind a schematics to the zone
+    ref = {
+      # Allow cloud-object-storage instances from all geographies
+      account_id       = data.ibm_iam_account_settings.billing_exports_account.account_id
+      service_name     = "cloud-object-storage"
+      service_instance = module.cos_bucket.cos_instance_guid
+    }
+  }]
+}
+
+locals {
+  cos_instance_rule_contexts = [{
+    attributes = [
+      {
+        name  = "endpointType"
+        value = "public"
+      },
+      {
+        name  = "networkZoneId"
+        value = module.cbr_zone_cloudability.zone_id
+      }
+    ]
+    },
+    {
+      attributes = [
+        {
+          name  = "networkZoneId"
+          value = module.cbr_zone_schematics.zone_id
+        }
+      ]
+    },
+    {
+      attributes = [
+        {
+          name  = "networkZoneId"
+          value = module.cbr_zone_ibmcloud_billing.zone_id
+        }
+      ]
+    }
+  ]
+  kms_key_rule_contexts = [{
+    attributes = [
+      {
+        name  = "networkZoneId"
+        value = module.cbr_zone_cos.zone_id
+      }
+    ]
+    },
+    {
+      attributes = [
+        {
+          name  = "endpointType"
+          value = "private"
+        },
+        {
+          name  = "networkZoneId"
+          value = module.cbr_zone_schematics.zone_id
+        }
+      ]
+    }
+  ]
+  additional_rule_contexts            = length(local.additional_zone_addresses) > 0 ? [{ attributes = [{ name = "networkZoneId", value = module.cbr_zone_additional[0].zone_id }] }] : []
+  existing_allowed_cbr_bucket_zone_id = var.existing_allowed_cbr_bucket_zone_id != null ? [{ attributes = [{ name = "networkZoneId", value = var.existing_allowed_cbr_bucket_zone_id }] }] : []
+  all_rule_contexts                   = concat(local.cos_instance_rule_contexts, local.additional_rule_contexts, local.existing_allowed_cbr_bucket_zone_id)
+
+  cos_bucket_cbr_rules = [
+    {
+      description      = "Access to the billing report exports bucket is limited to IBM Cloudability and IBM Cloud Billing. Managed by IBM Cloudability Enablement deployable architecture."
+      enforcement_mode = var.cbr_enforcement_mode
+      account_id       = data.ibm_iam_account_settings.billing_exports_account.account_id
+      rule_contexts    = local.all_rule_contexts
+    }
+  ]
+  all_kms_rule_contexts = concat(local.kms_key_rule_contexts, local.additional_rule_contexts, local.existing_allowed_cbr_bucket_zone_id)
+  kms_key_cbr_rules = [
+    {
+      description      = "Access to the kms encryption key is limited to being accessed by cloud object storage. Managed by IBM Cloudability Enablement deployable architecture."
+      enforcement_mode = var.cbr_enforcement_mode
+      account_id       = data.ibm_iam_account_settings.billing_exports_account.account_id
+      rule_contexts    = local.all_kms_rule_contexts
+    }
+  ]
 }
 
 module "cos_bucket" {
@@ -68,8 +254,8 @@ module "cos_bucket" {
   rotation_enabled                    = var.kms_rotation_enabled
   key_endpoint_type                   = var.kms_endpoint_type
   key_ring_endpoint_type              = var.kms_endpoint_type
-  cos_bucket_cbr_rules                = var.bucket_cbr_rules
-  cos_instance_cbr_rules              = var.instance_cbr_rules
+  cos_bucket_cbr_rules                = local.cos_bucket_cbr_rules
+  kms_key_cbr_rules                   = local.kms_key_cbr_rules
   skip_iam_authorization_policy       = var.skip_iam_authorization_policy
   key_protect_allowed_network         = var.key_protect_allowed_network
 }

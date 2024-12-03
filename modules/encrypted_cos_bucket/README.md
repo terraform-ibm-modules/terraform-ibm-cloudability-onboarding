@@ -73,6 +73,7 @@ statement instead the previous block.
 |------|--------|---------|
 | <a name="module_cos_bucket"></a> [cos\_bucket](#module\_cos\_bucket) | terraform-ibm-modules/cos/ibm | 8.16.4 |
 | <a name="module_key_protect_all_inclusive"></a> [key\_protect\_all\_inclusive](#module\_key\_protect\_all\_inclusive) | terraform-ibm-modules/kms-all-inclusive/ibm | 4.19.1 |
+| <a name="module_key_protect_key_cbr_rule"></a> [key\_protect\_key\_cbr\_rule](#module\_key\_protect\_key\_cbr\_rule) | terraform-ibm-modules/cbr/ibm//modules/cbr-rule-module | 1.29.0 |
 
 ### Resources
 
@@ -107,6 +108,7 @@ No resources.
 | <a name="input_key_protect_instance_name"></a> [key\_protect\_instance\_name](#input\_key\_protect\_instance\_name) | Key Protect instance name | `string` | `null` | no |
 | <a name="input_key_ring_endpoint_type"></a> [key\_ring\_endpoint\_type](#input\_key\_ring\_endpoint\_type) | The type of endpoint to be used for creating key rings. Accepts 'public' or 'private' | `string` | `"public"` | no |
 | <a name="input_key_ring_name"></a> [key\_ring\_name](#input\_key\_ring\_name) | Name of the key ring to group keys | `string` | `"bucket-encryption"` | no |
+| <a name="input_kms_key_cbr_rules"></a> [kms\_key\_cbr\_rules](#input\_kms\_key\_cbr\_rules) | (Optional, list) List of CBR rules to create for the instance | <pre>list(object({<br/>    description = string<br/>    account_id  = string<br/>    rule_contexts = list(object({<br/>      attributes = optional(list(object({<br/>        name  = string<br/>        value = string<br/>    }))) }))<br/>    enforcement_mode = string<br/>    tags = optional(list(object({<br/>      name  = string<br/>      value = string<br/>    })), [])<br/>    operations = optional(list(object({<br/>      api_types = list(object({<br/>        api_type_id = string<br/>      }))<br/>    })))<br/>  }))</pre> | `[]` | no |
 | <a name="input_management_endpoint_type_for_bucket"></a> [management\_endpoint\_type\_for\_bucket](#input\_management\_endpoint\_type\_for\_bucket) | The type of endpoint for the IBM terraform provider to use to manage the bucket. (public, private, or direct) | `string` | `"public"` | no |
 | <a name="input_monitoring_crn"></a> [monitoring\_crn](#input\_monitoring\_crn) | The CRN of an IBM Cloud Monitoring instance to send Object Storage bucket metrics to. If no value passed, metrics are sent to the instance associated to the container's location unless otherwise specified in the Metrics Router service configuration. | `string` | `null` | no |
 | <a name="input_object_versioning_enabled"></a> [object\_versioning\_enabled](#input\_object\_versioning\_enabled) | Enable object versioning to keep multiple versions of an object in a bucket. | `bool` | `false` | no |
@@ -129,13 +131,13 @@ No resources.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_bucket_cbr_rule_ids"></a> [bucket\_cbr\_rule\_ids](#output\_bucket\_cbr\_rule\_ids) | Object Storage bucket rule ids |
 | <a name="output_bucket_cbr_rules"></a> [bucket\_cbr\_rules](#output\_bucket\_cbr\_rules) | Object Storage bucket rules |
 | <a name="output_bucket_crn"></a> [bucket\_crn](#output\_bucket\_crn) | Bucket CRN |
 | <a name="output_bucket_id"></a> [bucket\_id](#output\_bucket\_id) | Bucket id |
 | <a name="output_bucket_name"></a> [bucket\_name](#output\_bucket\_name) | Bucket name |
 | <a name="output_bucket_region"></a> [bucket\_region](#output\_bucket\_region) | Bucket region if you create a regional bucket |
 | <a name="output_bucket_storage_class"></a> [bucket\_storage\_class](#output\_bucket\_storage\_class) | Bucket Storage Class |
-| <a name="output_cbr_rule_ids"></a> [cbr\_rule\_ids](#output\_cbr\_rule\_ids) | List of all rule ids |
 | <a name="output_cos_instance_guid"></a> [cos\_instance\_guid](#output\_cos\_instance\_guid) | The GUID of the Cloud Object Storage Instance where the buckets are created |
 | <a name="output_cos_instance_id"></a> [cos\_instance\_id](#output\_cos\_instance\_id) | The ID of the Cloud Object Storage Instance where the buckets are created |
 | <a name="output_instance_cbr_rules"></a> [instance\_cbr\_rules](#output\_instance\_cbr\_rules) | COS instance rules |

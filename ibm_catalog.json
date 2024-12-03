@@ -32,6 +32,10 @@
 					"description": "Your Object Storage bucket containing billing reports is encrypted with a Key Protect encryption key with automated rotation. See [encrypting a bucket with Key Protect](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-tutorial-kp-encrypt-bucket) for more details."
 				},
 				{
+					"title": "Context-Based Restrictions",
+					"description": "Access to your Object Storage bucket is restricted to IBM Cloud Billing, IBM Cloudability, and Schematics (for provisioning) by using [context-based restrictions](/docs/account?topic=account-context-restrictions-whatis)."
+				},
+				{
 					"title": "Least Privileged Operations to Cloudability",
 					"description": "Custom IAM access roles are used so that Cloudability is granted the minimal required access to integrate with your IBM Cloud Account."
 				},
@@ -79,6 +83,18 @@
 						},
 						{
 							"service_name": "iam-access-management",
+							"role_crns": [
+								"crn:v1:bluemix:public:iam::::role:Administrator"
+							]
+						},
+						{
+							"service_name": "cbr",
+							"role_crns": [
+								"crn:v1:bluemix:public:iam::::role:Viewer"
+							]
+						},
+						{
+							"service_name": "schematics",
 							"role_crns": [
 								"crn:v1:bluemix:public:iam::::role:Administrator"
 							]
@@ -479,9 +495,79 @@
 							]
 						},
 						{
+							"key": "cbr_enforcement_mode",
+							"type": "string",
+							"default_value": "enabled",
+							"description": "The rule enforcement mode: \n* enabled - The restrictions are enforced and reported.\n* disabled - The restrictions are disabled. Nothing is enforced or reported.\n* report - The restrictions are evaluated and reported, but not enforced.",
+							"required": false,
+							"options": [
+								{
+									"displayname": "Enabled (Restrict access to bucket)",
+									"value": "enabled"
+								},
+								{
+									"displayname": "Disabled (No access restrictions or audit logging)",
+									"value": "disabled"
+								},
+								{
+									"displayname": "Report-Only (No access restrictions, but audit logs are still enabled)",
+									"value": "report"
+								}
+							]
+						},
+						{
+							"key": "additional_allowed_cbr_bucket_ip_addresses",
+							"type": "array",
+							"default_value": "[]",
+							"description": "A list of CBR zone address which are permitted to access the bucket. This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket.",
+							"required": false
+						},
+						{
+							"key": "existing_allowed_cbr_bucket_zone_id",
+							"type": "string",
+							"default_value": "[]",
+							"description": "A list of CBR zone address which are permitted to access the bucket. This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket.",
+							"required": false
+						},
+						{
+							"key": "cbr_additional_zone_name",
+							"type": "string",
+							"default_value": "__NULL__",
+							"description": "An extra CBR zone ID which is permitted to access the bucket.  This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket. It can be used as an alternative to `additional_allowed_cbr_bucket_ip_addresses` in the case that a zone exists.",
+							"required": false
+						},
+						{
+							"key": "cbr_billing_zone_name",
+							"type": "string",
+							"default_value": "ibmcloud-billing-reports-bucket-writer",
+							"description": "Name of the cbr zone which represents IBM Cloud billing",
+							"required": false
+						},
+						{
+							"key": "cbr_cloudability_zone_name",
+							"type": "string",
+							"default_value": "cldy-billing-reports-bucket-reader",
+							"description": "Name of the CBR zone which represents IBM Cloudability. See [What are CBRs?](https://cloud.ibm.com/docs/account?topic=account-context-restrictions-whatis)",
+							"required": false
+						},
+						{
+							"key": "cbr_cos_zone_name",
+							"type": "string",
+							"default_value": "cldy-billing-reports-object-storage",
+							"description": "Name of the CBR zone which represents Cloud Object Storage service. See [What are CBRs?](https://cloud.ibm.com/docs/account?topic=account-context-restrictions-whatis)",
+							"required": false
+						},
+						{
+							"key": "cbr_schematics_zone_name",
+							"type": "string",
+							"default_value": "schematics-billing-reports-bucket-management",
+							"description": "Name of the CBR zone which represents Schematics. The schematics zone allows Projects to access and manage the Object Storage bucket.",
+							"required": false
+						},
+						{
 							"key": "existing_kms_instance_crn",
 							"type": "string",
-							"description": "The CRN of an existing Key Protect or Hyper Protect Crypto Services instance to be used to create the Object Storage encryption key.",
+							"description": "The ID of an existing Key Protect or Hyper Protect Crypto Services instance to be used to create the object storage encryption key.",
 							"default_value": "__NULL__",
 							"required": false
 						},
@@ -732,6 +818,14 @@
 						{
 							"key": "cos_instance_name",
 							"description": "Name of the Object Storage Instance"
+						},
+						{
+							"key": "bucket_cbr_rule_ids",
+							"description": "Object Storage bucket rule ids"
+						},
+						{
+							"key": "bucket_cbr_rules",
+							"description": "Object Storage bucket rules"
 						},
 						{
 							"key": "key_protect_guid",
