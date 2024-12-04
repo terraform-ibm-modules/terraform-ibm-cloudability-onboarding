@@ -71,9 +71,7 @@ statement instead the previous block.
 
 ### Modules
 
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_cos_instance"></a> [cos\_instance](#module\_cos\_instance) | ../data-resource-instance-by-id | n/a |
+No modules.
 
 ### Resources
 
@@ -88,11 +86,11 @@ statement instead the previous block.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_cloudability_host"></a> [cloudability\_host](#input\_cloudability\_host) | IBM Cloudability host name as described in https://help.apptio.com/en-us/cloudability/api/v3/getting_started_with_the_cloudability.htm#authentication | `string` | `"api.cloudability.com"` | no |
+| <a name="input_cloudability_host"></a> [cloudability\_host](#input\_cloudability\_host) | IBM Cloudability host name as described in https://help.apptio.com/en-us/cloudability/api/v3/getting%20started%20with%20the%20cloudability.htm | `string` | `"api.cloudability.com"` | no |
 | <a name="input_cos_bucket_crn"></a> [cos\_bucket\_crn](#input\_cos\_bucket\_crn) | CRN of the Object Storage bucket | `string` | n/a | yes |
 | <a name="input_cos_bucket_location"></a> [cos\_bucket\_location](#input\_cos\_bucket\_location) | Location of the Object Storage bucket. | `string` | n/a | yes |
 | <a name="input_cos_bucket_prefix"></a> [cos\_bucket\_prefix](#input\_cos\_bucket\_prefix) | name of the manifest file in the cost report | `string` | `"IBMCloud-Billing-Reports"` | no |
-| <a name="input_cos_instance_name"></a> [cos\_instance\_name](#input\_cos\_instance\_name) | The name to give the cloud object storage instance that will be provisioned by this module. If not specified then the instance name is retrieved from the instance crn from the bucket | `string` | `null` | no |
+| <a name="input_cos_instance_name"></a> [cos\_instance\_name](#input\_cos\_instance\_name) | The name to give the Cloud Object Storage instance that will be provisioned by this module. If not specified then the instance name is retrieved from the instance crn from the bucket | `string` | `null` | no |
 | <a name="input_cost_report_name"></a> [cost\_report\_name](#input\_cost\_report\_name) | name of the manifest file in the cost report | `string` | `"manifest"` | no |
 | <a name="input_enterprise_id"></a> [enterprise\_id](#input\_enterprise\_id) | Guid for the enterprise id | `string` | `""` | no |
 | <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | The IBM Cloud API Key | `string` | n/a | yes |

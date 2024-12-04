@@ -17,7 +17,7 @@ locals {
   enterprise_account_id       = data.ibm_iam_account_settings.billing_exports_account.account_id
   cos_bucket_crn              = module.cos_bucket.bucket_crn
   bucket_storage_class        = var.cos_plan == "cos-one-rate-plan" ? "onerate_active" : var.bucket_storage_class
-  create_key_protect_instance = var.existing_kms_instance_guid == null
+  create_key_protect_instance = var.existing_kms_instance_crn == null
   create_cos_instance         = var.existing_cos_instance_id == null
 }
 
@@ -62,10 +62,16 @@ module "cos_bucket" {
   monitoring_crn                      = var.monitoring_crn
   request_metrics_enabled             = var.request_metrics_enabled
   usage_metrics_enabled               = var.usage_metrics_enabled
-  existing_kms_instance_guid          = var.existing_kms_instance_guid
-  bucket_cbr_rules                    = var.bucket_cbr_rules
-  instance_cbr_rules                  = var.instance_cbr_rules
+  use_existing_key_ring               = var.use_existing_key_ring
+  existing_kms_instance_crn           = var.existing_kms_instance_crn
+  rotation_interval_month             = var.kms_rotation_interval_month
+  rotation_enabled                    = var.kms_rotation_enabled
+  key_endpoint_type                   = var.kms_endpoint_type
+  key_ring_endpoint_type              = var.kms_endpoint_type
+  cos_bucket_cbr_rules                = var.bucket_cbr_rules
+  cos_instance_cbr_rules              = var.instance_cbr_rules
   skip_iam_authorization_policy       = var.skip_iam_authorization_policy
+  key_protect_allowed_network         = var.key_protect_allowed_network
 }
 
 module "cloudability_bucket_access" {
@@ -98,6 +104,16 @@ module "billing_exports" {
   versioning          = var.overwrite_existing_reports ? "overwrite" : "new"
 }
 
+module "cos_instance" {
+  count  = var.cos_instance_name == null ? 1 : 0
+  source = "./modules/data-resource-instance-by-id"
+  guid   = module.cos_bucket.cos_instance_id
+}
+
+locals {
+  cos_instance_name = var.cos_instance_name == null ? module.cos_instance.name : var.cos_instance_name
+}
+
 module "cloudability_onboarding" {
   depends_on = [module.billing_exports, module.cloudability_enterprise_access]
   count      = var.enable_billing_exports && var.cloudability_api_key != null ? 1 : 0
@@ -112,6 +128,6 @@ module "cloudability_onboarding" {
   cos_bucket_crn      = local.cos_bucket_crn
   enterprise_id       = local.enterprise_id
   skip_verification   = var.skip_verification
-  cos_instance_name   = var.cos_instance_name
+  cos_instance_name   = local.cos_instance_name
   cloudability_host   = var.cloudability_host
 }

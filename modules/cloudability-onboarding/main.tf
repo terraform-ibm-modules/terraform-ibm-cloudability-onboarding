@@ -1,17 +1,6 @@
 
 locals {
-  cos_instance_id = split(":", var.cos_bucket_crn)[7]
-  bucket_name     = split(":", var.cos_bucket_crn)[9]
-}
-
-module "cos_instance" {
-  count  = var.cos_instance_name == null ? 1 : 0
-  source = "../data-resource-instance-by-id"
-  guid   = local.cos_instance_id
-}
-
-locals {
-  cos_instance_name = var.cos_instance_name == null ? module.cos_instance.name : var.cos_instance_name
+  bucket_name = split(":", var.cos_bucket_crn)[9]
 }
 
 data "ibm_iam_account_settings" "account" {
@@ -29,7 +18,7 @@ locals {
       costPrefix          = var.cos_bucket_prefix
       bucketRegion        = var.cos_bucket_location
       bucketName          = local.bucket_name
-      storageInstanceName = local.cos_instance_name
+      storageInstanceName = var.cos_instance_name
     }
     type = "ibm_role"
   })
@@ -46,7 +35,6 @@ resource "restapi_object" "cloudability_ibm_account" {
       error_message = "Failed to add account to cloudability."
     }
   }
-
 }
 
 

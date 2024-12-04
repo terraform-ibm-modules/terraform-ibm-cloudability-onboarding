@@ -23,6 +23,7 @@ provider "restapi" {
   debug                 = true
   headers = {
     Content-Type  = "application/json"
+    Accept        = "application/json"
     Authorization = local.cloudability_auth_header
   }
 }

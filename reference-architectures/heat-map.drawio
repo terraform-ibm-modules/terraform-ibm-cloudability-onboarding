@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-11-18T18:35:05.393Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="JvGYFiYXhNANThlkBaYZ" version="21.2.8" type="device">
+<mxfile host="Electron" modified="2024-11-29T16:20:25.151Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="XgCer2xVdaC9mJtuGjVy" version="21.2.8" type="device">
   <diagram id="iQk230hBdAGukSs-h0T6" name="Page-1">
-    <mxGraphModel dx="1242" dy="790" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="979" dy="684" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -19,13 +19,13 @@
         <mxCell id="vvGwZ6liFT7NTi3uzbrW-25" value="Build &amp;amp; test" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#A8A8A8;align=left;spacingLeft=8;fontFamily=IBM Plex Sans;" parent="1" vertex="1">
           <mxGeometry x="160" y="366" width="135" height="42" as="geometry" />
         </mxCell>
-        <mxCell id="vvGwZ6liFT7NTi3uzbrW-26" value="Data security" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#A8A8A8;align=left;spacingLeft=8;fontFamily=IBM Plex Sans;fontStyle=0;fillColor=default;" parent="1" vertex="1">
+        <mxCell id="vvGwZ6liFT7NTi3uzbrW-26" value="Data security" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#0E62FD;align=left;spacingLeft=8;fontFamily=IBM Plex Sans;fontStyle=1;fillColor=#EDF5FF;" parent="1" vertex="1">
           <mxGeometry x="160" y="316" width="135" height="42" as="geometry" />
         </mxCell>
         <mxCell id="vvGwZ6liFT7NTi3uzbrW-27" value="Backup &amp;amp; restore" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#A8A8A8;align=left;spacingLeft=8;fontFamily=IBM Plex Sans;" parent="1" vertex="1">
           <mxGeometry x="160" y="416" width="135" height="42" as="geometry" />
         </mxCell>
-        <mxCell id="vvGwZ6liFT7NTi3uzbrW-28" value="Monitoring" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#A8A8A8;align=left;spacingLeft=8;fontFamily=IBM Plex Sans;" parent="1" vertex="1">
+        <mxCell id="vvGwZ6liFT7NTi3uzbrW-28" value="Monitoring" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#0E62FD;align=left;spacingLeft=8;fontFamily=IBM Plex Sans;fillColor=#EDF5FF;fontStyle=1;" parent="1" vertex="1">
           <mxGeometry x="160" y="466" width="135" height="42" as="geometry" />
         </mxCell>
         <mxCell id="vvGwZ6liFT7NTi3uzbrW-30" value="Edge" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#A8A8A8;align=left;spacingLeft=8;fontFamily=IBM Plex Sans;fillColor=default;fontStyle=0;" parent="1" vertex="1">
@@ -97,7 +97,7 @@
         <mxCell id="vvGwZ6liFT7NTi3uzbrW-53" value="Application security" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#A8A8A8;align=left;spacingLeft=8;fontFamily=IBM Plex Sans;fillColor=default;fontStyle=0;" parent="1" vertex="1">
           <mxGeometry x="446" y="316" width="135" height="42" as="geometry" />
         </mxCell>
-        <mxCell id="vvGwZ6liFT7NTi3uzbrW-54" value="Infrastructure &amp;amp; endpoints" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#A8A8A8;align=left;spacingLeft=8;fontFamily=IBM Plex Sans;fillColor=default;fontStyle=0;" parent="1" vertex="1">
+        <mxCell id="vvGwZ6liFT7NTi3uzbrW-54" value="Infrastructure &amp;amp; endpoints" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#0E62FD;align=left;spacingLeft=8;fontFamily=IBM Plex Sans;fillColor=#EDF5FF;fontStyle=1;" parent="1" vertex="1">
           <mxGeometry x="589" y="316" width="135" height="42" as="geometry" />
         </mxCell>
         <mxCell id="vvGwZ6liFT7NTi3uzbrW-55" value="Threat detection &amp;amp; response" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#A8A8A8;align=left;spacingLeft=8;fontFamily=IBM Plex Sans;fillColor=default;fontStyle=0;" parent="1" vertex="1">
@@ -121,7 +121,7 @@
         <mxCell id="vvGwZ6liFT7NTi3uzbrW-61" value="Logging" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#A8A8A8;align=left;spacingLeft=8;fontFamily=IBM Plex Sans;fillColor=default;fontStyle=0;" parent="1" vertex="1">
           <mxGeometry x="303" y="466" width="135" height="42" as="geometry" />
         </mxCell>
-        <mxCell id="vvGwZ6liFT7NTi3uzbrW-62" value="Auditing/tracking" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#A8A8A8;align=left;spacingLeft=8;fontFamily=IBM Plex Sans;fillColor=default;fontStyle=0;" parent="1" vertex="1">
+        <mxCell id="vvGwZ6liFT7NTi3uzbrW-62" value="Auditing/tracking" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#0E62FD;align=left;spacingLeft=8;fontFamily=IBM Plex Sans;fillColor=#EDF5FF;fontStyle=1;" parent="1" vertex="1">
           <mxGeometry x="446" y="466" width="135" height="42" as="geometry" />
         </mxCell>
         <mxCell id="vvGwZ6liFT7NTi3uzbrW-63" value="Alerting" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#A8A8A8;align=left;spacingLeft=8;fontFamily=IBM Plex Sans;fillColor=default;fontStyle=0;" parent="1" vertex="1">
