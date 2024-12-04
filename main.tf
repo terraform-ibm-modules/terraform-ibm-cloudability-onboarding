@@ -49,25 +49,6 @@ module "cbr_zone_ibmcloud_billing" {
         service_name = "billing"
       }
     }
-    # {
-    #   type  = "ipRange",
-    #   value = "169.47.98.0-169.47.98.255"
-    #   }, {
-    #   type  = "ipRange",
-    #   value = "169.60.75.0-169.60.75.255"
-    #   },
-    #   {
-    #     type  = "ipRange",
-    #     value = "169.61.58.0-169.61.58.255"
-    #   },
-    #   {
-    #     type  = "ipRange",
-    #     value = "169.62.146.0-169.62.146.255"
-    #   },
-    #   {
-    #     type  = "ipRange",
-    #     value = "169.63.133.0-169.63.133.255"
-    # }
   ]
 }
 
@@ -86,14 +67,6 @@ module "cbr_zone_cloudability" {
         service_name = "cloudability"
       }
     }
-    #   {
-    #     type  = "ipRange",
-    #     value = "103.195.128.0-103.195.128.255"
-    #   },
-    #   {
-    #     type  = "ipRange",
-    #     value = "103.195.130.0-103.195.130.255"
-    #   }
   ]
 }
 
