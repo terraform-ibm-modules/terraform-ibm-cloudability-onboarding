@@ -38,6 +38,7 @@ module "key_protect_all_inclusive" {
   providers = {
     ibm = ibm
   }
+  count                       = var.create_key_protect_instance ? 1 : 0
   source                      = "terraform-ibm-modules/kms-all-inclusive/ibm"
   version                     = "4.17.0"
   create_key_protect_instance = var.create_key_protect_instance
