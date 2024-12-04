@@ -29,8 +29,8 @@ locals {
   key_name                    = var.key_name == null ? var.bucket_name : var.key_name
   key_id                      = "${var.use_existing_key_ring ? "existing-key-ring" : local.key_ring_name}.${local.key_name}"
   existing_kms_instance_parts = var.existing_kms_instance_crn != null ? split(":", var.existing_kms_instance_crn) : []
-  existing_kms_instance_guid  = var.create_key_protect_instance ? module.key_protect_all_inclusive.kms_guid : local.existing_kms_instance_parts[7]
-  existing_kms_instance_crn   = var.create_key_protect_instance ? module.key_protect_all_inclusive.key_protect_crn : var.existing_kms_instance_crn
+  existing_kms_instance_guid  = var.create_key_protect_instance ? module.key_protect_all_inclusive[0].kms_guid : local.existing_kms_instance_parts[7]
+  existing_kms_instance_crn   = var.create_key_protect_instance ? module.key_protect_all_inclusive[0].key_protect_crn : var.existing_kms_instance_crn
 }
 
 # create the key protect instance to encrypt the Object Storage bucket
@@ -38,7 +38,7 @@ module "key_protect_all_inclusive" {
   providers = {
     ibm = ibm
   }
-  count                       = var.create_key_protect_instance ? 1 : 0
+  count                       = local.key_management_enabled ? 1 : 0
   source                      = "terraform-ibm-modules/kms-all-inclusive/ibm"
   version                     = "4.17.0"
   create_key_protect_instance = var.create_key_protect_instance
@@ -82,7 +82,7 @@ module "key_protect_all_inclusive" {
 
 locals {
   bucket_storage_class = var.cos_plan == "cos-one-rate-plan" ? "onerate_active" : var.bucket_storage_class
-  kms_key_crn          = module.key_protect_all_inclusive.keys[local.key_id].crn
+  kms_key_crn          = local.key_management_enabled ? module.key_protect_all_inclusive[0].keys[local.key_id].crn : null
 }
 module "cos_bucket" {
   providers = {

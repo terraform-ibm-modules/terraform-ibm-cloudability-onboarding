@@ -88,20 +88,20 @@ output "key_protect_guid" {
 
 output "key_protect_name" {
   description = "Key Protect Name"
-  value       = module.key_protect_all_inclusive.key_protect_name
+  value       = local.key_management_enabled ? module.key_protect_all_inclusive[0].key_protect_name : null
 }
 
 output "key_protect_instance_policies" {
   description = "Instance Polices of the Key Protect instance"
-  value       = module.key_protect_all_inclusive.key_protect_instance_policies
+  value       = local.key_management_enabled ? module.key_protect_all_inclusive[0].key_protect_instance_policies : null
 }
 
 output "key_rings" {
   description = "IDs of new Key Rings created by the module"
-  value       = module.key_protect_all_inclusive.key_rings
+  value       = local.key_management_enabled ? module.key_protect_all_inclusive[0].key_rings : null
 }
 
 output "keys" {
   description = "IDs of new Keys created by the module"
-  value       = module.key_protect_all_inclusive.keys
+  value       = local.key_management_enabled ? module.key_protect_all_inclusive[0].keys : null
 }
