@@ -12,16 +12,18 @@ locals {
   rg_validate_check = regex("^${local.rg_validate_msg}$", (!local.rg_validate_condition ? local.rg_validate_msg : ""))
 
   # variable validation around new instance vs existing
-  key_management_enabled = var.create_key_protect_instance && var.existing_kms_instance_crn != null
-  instance_validate_msg  = "'create_key_protect_instance' cannot be true when passing a value for 'existing_kms_instance_crn'"
+  instance_validate_condition = var.create_key_protect_instance && var.existing_kms_instance_crn != null
+  instance_validate_msg       = "'create_key_protect_instance' cannot be true when passing a value for 'existing_kms_instance_crn'"
   # tflint-ignore: terraform_unused_declarations
-  instance_validate_check = regex("^${local.instance_validate_msg}$", (!local.key_management_enabled ? local.instance_validate_msg : ""))
+  instance_validate_check = regex("^${local.instance_validate_msg}$", (!local.instance_validate_condition ? local.instance_validate_msg : ""))
 
   # variable validation when not creating new instance
   existing_instance_validate_condition = !var.create_key_protect_instance && var.existing_kms_instance_crn == null
   existing_instance_validate_msg       = "A value must be provided for 'existing_kms_instance_crn' when 'create_key_protect_instance' is false"
   # tflint-ignore: terraform_unused_declarations
   existing_instance_validate_check = regex("^${local.existing_instance_validate_msg}$", (!local.existing_instance_validate_condition ? local.existing_instance_validate_msg : ""))
+
+  key_management_enabled = var.create_key_protect_instance || var.existing_kms_instance_crn != null
 
   key_ring_name               = var.key_ring_name
   key_name                    = var.key_name == null ? var.bucket_name : var.key_name
