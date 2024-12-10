@@ -52,7 +52,7 @@ content-type: reference-architecture
 
 # Set production to true to publish the reference architecture to IBM Cloud docs.
 
-production: false
+production: true
 
 ---
 
@@ -94,7 +94,7 @@ After the introduction, include a summary of the typical use case for the archit
 ## Architecture diagram
 {: #architecture-diagram}
 
-![Architecture diagram for the Cloudability Enablement deployable architecture](cloudability-all-inclusive-onboarding.svg "Architecture diagram for the Cloudability Enablement deployable architecture") {: caption="Figure 1. Cloudability Enablement deployable architecture" caption-side="bottom"}{: external download="cloudability-all-inclusive-onboarding.svg"}
+![Architecture diagram for the Cloudability Enablement deployable architecture](cloudability-all-inclusive-onboarding.svg "Architecture diagram for the Cloudability Enablement deployable architecture") {: caption="Cloudability Enablement deployable architecture" caption-side="bottom"}{: external download="cloudability-all-inclusive-onboarding.svg"}
 
 The Cloudability Enablement deployable architecture creates an instance of {{site.data.keyword.cos_full_notm}} in a target {{site.data.keyword.Bluemix_notm}} account, resource group, and region. An IBM Key Protect instance is created in this same resource group and region to provide a [custom encryption key](/docs/key-protect?topic=key-protect-integrate-cos). Then, it configures [billing reports](/docs/account?topic=account-exporting-your-usage&interface=ui#enable-export-usage) to be written to the Object Storage bucket. Cloudability is granted access by the DA to read the billing reports within the bucket. Next, the {{site.data.keyword.Bluemix_notm}} account is added to Cloudability so that it is made aware of how to pull the data from Object Storage bucker. Events are sent to Monitoring and Activity Tracker by default to help track changes that are made to the Object Storage bucket.
 
@@ -107,7 +107,7 @@ An account can enable billing report exports for a single account.
 ## Design concepts
 {: #design-concepts}
 
-![Design requirements for Cloudability Enablement deployable architecture](heat-map.svg "Design requirements"){: caption="Figure 2. Scope of the design requirements" caption-side="bottom"}
+![Design requirements for Cloudability Enablement deployable architecture](heat-map.svg "Design requirements"){: caption="Scope of the design requirements" caption-side="bottom"}
 
 
 ## Requirements
@@ -122,7 +122,7 @@ The following table outlines the requirements that are addressed in this archite
 | Security           | * Encrypt all application data in transit and at rest to protect it from unauthorized disclosure. \n * Encrypt all security data (operational and audit logs) to protect from unauthorized disclosure. \n * Protect secrets through their entire lifecycle and secure them using access control measures. \n * Restrict access to data to only allowed members with the minimal required access. |
 | Resiliency         | * Ensure availability of the services in the event of planned and unplanned outages |
 | Service Management | Monitor audit logs to track changes and detect potential security problems. |
-{: caption="Table 1. Requirements" caption-side="bottom"}
+{: caption="Requirements" caption-side="bottom"}
 
 ## Components
 {: #components}
@@ -138,7 +138,7 @@ The following table outlines the services that are used in the architecture for 
 | Resiliency | Key Protect | Support the selection of [{{site.data.keyword.keymanagementserviceshort}} failover regions](/docs/key-protect?topic=key-protect-ha-dr#availability) if needed. |
 | Service Management | IBM Cloud Monitoring | Operational monitoring of your Object Storage bucket is enabled by default. |
 |  | Activity Tracker Event Routing | Object Storage operational logs are enabled by default. |
-{: caption="Table 2. Components" caption-side="bottom"}
+{: caption="Components" caption-side="bottom"}
 
 <!-- ## Compliance
 {: #compliance}
