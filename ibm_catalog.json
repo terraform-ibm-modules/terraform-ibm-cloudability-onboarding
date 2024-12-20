@@ -430,7 +430,7 @@
 						{
 							"key": "management_endpoint_type_for_bucket",
 							"description": "The type of endpoint for the IBM terraform provider to use to manage the bucket. (public, private, or direct)",
-							"type": "boolean",
+							"type": "string",
 							"hidden": true,
 							"default_value": "private",
 							"options": [
@@ -627,7 +627,7 @@
 						{
 							"key": "kms_endpoint_type",
 							"description": "The type of endpoint to be used for management of key protect.",
-							"type": "boolean",
+							"type": "string",
 							"hidden": true,
 							"default_value": "private",
 							"options": [
