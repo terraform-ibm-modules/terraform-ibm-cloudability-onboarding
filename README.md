@@ -36,6 +36,7 @@ This Deployable Architecture will fully onboard a standard IBM Cloud account or 
     * [cloudability-onboarding](./modules/cloudability-onboarding)
     * [data-resource-instance-by-id](./modules/data-resource-instance-by-id)
     * [encrypted_cos_bucket](./modules/encrypted_cos_bucket)
+    * [frontdoor-opentoken](./modules/frontdoor-opentoken)
 * [Contributing](#contributing)
 <!-- END OVERVIEW HOOK -->
 
@@ -109,6 +110,7 @@ statement instead the previous block.
 | <a name="module_cloudability_onboarding"></a> [cloudability\_onboarding](#module\_cloudability\_onboarding) | ./modules/cloudability-onboarding | n/a |
 | <a name="module_cos_bucket"></a> [cos\_bucket](#module\_cos\_bucket) | ./modules/encrypted_cos_bucket | n/a |
 | <a name="module_cos_instance"></a> [cos\_instance](#module\_cos\_instance) | ./modules/data-resource-instance-by-id | n/a |
+| <a name="module_frontdoor_auth"></a> [frontdoor\_auth](#module\_frontdoor\_auth) | ./modules/frontdoor-opentoken | n/a |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | terraform-ibm-modules/resource-group/ibm | 1.1.6 |
 
 ### Resources
@@ -134,6 +136,8 @@ statement instead the previous block.
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | The name to give the newly provisioned Object Storage bucket. | `string` | `"billing-reports"` | no |
 | <a name="input_bucket_storage_class"></a> [bucket\_storage\_class](#input\_bucket\_storage\_class) | The storage class of the newly provisioned Object Storage bucket. Supported values are 'standard', 'vault', 'cold', 'smart' and `onerate_active`. | `string` | `"standard"` | no |
 | <a name="input_cloudability_api_key"></a> [cloudability\_api\_key](#input\_cloudability\_api\_key) | Cloudability API Key. Retrieve your Api Key from https://app.apptio.com/cloudability#/settings/preferences under the section **Cloudability API** select **Enable API** which will generate an api key. Setting this value to __NULL__ will skip adding the IBM Cloud account to Cloudability and only configure IBM Cloud so that the IBM Cloud Account can be added to Cloudability manually | `string` | `null` | no |
+| <a name="input_cloudability_auth_type"></a> [cloudability\_auth\_type](#input\_cloudability\_auth\_type) | ID corresponding to the Apptio Frontdoor ApiKey. Required if `cloudability_auth_type` = `frontdoor` | `string` | `"api_key"` | no |
+| <a name="input_cloudability_environment_id"></a> [cloudability\_environment\_id](#input\_cloudability\_environment\_id) | An ID corresponding to your FrontDoor environment. Required if `cloudability_auth_type` = `frontdoor` | `string` | `null` | no |
 | <a name="input_cloudability_host"></a> [cloudability\_host](#input\_cloudability\_host) | IBM Cloudability host name as described in https://help.apptio.com/en-us/cloudability/api/v3/getting%20started%20with%20the%20cloudability.htm | `string` | `"api.cloudability.com"` | no |
 | <a name="input_cloudability_iam_custom_role_name"></a> [cloudability\_iam\_custom\_role\_name](#input\_cloudability\_iam\_custom\_role\_name) | Name of the custom role which grants access to the Cloudability service id to read the billing reports from the object storage bucket | `string` | `"CloudabilityStorageCustomRole"` | no |
 | <a name="input_cloudability_iam_enterprise_custom_role_name"></a> [cloudability\_iam\_enterprise\_custom\_role\_name](#input\_cloudability\_iam\_enterprise\_custom\_role\_name) | Name of the custom role which grants access to the Cloudability service ID to read the enterprise information. Only used if `is_enterprise_account` is `true`. | `string` | `"CloudabilityListAccCustomRole"` | no |
@@ -147,6 +151,8 @@ statement instead the previous block.
 | <a name="input_existing_cos_instance_id"></a> [existing\_cos\_instance\_id](#input\_existing\_cos\_instance\_id) | The ID of an existing Cloud Object Storage instance. Required if 'var.create\_cos\_instance' is false. | `string` | `null` | no |
 | <a name="input_existing_kms_instance_crn"></a> [existing\_kms\_instance\_crn](#input\_existing\_kms\_instance\_crn) | The CRN of an existing Key Protect or Hyper Protect Crypto Services instance. Required if 'create\_key\_protect\_instance' is false. | `string` | `null` | no |
 | <a name="input_expire_days"></a> [expire\_days](#input\_expire\_days) | Specifies the number of days when the expire rule action takes effect. | `number` | `3` | no |
+| <a name="input_frontdoor_public_key"></a> [frontdoor\_public\_key](#input\_frontdoor\_public\_key) | ID corresponding to the Apptio Frontdoor ApiKey. Required if `cloudability_auth_type` = `frontdoor` | `string` | `null` | no |
+| <a name="input_frontdoor_secret_key"></a> [frontdoor\_secret\_key](#input\_frontdoor\_secret\_key) | Secret corresponding to the Apptio Frontdoor ApiKey. Required if `cloudability_auth_type` = `frontdoor` | `string` | `null` | no |
 | <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | The IBM Cloud API key corresponding to the cloud account that will be added to Cloudability. For enterprise accounts this should be the primary enterprise account | `string` | n/a | yes |
 | <a name="input_instance_cbr_rules"></a> [instance\_cbr\_rules](#input\_instance\_cbr\_rules) | (Optional, list) List of CBR rules to create for the instance | <pre>list(object({<br/>    description = string<br/>    account_id  = string<br/>    rule_contexts = list(object({<br/>      attributes = optional(list(object({<br/>        name  = string<br/>        value = string<br/>    }))) }))<br/>    enforcement_mode = string<br/>    tags = optional(list(object({<br/>      name  = string<br/>      value = string<br/>    })), [])<br/>    operations = optional(list(object({<br/>      api_types = list(object({<br/>        api_type_id = string<br/>      }))<br/>    })))<br/>  }))</pre> | `[]` | no |
 | <a name="input_is_enterprise_account"></a> [is\_enterprise\_account](#input\_is\_enterprise\_account) | Whether the account corresponding to the `ibmcloud_api_key` is an enterprise account and, if so, is the primary account within the enterprise | `bool` | `false` | no |
@@ -168,7 +174,7 @@ statement instead the previous block.
 | <a name="input_resource_tags"></a> [resource\_tags](#input\_resource\_tags) | Optional list of tags to be added to created resources | `list(string)` | `[]` | no |
 | <a name="input_skip_cloudability_billing_policy"></a> [skip\_cloudability\_billing\_policy](#input\_skip\_cloudability\_billing\_policy) | Whether policy which grants cloudability access to view the billing service. This may be true if the policy already exists because it was created by a previous run. | `bool` | `false` | no |
 | <a name="input_skip_iam_authorization_policy"></a> [skip\_iam\_authorization\_policy](#input\_skip\_iam\_authorization\_policy) | Set to true to skip the creation of an IAM authorization policy that permits the Object Storage instance created to read the encryption key from the KMS instance in `existing_kms_instance_crn`. WARNING: An authorization policy must exist before an encrypted bucket can be created | `bool` | `false` | no |
-| <a name="input_skip_verification"></a> [skip\_verification](#input\_skip\_verification) | Whether to verify the account after adding the account to cloudability. Requires cloudability\_auth\_header to be set. | `bool` | `false` | no |
+| <a name="input_skip_verification"></a> [skip\_verification](#input\_skip\_verification) | Whether to verify the account after adding the account to cloudability. | `bool` | `false` | no |
 | <a name="input_usage_metrics_enabled"></a> [usage\_metrics\_enabled](#input\_usage\_metrics\_enabled) | If set to `true`, all Object Storage bucket usage metrics will be sent to the monitoring service. | `bool` | `true` | no |
 | <a name="input_use_existing_iam_custom_role"></a> [use\_existing\_iam\_custom\_role](#input\_use\_existing\_iam\_custom\_role) | Whether the iam\_custom\_roles should be created or if they already exist and they should be linked with a datasource | `bool` | `false` | no |
 | <a name="input_use_existing_key_ring"></a> [use\_existing\_key\_ring](#input\_use\_existing\_key\_ring) | Whether the `key_ring_name` corresponds to an existing key ring or a new key ring for storing the encryption key | `string` | `false` | no |

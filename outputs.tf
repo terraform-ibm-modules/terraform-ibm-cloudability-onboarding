@@ -125,6 +125,6 @@ output "enterprise_cloudability_custom_role_display_name" {
 }
 
 output "bucket_account_cloudability_custom_role_display_name" {
-  value       = module.cloudability_bucket_access.custom_role_display_name
+  value       = var.cloudability_auth_type != "none" ? module.cloudability_bucket_access[0].custom_role_display_name : null
   description = "Display name of the custom role that grants cloudability access to read the billing reports from the Object Storage bucket"
 }

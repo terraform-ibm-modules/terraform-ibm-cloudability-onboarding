@@ -74,7 +74,9 @@ module "cos_bucket" {
   key_protect_allowed_network         = var.key_protect_allowed_network
 }
 
+# Only executes if cloudability_auth_type is not "none"
 module "cloudability_bucket_access" {
+  count                             = var.cloudability_auth_type != "none" ? 1 : 0
   source                            = "./modules/cloudability-bucket-access"
   policy_granularity                = var.policy_granularity
   bucket_crn                        = local.cos_bucket_crn
@@ -83,8 +85,14 @@ module "cloudability_bucket_access" {
   resource_group_id                 = module.resource_group.resource_group_id
 }
 
+moved {
+  from = module.cloudability_bucket_access
+  to   = module.cloudability_bucket_access[0]
+}
+
+# Only executes if cloudability_auth_type is not "none" and it is an enterprise account
 module "cloudability_enterprise_access" {
-  count = var.enable_billing_exports ? 1 : 0
+  count = var.cloudability_auth_type != "none" && var.is_enterprise_account ? 1 : 0
   # if same account then re-use the access group. Otherwise create a new one
   source                            = "./modules/cloudability-enterprise-access"
   enterprise_id                     = local.enterprise_id
@@ -114,9 +122,10 @@ locals {
   cos_instance_name = var.cos_instance_name == null ? module.cos_instance.name : var.cos_instance_name
 }
 
+# Only executes if "api_key", "frontdoor"
 module "cloudability_onboarding" {
   depends_on = [module.billing_exports, module.cloudability_enterprise_access]
-  count      = var.enable_billing_exports && var.cloudability_api_key != null ? 1 : 0
+  count      = contains(["api_key", "frontdoor"], var.cloudability_auth_type) ? 1 : 0
   providers = {
     restapi = restapi.cloudability
   }
@@ -127,7 +136,7 @@ module "cloudability_onboarding" {
   cos_bucket_location = var.region
   cos_bucket_crn      = local.cos_bucket_crn
   enterprise_id       = local.enterprise_id
-  skip_verification   = var.skip_verification
+  skip_verification   = var.cloudability_auth_type != "api_key" || var.skip_verification
   cos_instance_name   = local.cos_instance_name
   cloudability_host   = var.cloudability_host
 }

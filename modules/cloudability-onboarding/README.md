@@ -94,7 +94,7 @@ No modules.
 | <a name="input_cost_report_name"></a> [cost\_report\_name](#input\_cost\_report\_name) | name of the manifest file in the cost report | `string` | `"manifest"` | no |
 | <a name="input_enterprise_id"></a> [enterprise\_id](#input\_enterprise\_id) | Guid for the enterprise id | `string` | `""` | no |
 | <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | The IBM Cloud API Key | `string` | n/a | yes |
-| <a name="input_skip_verification"></a> [skip\_verification](#input\_skip\_verification) | whether to verify the account after adding the account to cloudability. Requires cloudability\_auth\_header to be set. | `bool` | `true` | no |
+| <a name="input_skip_verification"></a> [skip\_verification](#input\_skip\_verification) | whether to verify the account after adding the account to cloudability. | `bool` | `true` | no |
 
 ### Outputs
 

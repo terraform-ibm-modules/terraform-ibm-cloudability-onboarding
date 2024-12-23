@@ -12,6 +12,36 @@ variable "cloudability_api_key" {
   default     = null
 }
 
+variable "cloudability_environment_id" {
+  type        = string
+  description = "An ID corresponding to your FrontDoor environment. Required if `cloudability_auth_type` = `frontdoor`"
+  default     = null
+}
+
+variable "frontdoor_public_key" {
+  type        = string
+  description = "ID corresponding to the Apptio Frontdoor ApiKey. Required if `cloudability_auth_type` = `frontdoor`"
+  default     = null
+}
+
+variable "cloudability_auth_type" {
+  type        = string
+  description = "ID corresponding to the Apptio Frontdoor ApiKey. Required if `cloudability_auth_type` = `frontdoor`"
+  default     = "api_key"
+  nullable    = false
+  validation {
+    condition     = var.cloudability_auth_type != null ? contains(["api_key", "frontdoor", "manual", "none"], var.cloudability_auth_type) : true
+    error_message = "Must have one of the value following values: `none`, `manual`, `api_key`, or `frontdoor`"
+  }
+}
+
+variable "frontdoor_secret_key" {
+  type        = string
+  description = "Secret corresponding to the Apptio Frontdoor ApiKey. Required if `cloudability_auth_type` = `frontdoor`"
+  sensitive   = true
+  default     = null
+}
+
 variable "is_enterprise_account" {
   type        = bool
   description = "Whether the account corresponding to the `ibmcloud_api_key` is an enterprise account and, if so, is the primary account within the enterprise"
@@ -446,7 +476,7 @@ variable "cos_folder" {
 
 variable "skip_verification" {
   type        = bool
-  description = "Whether to verify the account after adding the account to cloudability. Requires cloudability_auth_header to be set."
+  description = "Whether to verify the account after adding the account to cloudability."
   default     = false
 }
 
