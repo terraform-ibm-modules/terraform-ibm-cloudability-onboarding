@@ -20,13 +20,13 @@ variable "cloudability_environment_id" {
 
 variable "frontdoor_public_key" {
   type        = string
-  description = "Public key that is used along with the `frontdoor_secret_key` to authenticate requests to Cloudability. Only required if `cloudability_auth_type` is `frontdoor`. See [acquiring an Access Administration API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#frontdoor-api-key) for steps to create your credentials."
+  description = "The public key that is used along with the `frontdoor_secret_key` to authenticate requests to Cloudability. Only required if `cloudability_auth_type` is `frontdoor`. See [acquiring an Access Administration API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#frontdoor-api-key) for steps to create your credentials."
   default     = null
 }
 
 variable "cloudability_auth_type" {
   type        = string
-  description = "Select whether to authenticate and, if so, which method to authenticate to Cloudability."
+  description = "Select Cloudability authentication mode. Options are:\n\n* `none`: no connection to Cloudability\n* `manual`: manually enter in the credentials in the Cloudability UI\n* `api_key`: use Cloudability API Keys\n* `frontdoor`: Frontdoor Access Administration"
   default     = "api_key"
   nullable    = false
   validation {
@@ -37,7 +37,7 @@ variable "cloudability_auth_type" {
 
 variable "frontdoor_secret_key" {
   type        = string
-  description = "Secret key that is used along with the `frontdoor_secret_key` to authenticate requests to Cloudability. Only required if `cloudability_auth_type` is `frontdoor`.  See [acquiring an Access Administration API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#frontdoor-api-key) for steps to create your credentials."
+  description = "The secret key that is used along with the `frontdoor_secret_key` to authenticate requests to Cloudability. Only required if `cloudability_auth_type` is `frontdoor`.  See [acquiring an Access Administration API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#frontdoor-api-key) for steps to create your credentials."
   sensitive   = true
   default     = null
 }
