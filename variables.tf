@@ -20,13 +20,13 @@ variable "cloudability_environment_id" {
 
 variable "frontdoor_public_key" {
   type        = string
-  description = "ID corresponding to the Apptio Frontdoor ApiKey. Required if `cloudability_auth_type` = `frontdoor`"
+  description = "Public key that is used along with the `frontdoor_secret_key` to authenticate requests to Cloudability. Only required if `cloudability_auth_type` is `frontdoor`. See [acquiring an Access Administration API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#frontdoor-api-key) for steps to create your credentials."
   default     = null
 }
 
 variable "cloudability_auth_type" {
   type        = string
-  description = "ID corresponding to the Apptio Frontdoor ApiKey. Required if `cloudability_auth_type` = `frontdoor`"
+  description = "Select whether to authenticate and, if so, which method to authenticate to Cloudability."
   default     = "api_key"
   nullable    = false
   validation {
@@ -37,7 +37,7 @@ variable "cloudability_auth_type" {
 
 variable "frontdoor_secret_key" {
   type        = string
-  description = "Secret corresponding to the Apptio Frontdoor ApiKey. Required if `cloudability_auth_type` = `frontdoor`"
+  description = "Secret key that is used along with the `frontdoor_secret_key` to authenticate requests to Cloudability. Only required if `cloudability_auth_type` is `frontdoor`.  See [acquiring an Access Administration API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#frontdoor-api-key) for steps to create your credentials."
   sensitive   = true
   default     = null
 }
@@ -476,7 +476,7 @@ variable "cos_folder" {
 
 variable "skip_verification" {
   type        = bool
-  description = "Whether to verify the account after adding the account to cloudability."
+  description = "Whether to verify that the IBM Cloud account is successfully integrated with Cloudability. This step is not strictly necessary for adding the account to Cloudability. Only applicable when `cloudability_auth_type` is `api_key`."
   default     = false
 }
 

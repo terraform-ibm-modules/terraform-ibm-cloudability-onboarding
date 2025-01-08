@@ -141,7 +141,7 @@
 						{
 							"key": "cloudability_auth_type",
 							"type": "string",
-							"description": ".",
+							"description": "Select whether to authenticate and, if so, which method to authenticate to Cloudability.\n\n- none: no connection to Cloudability\n- manual: manually enter in the credentials in the Cloudability UI\n-Cloudability Auth: use Cloudability API Keys\n-Frontdoor Access Administration",
 							"default_value": "api_key",
 							"required": true,
 							"options": [
@@ -166,28 +166,28 @@
 						{
 							"key": "cloudability_api_key",
 							"type": "password",
-							"description": "Cloudability API Key used to add the IBM Cloud account to Cloudability. See [how to retrieve your Cloudability API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#api-key) or visit the [cloudability preferences page](https://app.apptio.com/cloudability#/settings/preferences). Setting this value to `__NULL__` skips adding the IBM Cloud account to Cloudability allowing the IBM Cloud Account to be added to Cloudability manually.",
+							"description": "Cloudability API Key used to authenticate with Cloudability to add the IBM Cloud account to the Cloudability environment. See [how to retrieve your Cloudability API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#api-key) or visit the [cloudability preferences page](https://app.apptio.com/cloudability#/settings/preferences). Required if `cloudability_auth_type` is set to `api_key`.",
 							"default_value": "__NULL__",
 							"required": true
 						},
 						{
-							"key": "cloudability_public_key",
+							"key": "frontdoor_public_key",
 							"type": "string",
-							"description": "",
+							"description": "Public key that is used along with the `frontdoor_secret_key` to authenticate requests to Cloudability. Only required if `cloudability_auth_type` is `frontdoor`. See [acquiring an Access Administration API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#frontdoor-api-key) for steps to create your credentials.",
 							"default_value": "__NULL__",
 							"required": true
 						},
 						{
-							"key": "cloudability_secret_key",
+							"key": "frontdoor_secret_key",
 							"type": "password",
-							"description": "",
+							"description": "Secret key that is used along with the `frontdoor_secret_key` to authenticate requests to Cloudability. Only required if `cloudability_auth_type` is `frontdoor`.  See [acquiring an Access Administration API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#frontdoor-api-key) for steps to create your credentials.",
 							"default_value": "__NULL__",
 							"required": true
 						},
 						{
 							"key": "cloudability_environment_id",
 							"type": "string",
-							"description": "",
+							"description": "An ID corresponding to the Cloudability environment. Only required if `cloudability_auth_type` is `frontdoor`.",
 							"default_value": "__NULL__",
 							"required": true
 						},
@@ -220,7 +220,7 @@
 							"key": "skip_verification",
 							"type": "boolean",
 							"default_value": "false",
-							"description": "Whether to verify that the IBM Cloud account is successfully integrated with Cloudability. This step is not strictly necessary for adding the account to Cloudability",
+							"description": "Whether to verify that the IBM Cloud account is successfully integrated with Cloudability. This step is not strictly necessary for adding the account to Cloudability. Only applicable when `cloudability_auth_type` is `api_key`.",
 							"required": false
 						},
 						{
