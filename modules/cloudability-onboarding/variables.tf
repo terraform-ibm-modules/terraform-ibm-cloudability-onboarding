@@ -34,7 +34,7 @@ variable "cos_bucket_prefix" {
 
 variable "skip_verification" {
   type        = bool
-  description = "whether to verify the account after adding the account to cloudability. Requires cloudability_auth_header to be set."
+  description = "whether to verify the account after adding the account to cloudability."
   default     = true
 }
 

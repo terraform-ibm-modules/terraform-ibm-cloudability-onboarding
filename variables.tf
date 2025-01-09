@@ -12,6 +12,36 @@ variable "cloudability_api_key" {
   default     = null
 }
 
+variable "cloudability_environment_id" {
+  type        = string
+  description = "An ID corresponding to your FrontDoor environment. Required if `cloudability_auth_type` = `frontdoor`"
+  default     = null
+}
+
+variable "frontdoor_public_key" {
+  type        = string
+  description = "The public key that is used along with the `frontdoor_secret_key` to authenticate requests to Cloudability. Only required if `cloudability_auth_type` is `frontdoor`. See [acquiring an Access Administration API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#frontdoor-api-key) for steps to create your credentials."
+  default     = null
+}
+
+variable "cloudability_auth_type" {
+  type        = string
+  description = "Select Cloudability authentication mode. Options are:\n\n* `none`: no connection to Cloudability\n* `manual`: manually enter in the credentials in the Cloudability UI\n* `api_key`: use Cloudability API Keys\n* `frontdoor`: Frontdoor Access Administration"
+  default     = "api_key"
+  nullable    = false
+  validation {
+    condition     = var.cloudability_auth_type != null ? contains(["api_key", "frontdoor", "manual", "none"], var.cloudability_auth_type) : true
+    error_message = "Must have one of the value following values: `none`, `manual`, `api_key`, or `frontdoor`"
+  }
+}
+
+variable "frontdoor_secret_key" {
+  type        = string
+  description = "The secret key that is used along with the `frontdoor_public_key` to authenticate requests to Cloudability. Only required if `cloudability_auth_type` is `frontdoor`.  See [acquiring an Access Administration API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#frontdoor-api-key) for steps to create your credentials."
+  sensitive   = true
+  default     = null
+}
+
 variable "is_enterprise_account" {
   type        = bool
   description = "Whether the account corresponding to the `ibmcloud_api_key` is an enterprise account and, if so, is the primary account within the enterprise"
@@ -446,7 +476,7 @@ variable "cos_folder" {
 
 variable "skip_verification" {
   type        = bool
-  description = "Whether to verify the account after adding the account to cloudability. Requires cloudability_auth_header to be set."
+  description = "Whether to verify that the IBM Cloud account is successfully integrated with Cloudability. This step is not strictly necessary for adding the account to Cloudability. Only applicable when `cloudability_auth_type` is `api_key`."
   default     = false
 }
 

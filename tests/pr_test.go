@@ -33,6 +33,26 @@ func TestRunDefaultSolution(t *testing.T) {
 		"cloudability_iam_custom_role_name": "CldyStorageDefaultTest",
 		"skip_cloudability_billing_policy":  true,
 		"enable_billing_exports":            false,
+		"cloudability_auth_type":            "manual",
+	})
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+func TestNoneCloudabilityAuthTypeSolution(t *testing.T) {
+	// Remove Parallel execution since Billing Exports can only be enabled once on an account at a given time. Running in parallel causes the tests to create a conflict by trying to enable billing reports twice on the account.
+	// t.Parallel()
+
+	options := setupOptions(t, "mod-template", defaultSolutionDir, map[string]interface{}{
+		"resource_group_name":               resourceGroup,
+		"use_existing_resource_group":       true,
+		"use_existing_iam_custom_role":      true,
+		"cloudability_iam_custom_role_name": "CldyStorageDefaultTest",
+		"skip_cloudability_billing_policy":  true,
+		"enable_billing_exports":            false,
+		"cloudability_auth_type":            "none",
 	})
 
 	output, err := options.RunTestConsistency()
@@ -53,6 +73,7 @@ func TestRunUpgradeSolution(t *testing.T) {
 		"enable_billing_exports":            false,
 		"cos_plan":                          "standard",
 		"expire_days":                       7,
+		"cloudability_auth_type":            "manual",
 	})
 
 	output, err := options.RunTestUpgrade()
