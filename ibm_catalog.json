@@ -180,7 +180,7 @@
 						{
 							"key": "frontdoor_secret_key",
 							"type": "password",
-							"description": "Secret key that is used along with the `frontdoor_secret_key` to authenticate requests to Cloudability. See [acquiring an Access Administration API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#frontdoor-api-key) for steps to create your credentials. Required if `cloudability_auth_type` is `frontdoor`.",
+							"description": "Secret key that is used along with the `frontdoor_public_key` to authenticate requests to Cloudability. See [acquiring an Access Administration API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#frontdoor-api-key) for steps to create your credentials. Required if `cloudability_auth_type` is `frontdoor`.",
 							"default_value": "__NULL__",
 							"required": true
 						},
