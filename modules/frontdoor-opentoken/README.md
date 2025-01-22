@@ -57,7 +57,7 @@ No permissions are needed to run this module.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
 | <a name="requirement_http"></a> [http](#requirement\_http) | >= 3.4.1, < 4.0.0 |
 
 ### Modules
