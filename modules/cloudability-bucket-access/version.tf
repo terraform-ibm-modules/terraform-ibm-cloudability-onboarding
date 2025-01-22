@@ -1,6 +1,6 @@
 # Specify the required Terraform version for this configuration.
 terraform {
-  required_version = ">=1.3.0"
+  required_version = ">=1.9.0"
 
   # Define the required providers and their sources.
   required_providers {
