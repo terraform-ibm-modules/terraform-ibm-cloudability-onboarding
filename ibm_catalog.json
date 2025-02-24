@@ -451,13 +451,6 @@
 							]
 						},
 						{
-							"key": "expire_days",
-							"type": "number",
-							"default_value": 180,
-							"description": "Specifies the number of days when the expire rule action takes effect.",
-							"required": false
-						},
-						{
 							"key": "management_endpoint_type_for_bucket",
 							"description": "The type of endpoint for the IBM terraform provider to use to manage the bucket. (public, private, or direct)",
 							"type": "string",
@@ -682,6 +675,48 @@
 							"type": "boolean",
 							"hidden": true,
 							"default_value": "true"
+						},
+						{
+							"key": "bucket_cbr_rules",
+							"type": "array",
+							"hidden": true,
+							"default_value": "[]"
+						},
+						{
+							"key": "instance_cbr_rules",
+							"type": "array",
+							"hidden": true,
+							"default_value": "[]"
+						},
+						{
+							"key": "cross_region_location",
+							"type": "string",
+							"hidden": true,
+							"default_value": "__NULL__"
+						},
+						{
+							"key": "enable_cloudability_access",
+							"type": "boolean",
+							"hidden": true,
+							"default_value": "true"
+						},
+						{
+							"key": "key_protect_allowed_network",
+							"type": "string",
+							"hidden": true,
+							"default_value": "public-and-private"
+						},
+						{
+							"key": "skip_cloudability_billing_policy",
+							"type": "boolean",
+							"hidden": true,
+							"default_value": "false"
+						},
+						{
+							"key": "use_existing_iam_custom_role",
+							"type": "boolean",
+							"hidden": true,
+							"default_value": "false"
 						}
 					],
 					"outputs": [
