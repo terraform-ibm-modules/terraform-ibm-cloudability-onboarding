@@ -71,7 +71,7 @@ statement instead the previous block.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cos_bucket"></a> [cos\_bucket](#module\_cos\_bucket) | terraform-ibm-modules/cos/ibm | 8.21.3 |
+| <a name="module_cos_bucket"></a> [cos\_bucket](#module\_cos\_bucket) | terraform-ibm-modules/cos/ibm | 8.21.4 |
 | <a name="module_key_protect_all_inclusive"></a> [key\_protect\_all\_inclusive](#module\_key\_protect\_all\_inclusive) | terraform-ibm-modules/kms-all-inclusive/ibm | 4.21.3 |
 
 ### Resources
