@@ -40,7 +40,7 @@ module "key_protect_all_inclusive" {
   }
   count                       = local.key_management_enabled ? 1 : 0
   source                      = "terraform-ibm-modules/kms-all-inclusive/ibm"
-  version                     = "4.22.0"
+  version                     = "5.0.2"
   create_key_protect_instance = var.create_key_protect_instance
   key_protect_instance_name   = var.key_protect_instance_name
   resource_group_id           = var.resource_group_id
