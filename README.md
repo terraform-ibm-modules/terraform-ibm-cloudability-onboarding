@@ -111,7 +111,7 @@ statement instead the previous block.
 | <a name="module_cos_bucket"></a> [cos\_bucket](#module\_cos\_bucket) | ./modules/encrypted_cos_bucket | n/a |
 | <a name="module_cos_instance"></a> [cos\_instance](#module\_cos\_instance) | ./modules/data-resource-instance-by-id | n/a |
 | <a name="module_frontdoor_auth"></a> [frontdoor\_auth](#module\_frontdoor\_auth) | ./modules/frontdoor-opentoken | n/a |
-| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | terraform-ibm-modules/resource-group/ibm | 1.2.0 |
+| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | terraform-ibm-modules/resource-group/ibm | 1.2.1 |
 
 ### Resources
 
