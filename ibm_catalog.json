@@ -518,7 +518,7 @@
 						{
 							"key": "existing_allowed_cbr_bucket_zone_id",
 							"type": "string",
-							"default_value": "[]",
+							"default_value": "__NULL__",
 							"description": "A list of CBR zone address which are permitted to access the bucket. This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket.",
 							"required": false
 						},
