@@ -297,7 +297,7 @@ variable "cos_bucket_cbr_rules" {
   # Validation happens in the rule module
 }
 
-variable "instance_cbr_rules" {
+variable "cos_instance_cbr_rules" {
   type = list(object({
     description = string
     account_id  = string

@@ -382,8 +382,6 @@ variable "kms_rotation_interval_month" {
   }
 }
 
-
-
 ##############################################################
 # Context-based restriction (CBR)
 ##############################################################
@@ -457,34 +455,6 @@ variable "existing_allowed_cbr_bucket_zone_id" {
   type        = string
   description = "An extra CBR zone ID which is permitted to access the bucket.  This zone typically represents the ip addresses for your company or workstation to allow access to view the contents of the bucket. It can be used as an alternative to `additional_allowed_cbr_bucket_ip_addresses` in the case that a zone exists."
   default     = null
-}
-
-
-
-variable "kms_endpoint_type" {
-  type        = string
-  description = "The type of endpoint to be used for management of key protect."
-  default     = "public"
-  validation {
-    condition     = can(regex("public|private", var.kms_endpoint_type))
-    error_message = "The endpoint_type value must be 'public' or 'private'."
-  }
-}
-
-variable "kms_rotation_enabled" {
-  type        = bool
-  description = "If set to true, Key Protect enables a rotation policy on the Key Protect instance. Only used if 'create_key_protect_instance' is true."
-  default     = true
-}
-
-variable "kms_rotation_interval_month" {
-  type        = number
-  description = "Specifies the number of months for the encryption key to be rotated.. Must be between 1 and 12 inclusive."
-  default     = 1
-  validation {
-    condition     = var.kms_rotation_interval_month >= 1 && var.kms_rotation_interval_month <= 12
-    error_message = "The key rotation time interval must be greater than 0 and less than 13"
-  }
 }
 
 variable "skip_iam_authorization_policy" {
