@@ -156,7 +156,7 @@ locals {
       attributes = [
         {
           name  = "endpointType"
-          value = "private"
+          value = var.management_endpoint_type_for_bucket
         },
         {
           name  = "networkZoneId"
