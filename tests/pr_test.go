@@ -35,10 +35,10 @@ func TestRunDefaultSolution(t *testing.T) {
 		"enable_billing_exports":              false,
 		"cloudability_auth_type":              "manual",
 		"management_endpoint_type_for_bucket": "public",
-		"cbr_billing_zone_name":               "default-reports-bucket-writer",
-		"cbr_cloudability_zone_name":          "default-reports-bucket-reader",
-		"cbr_schematics_zone_name":            "default-schematics-bucket-management",
-		"cbr_cos_zone_name":                   "default-reports-object-storage",
+		"cbr_billing_zone_name":               "tst-def-reports-bucket-writer",
+		"cbr_cloudability_zone_name":          "tst-def-reports-bucket-reader",
+		"cbr_schematics_zone_name":            "tst-def-schematics-bucket-management",
+		"cbr_cos_zone_name":                   "tst-def-reports-object-storage",
 	})
 
 	output, err := options.RunTestConsistency()
@@ -59,10 +59,10 @@ func TestNoneCloudabilityAuthTypeSolution(t *testing.T) {
 		"enable_billing_exports":              false,
 		"cloudability_auth_type":              "none",
 		"management_endpoint_type_for_bucket": "public",
-		"cbr_billing_zone_name":               "cldy-reports-bucket-writer",
-		"cbr_cloudability_zone_name":          "cldy-reports-bucket-reader",
-		"cbr_schematics_zone_name":            "cldy-schematics-bucket-management",
-		"cbr_cos_zone_name":                   "cldy-reports-object-storage",
+		"cbr_billing_zone_name":               "tst-cldy-reports-bucket-writer",
+		"cbr_cloudability_zone_name":          "tst-cldy-reports-bucket-reader",
+		"cbr_schematics_zone_name":            "tst-cldy-schematics-bucket-management",
+		"cbr_cos_zone_name":                   "tst-cldy-reports-object-storage",
 	})
 
 	output, err := options.RunTestConsistency()
