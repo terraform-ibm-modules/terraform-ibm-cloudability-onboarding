@@ -36,10 +36,10 @@ func TestRunDefaultSolution(t *testing.T) {
 		"cloudability_auth_type":              "manual",
 		"management_endpoint_type_for_bucket": "public",
 		"cbr_enforcement_mode":                "report",
-		"cbr_billing_zone_name":               "tst-def-reports-bucket-writer",
-		"cbr_cloudability_zone_name":          "tst-def-reports-bucket-reader",
-		"cbr_schematics_zone_name":            "tst-def-schematics-bucket-management",
-		"cbr_cos_zone_name":                   "tst-def-reports-object-storage",
+		"cbr_billing_zone_name":               "test-def-reports-bucket-writer",
+		"cbr_cloudability_zone_name":          "test-def-reports-bucket-reader",
+		"cbr_schematics_zone_name":            "test-def-schematics-bucket-management",
+		"cbr_cos_zone_name":                   "test-def-reports-object-storage",
 	})
 
 	output, err := options.RunTestConsistency()
@@ -61,10 +61,10 @@ func TestNoneCloudabilityAuthTypeSolution(t *testing.T) {
 		"cloudability_auth_type":              "none",
 		"management_endpoint_type_for_bucket": "public",
 		"cbr_enforcement_mode":                "report",
-		"cbr_billing_zone_name":               "tst-cldy-reports-bucket-writer",
-		"cbr_cloudability_zone_name":          "tst-cldy-reports-bucket-reader",
-		"cbr_schematics_zone_name":            "tst-cldy-schematics-bucket-management",
-		"cbr_cos_zone_name":                   "tst-cldy-reports-object-storage",
+		"cbr_billing_zone_name":               "test-cldy-reports-bucket-writer",
+		"cbr_cloudability_zone_name":          "test-cldy-reports-bucket-reader",
+		"cbr_schematics_zone_name":            "test-cldy-schematics-bucket-management",
+		"cbr_cos_zone_name":                   "test-cldy-reports-object-storage",
 	})
 
 	output, err := options.RunTestConsistency()
@@ -87,7 +87,7 @@ func TestRunUpgradeSolution(t *testing.T) {
 		"expire_days":                         7,
 		"cloudability_auth_type":              "manual",
 		"management_endpoint_type_for_bucket": "public",
-		"cbr_enforcement_mode":                "report",
+		// "cbr_enforcement_mode":                "report",
 		// "cbr_billing_zone_name":             "upgrade-reports-bucket-writer",
 		// "cbr_cloudability_zone_name":        "upgrade-reports-bucket-reader",
 		// "cbr_schematics_zone_name":          "upgrade-schematics-bucket-management",
