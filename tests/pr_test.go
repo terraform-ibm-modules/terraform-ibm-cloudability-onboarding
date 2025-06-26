@@ -34,6 +34,10 @@ func TestRunDefaultSolution(t *testing.T) {
 		"skip_cloudability_billing_policy":  true,
 		"enable_billing_exports":            false,
 		"cloudability_auth_type":            "manual",
+		"cbr_billing_zone_name":             "default-reports-bucket-writer",
+		"cbr_cloudability_zone_name":        "default-reports-bucket-reader",
+		"cbr_schematics_zone_name":          "default-schematics-bucket-management",
+		"cbr_cos_zone_name":                 "default-reports-object-storage",
 	})
 
 	output, err := options.RunTestConsistency()
@@ -53,6 +57,10 @@ func TestNoneCloudabilityAuthTypeSolution(t *testing.T) {
 		"skip_cloudability_billing_policy":  true,
 		"enable_billing_exports":            false,
 		"cloudability_auth_type":            "none",
+		"cbr_billing_zone_name":             "cldy-reports-bucket-writer",
+		"cbr_cloudability_zone_name":        "cldy-reports-bucket-reader",
+		"cbr_schematics_zone_name":          "cldy-schematics-bucket-management",
+		"cbr_cos_zone_name":                 "cldy-reports-object-storage",
 	})
 
 	output, err := options.RunTestConsistency()
@@ -67,13 +75,17 @@ func TestRunUpgradeSolution(t *testing.T) {
 	options := setupOptions(t, "mod-template-upg", defaultSolutionDir, map[string]interface{}{
 		"resource_group_name":               resourceGroup,
 		"use_existing_resource_group":       true,
-		"use_existing_iam_custom_role":      false,
+		"use_existing_iam_custom_role":      true,
 		"cloudability_iam_custom_role_name": "CldyStorageDefaultTest",
 		"skip_cloudability_billing_policy":  true,
 		"enable_billing_exports":            false,
 		"cos_plan":                          "standard",
 		"expire_days":                       7,
 		"cloudability_auth_type":            "manual",
+		"cbr_billing_zone_name":             "upgrade-reports-bucket-writer",
+		"cbr_cloudability_zone_name":        "upgrade-reports-bucket-reader",
+		"cbr_schematics_zone_name":          "upgrade-schematics-bucket-management",
+		"cbr_cos_zone_name":                 "upgrade-reports-object-storage",
 	})
 
 	output, err := options.RunTestUpgrade()
