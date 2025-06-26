@@ -585,7 +585,7 @@
 							"key": "cbr_billing_zone_name",
 							"display_name": "CBR Billing Zone Name",
 							"type": "string",
-							"default_value": "ibmcloud-billing-reports-bucket-writer",
+							"default_value": "billing-reports-bucket-writer",
 							"description": "Name of the cbr zone which represents IBM Cloud billing",
 							"required": false
 						},
@@ -593,7 +593,7 @@
 							"key": "cbr_cloudability_zone_name",
 							"display_name": "CBR Cloudability Zone Name",
 							"type": "string",
-							"default_value": "cldy-billing-reports-bucket-reader",
+							"default_value": "cldy-reports-bucket-reader",
 							"description": "Name of the CBR zone which represents IBM Cloudability. See [What are CBRs?](https://cloud.ibm.com/docs/account?topic=account-context-restrictions-whatis)",
 							"required": false
 						},
@@ -601,7 +601,7 @@
 							"key": "cbr_cos_zone_name",
 							"display_name": "CBR Object Storage Zone Name",
 							"type": "string",
-							"default_value": "cldy-billing-reports-object-storage",
+							"default_value": "cldy-reports-object-storage",
 							"description": "Name of the CBR zone which represents Cloud Object Storage service. See [What are CBRs?](https://cloud.ibm.com/docs/account?topic=account-context-restrictions-whatis)",
 							"required": false
 						},
@@ -609,7 +609,7 @@
 							"key": "cbr_schematics_zone_name",
 							"display_name": "CBR Schematics Zone Name",
 							"type": "string",
-							"default_value": "schematics-billing-reports-bucket-management",
+							"default_value": "schematics-reports-bucket-management",
 							"description": "Name of the CBR zone which represents Schematics. The schematics zone allows Projects to access and manage the Object Storage bucket.",
 							"required": false
 						},

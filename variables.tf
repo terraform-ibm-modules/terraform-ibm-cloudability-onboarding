@@ -398,7 +398,7 @@ variable "cbr_enforcement_mode" {
 variable "cbr_billing_zone_name" {
   type        = string
   description = "Name of the CBR zone which represents IBM Cloud billing. See [What are CBRs?](https://cloud.ibm.com/docs/account?topic=account-context-restrictions-whatis)"
-  default     = "ibmcloud-billing-reports-bucket-writer"
+  default     = "billing-reports-bucket-writer"
   validation {
     condition     = can(regex("^[a-zA-Z0-9 -_]{1,128}$", var.cbr_billing_zone_name))
     error_message = "Invalid `cbr_billing_zone_name`: value must meet the following regular expression /^[a-zA-Z0-9 -_]+$/ and have length > 1 and < 128"
@@ -408,7 +408,7 @@ variable "cbr_billing_zone_name" {
 variable "cbr_cloudability_zone_name" {
   type        = string
   description = "Name of the CBR zone which represents IBM Cloudability. See [What are CBRs?](https://cloud.ibm.com/docs/account?topic=account-context-restrictions-whatis)"
-  default     = "cldy-billing-reports-bucket-reader"
+  default     = "cldy-reports-bucket-reader"
   validation {
     condition     = can(regex("^[a-zA-Z0-9 -_]{1,128}$", var.cbr_cloudability_zone_name))
     error_message = "Invalid `cbr_cloudability_zone_name`: value must meet the following regular expression /^[a-zA-Z0-9 -_]+$/ and have length > 1 and < 128"
@@ -418,7 +418,7 @@ variable "cbr_cloudability_zone_name" {
 variable "cbr_cos_zone_name" {
   type        = string
   description = "Name of the CBR zone which represents Cloud Object Storage service. See [What are CBRs?](https://cloud.ibm.com/docs/account?topic=account-context-restrictions-whatis)"
-  default     = "cldy-billing-reports-object-storage"
+  default     = "cldy-reports-object-storage"
   validation {
     condition     = can(regex("^[a-zA-Z0-9 -_]{1,128}$", var.cbr_cos_zone_name))
     error_message = "Invalid `cbr_cloudability_zone_name`: value must meet the following regular expression /^[a-zA-Z0-9 -_]+$/ and have length > 1 and < 128"
@@ -428,7 +428,7 @@ variable "cbr_cos_zone_name" {
 variable "cbr_schematics_zone_name" {
   type        = string
   description = "Name of the CBR zone which represents Schematics. The schematics zone allows Projects to access and manage the Object Storage bucket."
-  default     = "schematics-billing-reports-bucket-management"
+  default     = "schematics-reports-bucket-management"
   validation {
     condition     = can(regex("^[a-zA-Z0-9 -_]{1,128}$", var.cbr_schematics_zone_name))
     error_message = "Invalid `cbr_schematics_zone_name`: value must meet the following regular expression /^[a-zA-Z0-9 -_]+$/ and have length > 1 and < 128"
@@ -438,7 +438,7 @@ variable "cbr_schematics_zone_name" {
 variable "cbr_additional_zone_name" {
   type        = string
   description = "Name of the CBR zone that corresponds to the ip address range set in `additional_allowed_cbr_bucket_ip_addresses`."
-  default     = "company-billing-reports-bucket-access"
+  default     = "additional-billing-reports-bucket-access"
   validation {
     condition     = can(regex("^[a-zA-Z0-9 -_]{1,128}$", var.cbr_additional_zone_name))
     error_message = "Invalid `cbr_additional_zone_name`: value must meet the following regular expression /^[a-zA-Z0-9 -_]+$/ and have length > 1 and < 128"
