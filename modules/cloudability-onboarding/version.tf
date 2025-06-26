@@ -10,7 +10,7 @@ terraform {
     }
     restapi = {
       source  = "Mastercard/restapi"
-      version = ">= 1.18.2, <2.0.0"
+      version = ">= 2.0.0, <3.0.0"
     }
     cloudability = {
       source  = "skyscrapr/cloudability"
