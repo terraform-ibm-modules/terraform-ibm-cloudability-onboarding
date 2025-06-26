@@ -67,7 +67,7 @@ statement instead the previous block.
 | <a name="requirement_cloudability"></a> [cloudability](#requirement\_cloudability) | >= 0.0.35, <1.0.0 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.59.0, <2.0.0 |
 | <a name="requirement_null"></a> [null](#requirement\_null) | >= 3.2.2, <4.0.0 |
-| <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | >= 1.18.2, <2.0.0 |
+| <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | >= 2.0.0, <3.0.0 |
 
 ### Modules
 
