@@ -97,7 +97,7 @@ statement instead the previous block.
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.9.0 |
 | <a name="requirement_cloudability"></a> [cloudability](#requirement\_cloudability) | 0.0.40 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.77.1 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.79.2 |
 | <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | 1.20.0 |
 
 ### Modules
@@ -111,15 +111,15 @@ statement instead the previous block.
 | <a name="module_cos_bucket"></a> [cos\_bucket](#module\_cos\_bucket) | ./modules/encrypted_cos_bucket | n/a |
 | <a name="module_cos_instance"></a> [cos\_instance](#module\_cos\_instance) | ./modules/data-resource-instance-by-id | n/a |
 | <a name="module_frontdoor_auth"></a> [frontdoor\_auth](#module\_frontdoor\_auth) | ./modules/frontdoor-opentoken | n/a |
-| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | terraform-ibm-modules/resource-group/ibm | 1.2.0 |
+| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | terraform-ibm-modules/resource-group/ibm | 1.2.1 |
 
 ### Resources
 
 | Name | Type |
 |------|------|
-| [ibm_enterprises.enterprises](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.1/docs/data-sources/enterprises) | data source |
-| [ibm_iam_account_settings.billing_exports_account](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.1/docs/data-sources/iam_account_settings) | data source |
-| [ibm_iam_auth_token.tokendata](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.1/docs/data-sources/iam_auth_token) | data source |
+| [ibm_enterprises.enterprises](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.79.2/docs/data-sources/enterprises) | data source |
+| [ibm_iam_account_settings.billing_exports_account](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.79.2/docs/data-sources/iam_account_settings) | data source |
+| [ibm_iam_auth_token.tokendata](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.79.2/docs/data-sources/iam_auth_token) | data source |
 
 ### Inputs
 
