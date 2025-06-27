@@ -553,10 +553,9 @@
 							"display_name": "Additional allowed IP addresses",
 							"type": "array",
 							"default_value": "[]",
-							"description": "A list of CBR zone address which are permitted to access the bucket. This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket.",
+							"description": "A list of CBR zone addresses or an IP address (ie. 169.23.56.234) or range (169.23.22.0-169.23.22.255) which are permitted to access the bucket. This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket.",
 							"required": false,
 							"custom_config": {
-								"type": "resource_group",
 								"grouping": "deployment",
 								"original_grouping": "deployment",
 								"config_constraints": {
@@ -577,7 +576,7 @@
 							"key": "cbr_additional_zone_name",
 							"display_name": "Additional CBR Zone Name",
 							"type": "string",
-							"default_value": "__NULL__",
+							"default_value": "additional-billing-reports-bucket-access",
 							"description": "An extra CBR zone ID which is permitted to access the bucket.  This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket. It can be used as an alternative to `additional_allowed_cbr_bucket_ip_addresses` in the case that a zone exists.",
 							"required": false
 						},
