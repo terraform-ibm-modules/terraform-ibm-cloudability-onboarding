@@ -6,7 +6,8 @@
 			"product_kind": "solution",
 			"tags": [
 				"ibm_created",
-				"migration_tools"
+				"migration_tools",
+				"billing"
 			],
 			"keywords": [
 				"Billing",
@@ -30,6 +31,10 @@
 				{
 					"title": "Secured with Key Protect",
 					"description": "Your Object Storage bucket containing billing reports is encrypted with a Key Protect encryption key with automated rotation. See [encrypting a bucket with Key Protect](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-tutorial-kp-encrypt-bucket) for more details."
+				},
+				{
+					"title": "Context-Based Restrictions",
+					"description": "Access to your Object Storage bucket is restricted to IBM Cloud Billing, IBM Cloudability, and Schematics (for provisioning) by using [context-based restrictions](/docs/account?topic=account-context-restrictions-whatis)."
 				},
 				{
 					"title": "Least Privileged Operations to Cloudability",
@@ -77,6 +82,18 @@
 						},
 						{
 							"service_name": "iam-access-management",
+							"role_crns": [
+								"crn:v1:bluemix:public:iam::::role:Administrator"
+							]
+						},
+						{
+							"service_name": "cbr",
+							"role_crns": [
+								"crn:v1:bluemix:public:iam::::role:Editor"
+							]
+						},
+						{
+							"service_name": "schematics",
 							"role_crns": [
 								"crn:v1:bluemix:public:iam::::role:Administrator"
 							]
@@ -138,6 +155,7 @@
 						},
 						{
 							"key": "cloudability_auth_type",
+							"display_name": "Authentication Mode",
 							"type": "string",
 							"description": "Select Cloudability authentication mode. Options are:\n\n* `none`: no connection to Cloudability\n* `manual`: manually enter in the credentials in the Cloudability UI\n* `api_key`: use Cloudability API Keys\n* `frontdoor`: Frontdoor Access Administration",
 							"default_value": "api_key",
@@ -148,7 +166,7 @@
 									"value": "none"
 								},
 								{
-									"displayname": "Manual add the account",
+									"displayname": "Manually add the account",
 									"value": "manual"
 								},
 								{
@@ -163,34 +181,39 @@
 						},
 						{
 							"key": "cloudability_api_key",
+							"display_name": "Cloudability API Key",
 							"type": "password",
-							"description": "Cloudability API Key used to authenticate with Cloudability to add the IBM Cloud account to the Cloudability environment. See [how to retrieve your Cloudability API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#api-key) or visit the [cloudability preferences page](https://app.apptio.com/cloudability#/settings/preferences). \nRequired if `cloudability_auth_type` is set to `api_key`.",
+							"description": "(For Access Administration only) Cloudability API Key used to authenticate with Cloudability to add the IBM Cloud account to the Cloudability environment. See [how to retrieve your Cloudability API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#api-key) or visit the [cloudability preferences page](https://app.apptio.com/cloudability#/settings/preferences). \nRequired if `Authentication Mode` is set to `Cloudability Authentication`.",
 							"default_value": "__NULL__",
 							"required": true
 						},
 						{
 							"key": "frontdoor_public_key",
+							"display_name": "Frontdoor Public Key",
 							"type": "string",
-							"description": "Public key that is used along with the `frontdoor_secret_key` to authenticate requests to Cloudability. See [acquiring an Access Administration API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#frontdoor-api-key) for steps to create your credentials. Required if `cloudability_auth_type` is `frontdoor`",
+							"description": "(For Access Administration mode only) Public key that is used along with the `frontdoor_secret_key` to authenticate requests to Cloudability. See [acquiring an Access Administration API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#frontdoor-api-key) for steps to create your credentials. Required if `Authentication Mode` is `Access Administration`",
 							"default_value": "__NULL__",
 							"required": true
 						},
 						{
 							"key": "frontdoor_secret_key",
+							"display_name": "Frontdoor Secret Key",
 							"type": "password",
-							"description": "Secret key that is used along with the `frontdoor_public_key` to authenticate requests to Cloudability. See [acquiring an Access Administration API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#frontdoor-api-key) for steps to create your credentials. Required if `cloudability_auth_type` is `frontdoor`.",
+							"description": "(For Access Administration mode only) Secret key that is used along with the `frontdoor_public_key` to authenticate requests to Cloudability. See [acquiring an Access Administration API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#frontdoor-api-key) for steps to create your credentials. Required if `Authentication Mode` is `Access Administration`.",
 							"default_value": "__NULL__",
 							"required": true
 						},
 						{
 							"key": "cloudability_environment_id",
+							"display_name": "Cloudability Environment Id",
 							"type": "string",
-							"description": "An ID corresponding to the Cloudability environment. Required if `cloudability_auth_type` is `frontdoor`.",
+							"description": "(For Access Administration mode only) An ID corresponding to the Cloudability environment. Required if `Authentication Mode` is `Access Administration`.",
 							"default_value": "__NULL__",
 							"required": true
 						},
 						{
 							"key": "cloudability_host",
+							"display_name": "Cloudability Host",
 							"type": "string",
 							"default_value": "api.cloudability.com",
 							"description": "IBM Cloudability hostname which depends on the region where Cloudability is created. See [Cloudability API documentation](https://help.apptio.com/en-us/cloudability/api/v3/getting%20started%20with%20the%20cloudability.htm)",
@@ -216,13 +239,15 @@
 						},
 						{
 							"key": "skip_verification",
+							"display_name": "Skip Cloudability Verification",
 							"type": "boolean",
 							"default_value": "false",
-							"description": "Whether to verify that the IBM Cloud account is successfully integrated with Cloudability. This step is not strictly necessary for adding the account to Cloudability. Only applicable when `cloudability_auth_type` is `api_key`.",
+							"description": "Whether to verify that the IBM Cloud account is successfully integrated with Cloudability. This step is not strictly necessary for adding the account to Cloudability. Only applicable when `Authentication Mode` is `api_key`.",
 							"required": false
 						},
 						{
 							"key": "region",
+							"display_name": "Region",
 							"type": "string",
 							"default_value": "us-south",
 							"description": "Region where resources are created. Only us-south, eu-de and jp-tok have [Key protect failover support](https://cloud.ibm.com/docs/key-protect?topic=key-protect-ha-dr#availability)",
@@ -272,6 +297,7 @@
 						},
 						{
 							"key": "is_enterprise_account",
+							"display_name": "Is this an Enterprise Account?",
 							"type": "boolean",
 							"default_value": "false",
 							"description": "Whether the account corresponding to the `ibmcloud_api_key` is an enterprise account and, if so, is the primary account within the enterprise",
@@ -279,6 +305,7 @@
 						},
 						{
 							"key": "enterprise_id",
+							"display_name": "Enterprise Id",
 							"type": "string",
 							"default_value": "__NULL__",
 							"description": "The ID of the enterprise. If `__NULL__` then it is automatically retrieved if `is_enterprise_account` is `true`. Providing this value reduces the access policies that are required to run the DA.",
@@ -286,6 +313,7 @@
 						},
 						{
 							"key": "use_existing_resource_group",
+							"display_name": "Use an Existing Resource Group",
 							"type": "boolean",
 							"default_value": "false",
 							"description": "Whether the value of `resource_group_name` input is a new (true) or an existing (false) resource group",
@@ -293,6 +321,7 @@
 						},
 						{
 							"key": "resource_group_name",
+							"display_name": "Resource Group Name",
 							"type": "string",
 							"default_value": "cloudability-enablement",
 							"description": "The name of a new or existing resource group (depends on `use_existing_resource_group`) where resources are created.",
@@ -300,20 +329,37 @@
 						},
 						{
 							"key": "access_tags",
+							"display_name": "Access Tags",
 							"type": "array",
 							"default_value": "[]",
 							"description": "List of access tags to be added to the created resources",
-							"required": false
+							"required": false,
+							"custom_config": {
+								"grouping": "deployment",
+								"original_grouping": "deployment",
+								"config_constraints": {
+									"type": "string"
+								}
+							}
 						},
 						{
 							"key": "resource_tags",
+							"display_name": "Resource Tags",
 							"type": "array",
 							"default_value": "[]",
 							"description": "List of tags to be added to created resources",
-							"required": false
+							"required": false,
+							"custom_config": {
+								"grouping": "deployment",
+								"original_grouping": "deployment",
+								"config_constraints": {
+									"type": "string"
+								}
+							}
 						},
 						{
 							"key": "overwrite_existing_reports",
+							"display_name": "Overwrite Existing Billing Reports?",
 							"type": "boolean",
 							"default_value": "true",
 							"description": "Whether each update overwrites the existing report version or a new version of the report is created leaving the existing report",
@@ -331,6 +377,7 @@
 						},
 						{
 							"key": "cos_folder",
+							"display_name": "Object Storage Directory Name",
 							"type": "string",
 							"default_value": "IBMCloud-Billing-Reports",
 							"description": "Directory for your accounts billing report objects in the object storage bucket",
@@ -338,6 +385,7 @@
 						},
 						{
 							"key": "existing_cos_instance_id",
+							"display_name": "Existing Object Storage Instance Id",
 							"type": "string",
 							"description": "The ID of an existing Object Storage instance. If `__NULL__` then a new instance is created.",
 							"default_value": "__NULL__",
@@ -345,6 +393,7 @@
 						},
 						{
 							"key": "cos_instance_name",
+							"display_name": "Object Storage Instance Name",
 							"type": "string",
 							"default_value": "billing-report-exports",
 							"description": "The name of the newly created Cloud Object storage instance which contains the billing reports bucket. Only used if `existing_cos_instance_id` is not defined.",
@@ -352,6 +401,7 @@
 						},
 						{
 							"key": "bucket_name",
+							"display_name": "Object Storage Bucket Name",
 							"type": "string",
 							"default_value": "billing-reports",
 							"description": "Name of the cloud object storage (COS) bucket where billing reports are stored",
@@ -359,6 +409,7 @@
 						},
 						{
 							"key": "add_bucket_name_suffix",
+							"display_name": "Add a unique suffix to Bucket Name?",
 							"type": "boolean",
 							"default_value": "true",
 							"description": "Add a randomly generated suffix (4 characters long) to the `bucket_name` to ensure global uniqueness.",
@@ -366,6 +417,7 @@
 						},
 						{
 							"key": "cos_plan",
+							"display_name": "Object Storage Plan",
 							"type": "string",
 							"default_value": "cos-one-rate-plan",
 							"description": "Plan to be used for creating Cloud Object Storage instance. Only used if `existing_cos_instance_id` is not defined.",
@@ -387,6 +439,7 @@
 						},
 						{
 							"key": "expire_days",
+							"display_name": "Days till Object Expiry",
 							"type": "number",
 							"default_value": 3,
 							"description": "Specifies the number of days when the expire rule action takes effect. [Learn more](/docs/cloud-object-storage?topic=cloud-object-storage-expiry)",
@@ -394,6 +447,7 @@
 						},
 						{
 							"key": "bucket_storage_class",
+							"display_name": "Bucket Storage Class (Standard plan only)",
 							"type": "string",
 							"default_value": "standard",
 							"description": "The storage class of the newly provisioned Object Storage bucket of a `standard` or `lite` plan instance. Not required for one rate instances.",
@@ -419,6 +473,7 @@
 						},
 						{
 							"key": "object_versioning_enabled",
+							"display_name": "Enable Object Versioning?",
 							"type": "boolean",
 							"default_value": "false",
 							"description": "Enable object versioning to keep multiple versions of an object in the object storage bucket",
@@ -426,6 +481,7 @@
 						},
 						{
 							"key": "archive_days",
+							"display_name": "Days till Object Archive",
 							"type": "number",
 							"default_value": "__NULL__",
 							"description": "Specifies the number of days when the archive rule action takes effect. A value of `__NULL__` disables archiving. A value of `0` immediately archives uploaded objects to the bucket.",
@@ -433,6 +489,7 @@
 						},
 						{
 							"key": "archive_type",
+							"display_name": "Archive type",
 							"type": "string",
 							"default_value": "Glacier",
 							"description": "Specifies the storage class or archive type to which you want the object to transition.",
@@ -470,42 +527,127 @@
 							]
 						},
 						{
-							"key": "existing_kms_instance_crn",
+							"key": "cbr_enforcement_mode",
+							"display_name": "CBR Enforcement Mode",
 							"type": "string",
-							"description": "The CRN of an existing Key Protect or Hyper Protect Crypto Services instance to be used to create the Object Storage encryption key.",
+							"default_value": "enabled",
+							"description": "The rule enforcement mode: \n* enabled - The restrictions are enforced and reported.\n* disabled - The restrictions are disabled. Nothing is enforced or reported.\n* report - The restrictions are evaluated and reported, but not enforced.",
+							"required": false,
+							"options": [
+								{
+									"displayname": "Enabled (Restrict access to bucket)",
+									"value": "enabled"
+								},
+								{
+									"displayname": "Disabled (No access restrictions or audit logging)",
+									"value": "disabled"
+								},
+								{
+									"displayname": "Report-Only (No access restrictions, but audit logs are still enabled)",
+									"value": "report"
+								}
+							]
+						},
+						{
+							"key": "additional_allowed_cbr_bucket_ip_addresses",
+							"display_name": "Additional allowed IP addresses",
+							"type": "array",
+							"default_value": "[]",
+							"description": "A list of CBR zone address which are permitted to access the bucket. This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket.",
+							"required": false,
+							"custom_config": {
+								"type": "resource_group",
+								"grouping": "deployment",
+								"original_grouping": "deployment",
+								"config_constraints": {
+									"type": "string"
+								}
+							}
+
+						},
+						{
+							"key": "existing_allowed_cbr_bucket_zone_id",
+							"display_name": "Existing CBR Zone Id",
+							"type": "string",
+							"default_value": "__NULL__",
+							"description": "A list of CBR zone address which are permitted to access the bucket. This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket.",
+							"required": false
+						},
+						{
+							"key": "cbr_additional_zone_name",
+							"display_name": "Additional CBR Zone Name",
+							"type": "string",
+							"default_value": "__NULL__",
+							"description": "An extra CBR zone ID which is permitted to access the bucket.  This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket. It can be used as an alternative to `additional_allowed_cbr_bucket_ip_addresses` in the case that a zone exists.",
+							"required": false
+						},
+						{
+							"key": "cbr_billing_zone_name",
+							"display_name": "CBR Billing Zone Name",
+							"type": "string",
+							"default_value": "billing-reports-bucket-writer",
+							"description": "Name of the cbr zone which represents IBM Cloud billing",
+							"required": false
+						},
+						{
+							"key": "cbr_cloudability_zone_name",
+							"display_name": "CBR Cloudability Zone Name",
+							"type": "string",
+							"default_value": "cldy-reports-bucket-reader",
+							"description": "Name of the CBR zone which represents IBM Cloudability. See [What are CBRs?](https://cloud.ibm.com/docs/account?topic=account-context-restrictions-whatis)",
+							"required": false
+						},
+						{
+							"key": "cbr_cos_zone_name",
+							"display_name": "CBR Object Storage Zone Name",
+							"type": "string",
+							"default_value": "cldy-reports-object-storage",
+							"description": "Name of the CBR zone which represents Cloud Object Storage service. See [What are CBRs?](https://cloud.ibm.com/docs/account?topic=account-context-restrictions-whatis)",
+							"required": false
+						},
+						{
+							"key": "cbr_schematics_zone_name",
+							"display_name": "CBR Schematics Zone Name",
+							"type": "string",
+							"default_value": "schematics-reports-bucket-management",
+							"description": "Name of the CBR zone which represents Schematics. The schematics zone allows Projects to access and manage the Object Storage bucket.",
+							"required": false
+						},
+						{
+							"key": "existing_kms_instance_crn",
+							"display_name": "Existing KMS CRN",
+							"type": "string",
+							"description": "The ID of an existing Key Protect or Hyper Protect Crypto Services instance to be used to create the object storage encryption key.",
 							"default_value": "__NULL__",
 							"required": false
 						},
 						{
-							"key": "skip_iam_authorization_policy",
-							"type": "boolean",
-							"description": "Whether to skip the creation of an IAM authorization policy that permits the Object Storage instance to read the encryption key from the Key Protect instance.\n**WARNING**: An authorization policy must exist before an encrypted bucket can be created.",
-							"default_value": "false",
-							"required": false
-						},
-						{
 							"key": "key_protect_instance_name",
+							"display_name": "Key Protect Instance Name",
 							"type": "string",
 							"default_value": "cloudability-bucket-encryption",
 							"description": "Name of the Key Protect instance that stores the Object Storage encryption key. Not needed if `existing_kms_instance_crn` is used.",
 							"required": false
 						},
 						{
-							"key": "key_ring_name",
-							"type": "string",
-							"default_value": "bucket-encryption",
-							"description": "Name of the Key Protect key ring to store the Object Storage encryption key.",
-							"required": false
-						},
-						{
 							"key": "use_existing_key_ring",
+							"display_name": "Use and existing KMS key ring?",
 							"type": "boolean",
 							"description": "Whether the `key_ring_name` corresponds to an existing key ring or a new key ring for storing the encryption key",
 							"default_value": "false",
 							"required": false
 						},
 						{
+							"key": "key_ring_name",
+							"display_name": "KMS key ring name",
+							"type": "string",
+							"default_value": "bucket-encryption",
+							"description": "Name of the Key Protect key ring to store the Object Storage encryption key.",
+							"required": false
+						},
+						{
 							"key": "key_name",
+							"display_name": "Name of Object Storage KMS encryption key",
 							"type": "string",
 							"default_value": "__NULL__",
 							"description": "Name of the Key Protect key for encryption of the Object Storage bucket. If `__NULL__` then the name of the Object Storage bucket is used instead.",
@@ -513,6 +655,7 @@
 						},
 						{
 							"key": "kms_rotation_enabled",
+							"display_name": "Enable KMS key rotation?",
 							"type": "boolean",
 							"description": "If set to true, Key Protect enables a rotation policy on the Key Protect instance.",
 							"default_value": "true",
@@ -520,6 +663,7 @@
 						},
 						{
 							"key": "kms_rotation_interval_month",
+							"display_name": "KMS key rotation interval",
 							"type": "number",
 							"description": "Specifies the number of months for the encryption key to be rotated.. Must be between 1 and 12 inclusive.",
 							"default_value": 1,
@@ -594,6 +738,7 @@
 						},
 						{
 							"key": "activity_tracker_read_data_events",
+							"display_name": "Enable Object Storage read audit logs?",
 							"type": "boolean",
 							"default_value": "true",
 							"description": "If set to `true`, all Object Storage bucket read events (downloads) are sent to Activity Tracker.",
@@ -601,6 +746,7 @@
 						},
 						{
 							"key": "activity_tracker_write_data_events",
+							"display_name": "Enable Object Storage write audit logs?",
 							"type": "boolean",
 							"default_value": "true",
 							"description": "If set to true, all Object Storage bucket write events (uploads) are sent to Activity Tracker.",
@@ -608,6 +754,7 @@
 						},
 						{
 							"key": "activity_tracker_management_events",
+							"display_name": "Enable Object Storage management audit logs?",
 							"type": "boolean",
 							"default_value": "true",
 							"description": "If set to true, all Object Storage management events are sent to Activity Tracker.",
@@ -615,13 +762,15 @@
 						},
 						{
 							"key": "monitoring_crn",
+							"display_name": "Cloud Monitoring CRN",
 							"type": "string",
 							"default_value": "__NULL__",
-							"description": "The CRN of an IBM Cloud Monitoring instance to send Object Storage bucket metrics to. If no value is passed, metrics are sent to the instance associated to the container's location unless otherwise specified in the Metrics Router service configuration.",
+							"description": "The CRN of an IBM Cloud Monitoring instance to send Object Storage bucket metrics to. If no value is passed, metrics are configured in Metrics Router service configuration.",
 							"required": false
 						},
 						{
 							"key": "request_metrics_enabled",
+							"display_name": "Enable Object Storage request metrics?",
 							"type": "boolean",
 							"default_value": "true",
 							"description": "If set to `true`, all Object Storage bucket request metrics are sent to the monitoring service.",
@@ -629,6 +778,7 @@
 						},
 						{
 							"key": "usage_metrics_enabled",
+							"display_name": "Enable Object Storage usage metrics?",
 							"type": "boolean",
 							"default_value": "true",
 							"description": "If set to `true`, all Object Storage bucket usage metrics are sent to the monitoring service.",
@@ -656,6 +806,7 @@
 						},
 						{
 							"key": "cloudability_iam_custom_role_name",
+							"display_name": "Object Storage Custom Role Name",
 							"type": "string",
 							"default_value": "CloudabilityStorageCustomRole",
 							"description": "Name of the custom role that is used to grant the Cloudability service ID read access to the billing reports within the Object Storage bucket",
@@ -663,9 +814,17 @@
 						},
 						{
 							"key": "cloudability_iam_enterprise_custom_role_name",
+							"display_name": "Enterprise Custom Role Name",
 							"type": "string",
 							"default_value": "CloudabilityListAccCustomRole",
 							"description": "Name of the custom role to grant access to a Cloudability service ID to read the enterprise information. Only used of `is_enterprise_account` is set to `true`.",
+							"required": false
+						},
+						{
+							"key": "skip_iam_authorization_policy",
+							"type": "boolean",
+							"description": "Whether to skip the creation of an IAM authorization policy that permits the Object Storage instance to read the encryption key from the Key Protect instance.\n**WARNING**: An authorization policy must exist before an encrypted bucket can be created.",
+							"default_value": "false",
 							"required": false
 						},
 						{
@@ -673,18 +832,6 @@
 							"type": "boolean",
 							"hidden": true,
 							"default_value": "true"
-						},
-						{
-							"key": "bucket_cbr_rules",
-							"type": "array",
-							"hidden": true,
-							"default_value": "[]"
-						},
-						{
-							"key": "instance_cbr_rules",
-							"type": "array",
-							"hidden": true,
-							"default_value": "[]"
 						},
 						{
 							"key": "cross_region_location",
@@ -765,6 +912,14 @@
 						{
 							"key": "cos_instance_name",
 							"description": "Name of the Object Storage Instance"
+						},
+						{
+							"key": "bucket_cbr_rule_ids",
+							"description": "Object Storage bucket rule ids"
+						},
+						{
+							"key": "bucket_cbr_rules",
+							"description": "Object Storage bucket rules"
 						},
 						{
 							"key": "key_protect_guid",

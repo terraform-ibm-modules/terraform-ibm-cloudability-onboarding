@@ -345,6 +345,7 @@ variable "existing_kms_instance_crn" {
   }
 }
 
+
 variable "key_protect_allowed_network" {
   type        = string
   description = "The type of the allowed network to be set for the Key Protect instance. Possible values are 'private-only', or 'public-and-private'. Only used if 'create_key_protect_instance' is true."
@@ -354,63 +355,6 @@ variable "key_protect_allowed_network" {
     error_message = "The key_protect_allowed_network value must be 'private-only' or 'public-and-private'."
   }
 }
-
-
-##############################################################
-# Context-based restriction (CBR)
-##############################################################
-
-variable "bucket_cbr_rules" {
-  type = list(object({
-    description = string
-    account_id  = string
-    rule_contexts = list(object({
-      attributes = optional(list(object({
-        name  = string
-        value = string
-    }))) }))
-    enforcement_mode = string
-    tags = optional(list(object({
-      name  = string
-      value = string
-    })), [])
-    operations = optional(list(object({
-      api_types = list(object({
-        api_type_id = string
-      }))
-    })))
-  }))
-  description = "(Optional, list) List of CBR rules to create for the bucket"
-  default     = []
-  # Validation happens in the rule module
-}
-
-variable "instance_cbr_rules" {
-  type = list(object({
-    description = string
-    account_id  = string
-    rule_contexts = list(object({
-      attributes = optional(list(object({
-        name  = string
-        value = string
-    }))) }))
-    enforcement_mode = string
-    tags = optional(list(object({
-      name  = string
-      value = string
-    })), [])
-    operations = optional(list(object({
-      api_types = list(object({
-        api_type_id = string
-      }))
-    })))
-  }))
-  description = "(Optional, list) List of CBR rules to create for the instance"
-  default     = []
-  # Validation happens in the rule module
-}
-
-
 
 variable "kms_endpoint_type" {
   type        = string
@@ -436,6 +380,81 @@ variable "kms_rotation_interval_month" {
     condition     = var.kms_rotation_interval_month >= 1 && var.kms_rotation_interval_month <= 12
     error_message = "The key rotation time interval must be greater than 0 and less than 13"
   }
+}
+
+##############################################################
+# Context-based restriction (CBR)
+##############################################################
+
+variable "cbr_enforcement_mode" {
+  type        = string
+  description = "The rule enforcement mode: * enabled - The restrictions are enforced and reported. This is the default. * disabled - The restrictions are disabled. Nothing is enforced or reported. * report - The restrictions are evaluated and reported, but not enforced."
+  default     = "enabled"
+  validation {
+    condition     = contains(["enabled", "disabled", "report"], var.cbr_enforcement_mode)
+    error_message = "Invalid cbr_enforcement_mode: use one of \"enabled\", \"disabled\", or \"report\". See CBR Rule Enforcement docs for more details: https://cloud.ibm.com/docs/account?topic=account-context-restrictions-whatis&interface=ui#rule-enforcement"
+  }
+}
+variable "cbr_billing_zone_name" {
+  type        = string
+  description = "Name of the CBR zone which represents IBM Cloud billing. See [What are CBRs?](https://cloud.ibm.com/docs/account?topic=account-context-restrictions-whatis)"
+  default     = "billing-reports-bucket-writer"
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9 -_]{1,128}$", var.cbr_billing_zone_name))
+    error_message = "Invalid `cbr_billing_zone_name`: value must meet the following regular expression /^[a-zA-Z0-9 -_]+$/ and have length > 1 and < 128"
+  }
+}
+
+variable "cbr_cloudability_zone_name" {
+  type        = string
+  description = "Name of the CBR zone which represents IBM Cloudability. See [What are CBRs?](https://cloud.ibm.com/docs/account?topic=account-context-restrictions-whatis)"
+  default     = "cldy-reports-bucket-reader"
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9 -_]{1,128}$", var.cbr_cloudability_zone_name))
+    error_message = "Invalid `cbr_cloudability_zone_name`: value must meet the following regular expression /^[a-zA-Z0-9 -_]+$/ and have length > 1 and < 128"
+  }
+}
+
+variable "cbr_cos_zone_name" {
+  type        = string
+  description = "Name of the CBR zone which represents Cloud Object Storage service. See [What are CBRs?](https://cloud.ibm.com/docs/account?topic=account-context-restrictions-whatis)"
+  default     = "cldy-reports-object-storage"
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9 -_]{1,128}$", var.cbr_cos_zone_name))
+    error_message = "Invalid `cbr_cloudability_zone_name`: value must meet the following regular expression /^[a-zA-Z0-9 -_]+$/ and have length > 1 and < 128"
+  }
+}
+
+variable "cbr_schematics_zone_name" {
+  type        = string
+  description = "Name of the CBR zone which represents Schematics. The schematics zone allows Projects to access and manage the Object Storage bucket."
+  default     = "schematics-reports-bucket-management"
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9 -_]{1,128}$", var.cbr_schematics_zone_name))
+    error_message = "Invalid `cbr_schematics_zone_name`: value must meet the following regular expression /^[a-zA-Z0-9 -_]+$/ and have length > 1 and < 128"
+  }
+}
+
+variable "cbr_additional_zone_name" {
+  type        = string
+  description = "Name of the CBR zone that corresponds to the ip address range set in `additional_allowed_cbr_bucket_ip_addresses`."
+  default     = "additional-billing-reports-bucket-access"
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9 -_]{1,128}$", var.cbr_additional_zone_name))
+    error_message = "Invalid `cbr_additional_zone_name`: value must meet the following regular expression /^[a-zA-Z0-9 -_]+$/ and have length > 1 and < 128"
+  }
+}
+
+variable "additional_allowed_cbr_bucket_ip_addresses" {
+  type        = list(string)
+  description = "A list of CBR zone IP addresses, which are permitted to access the bucket.  This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket."
+  default     = []
+}
+
+variable "existing_allowed_cbr_bucket_zone_id" {
+  type        = string
+  description = "An extra CBR zone ID which is permitted to access the bucket.  This zone typically represents the ip addresses for your company or workstation to allow access to view the contents of the bucket. It can be used as an alternative to `additional_allowed_cbr_bucket_ip_addresses` in the case that a zone exists."
+  default     = null
 }
 
 variable "skip_iam_authorization_policy" {

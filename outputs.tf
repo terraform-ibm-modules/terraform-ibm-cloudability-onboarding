@@ -68,8 +68,9 @@ output "cos_bucket_folder" {
 
 output "cos_cbr_rule_ids" {
   description = "List of all rule ids"
-  value       = module.cos_bucket.cbr_rule_ids
+  value       = module.cos_bucket.bucket_cbr_rule_ids
 }
+
 output "bucket_cbr_rules" {
   description = "Object Storage bucket rules"
   value       = module.cos_bucket.bucket_cbr_rules

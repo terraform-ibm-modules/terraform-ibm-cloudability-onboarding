@@ -57,8 +57,8 @@ output "instance_cbr_rules" {
   value       = module.cos_bucket.instance_cbr_rules
 }
 
-output "cbr_rule_ids" {
-  description = "List of all rule ids"
+output "bucket_cbr_rule_ids" {
+  description = "Object Storage bucket rule ids"
   value       = module.cos_bucket.cbr_rule_ids
 }
 output "bucket_cbr_rules" {
@@ -88,20 +88,20 @@ output "key_protect_guid" {
 
 output "key_protect_name" {
   description = "Key Protect Name"
-  value       = local.key_management_enabled ? module.key_protect_all_inclusive[0].key_protect_name : null
+  value       = module.key_protect_all_inclusive[*].key_protect_name
 }
 
 output "key_protect_instance_policies" {
   description = "Instance Polices of the Key Protect instance"
-  value       = local.key_management_enabled ? module.key_protect_all_inclusive[0].key_protect_instance_policies : null
+  value       = module.key_protect_all_inclusive[*].key_protect_instance_policies
 }
 
 output "key_rings" {
   description = "IDs of new Key Rings created by the module"
-  value       = local.key_management_enabled ? module.key_protect_all_inclusive[0].key_rings : null
+  value       = module.key_protect_all_inclusive[*].key_rings
 }
 
 output "keys" {
   description = "IDs of new Keys created by the module"
-  value       = local.key_management_enabled ? module.key_protect_all_inclusive[0].keys : null
+  value       = module.key_protect_all_inclusive[*].keys
 }
