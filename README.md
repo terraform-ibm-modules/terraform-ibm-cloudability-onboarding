@@ -105,18 +105,18 @@ statement instead the previous block.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_billing_exports"></a> [billing\_exports](#module\_billing\_exports) | ./modules/billing-exports | n/a |
-| <a name="module_cbr_zone_additional"></a> [cbr\_zone\_additional](#module\_cbr\_zone\_additional) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.29.0 |
-| <a name="module_cbr_zone_cloudability"></a> [cbr\_zone\_cloudability](#module\_cbr\_zone\_cloudability) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.29.0 |
-| <a name="module_cbr_zone_cos"></a> [cbr\_zone\_cos](#module\_cbr\_zone\_cos) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.29.0 |
-| <a name="module_cbr_zone_ibmcloud_billing"></a> [cbr\_zone\_ibmcloud\_billing](#module\_cbr\_zone\_ibmcloud\_billing) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.29.0 |
-| <a name="module_cbr_zone_schematics"></a> [cbr\_zone\_schematics](#module\_cbr\_zone\_schematics) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.29.0 |
+| <a name="module_cbr_zone_additional"></a> [cbr\_zone\_additional](#module\_cbr\_zone\_additional) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.32.6 |
+| <a name="module_cbr_zone_cloudability"></a> [cbr\_zone\_cloudability](#module\_cbr\_zone\_cloudability) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.32.6 |
+| <a name="module_cbr_zone_cos"></a> [cbr\_zone\_cos](#module\_cbr\_zone\_cos) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.32.6 |
+| <a name="module_cbr_zone_ibmcloud_billing"></a> [cbr\_zone\_ibmcloud\_billing](#module\_cbr\_zone\_ibmcloud\_billing) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.32.6 |
+| <a name="module_cbr_zone_schematics"></a> [cbr\_zone\_schematics](#module\_cbr\_zone\_schematics) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.32.6 |
 | <a name="module_cloudability_bucket_access"></a> [cloudability\_bucket\_access](#module\_cloudability\_bucket\_access) | ./modules/cloudability-bucket-access | n/a |
 | <a name="module_cloudability_enterprise_access"></a> [cloudability\_enterprise\_access](#module\_cloudability\_enterprise\_access) | ./modules/cloudability-enterprise-access | n/a |
 | <a name="module_cloudability_onboarding"></a> [cloudability\_onboarding](#module\_cloudability\_onboarding) | ./modules/cloudability-onboarding | n/a |
 | <a name="module_cos_bucket"></a> [cos\_bucket](#module\_cos\_bucket) | ./modules/encrypted_cos_bucket | n/a |
 | <a name="module_cos_instance"></a> [cos\_instance](#module\_cos\_instance) | ./modules/data-resource-instance-by-id | n/a |
 | <a name="module_frontdoor_auth"></a> [frontdoor\_auth](#module\_frontdoor\_auth) | ./modules/frontdoor-opentoken | n/a |
-| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | terraform-ibm-modules/resource-group/ibm | 1.2.1 |
+| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | terraform-ibm-modules/resource-group/ibm | 1.3.0 |
 
 ### Resources
 

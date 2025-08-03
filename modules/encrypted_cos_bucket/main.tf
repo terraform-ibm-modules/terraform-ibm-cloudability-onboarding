@@ -40,7 +40,7 @@ module "key_protect_all_inclusive" {
   }
   count                       = local.key_management_enabled ? 1 : 0
   source                      = "terraform-ibm-modules/kms-all-inclusive/ibm"
-  version                     = "5.1.8"
+  version                     = "5.1.16"
   create_key_protect_instance = var.create_key_protect_instance
   key_protect_instance_name   = var.key_protect_instance_name
   resource_group_id           = var.resource_group_id
@@ -77,7 +77,7 @@ locals {
 module "key_protect_key_cbr_rule" {
   count            = length(var.kms_key_cbr_rules) > 0 ? length(var.kms_key_cbr_rules) : 0
   source           = "terraform-ibm-modules/cbr/ibm//modules/cbr-rule-module"
-  version          = "1.29.0"
+  version          = "1.32.6"
   rule_description = var.kms_key_cbr_rules[count.index].description
   enforcement_mode = var.kms_key_cbr_rules[count.index].enforcement_mode
   rule_contexts    = var.kms_key_cbr_rules[count.index].rule_contexts
@@ -130,7 +130,7 @@ module "cos_bucket" {
     ibm = ibm
   }
   source                              = "terraform-ibm-modules/cos/ibm"
-  version                             = "9.0.7"
+  version                             = "9.1.0"
   bucket_name                         = var.bucket_name
   add_bucket_name_suffix              = var.add_bucket_name_suffix
   management_endpoint_type_for_bucket = var.management_endpoint_type_for_bucket
