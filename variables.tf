@@ -361,7 +361,7 @@ variable "kms_endpoint_type" {
   description = "The type of endpoint to be used for management of key protect."
   default     = "public"
   validation {
-    condition     = can(regex("public|private", var.kms_endpoint_type))
+    condition     = can(regex("^(public|private)$", var.kms_endpoint_type))
     error_message = "The endpoint_type value must be 'public' or 'private'."
   }
 }
