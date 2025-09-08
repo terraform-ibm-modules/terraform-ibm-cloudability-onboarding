@@ -289,7 +289,7 @@ module "cloudability_onboarding" {
     restapi = restapi.cloudability
   }
   source = "./modules/cloudability-onboarding"
-  # needed to execute an ibmcloud cli script to check that billing exports have been writted to the Object Storage bucket
+  # needed to execute an ibmcloud cli script to check that billing exports have been written to the Object Storage bucket
   ibmcloud_api_key    = var.ibmcloud_api_key
   cos_bucket_prefix   = var.cos_folder
   cos_bucket_location = var.region
