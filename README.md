@@ -97,7 +97,7 @@ statement instead the previous block.
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.9.0 |
 | <a name="requirement_cloudability"></a> [cloudability](#requirement\_cloudability) | 0.0.40 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.79.2 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.86.1 |
 | <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | 2.0.1 |
 
 ### Modules
@@ -105,26 +105,26 @@ statement instead the previous block.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_billing_exports"></a> [billing\_exports](#module\_billing\_exports) | ./modules/billing-exports | n/a |
-| <a name="module_cbr_zone_additional"></a> [cbr\_zone\_additional](#module\_cbr\_zone\_additional) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.29.0 |
-| <a name="module_cbr_zone_cloudability"></a> [cbr\_zone\_cloudability](#module\_cbr\_zone\_cloudability) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.29.0 |
-| <a name="module_cbr_zone_cos"></a> [cbr\_zone\_cos](#module\_cbr\_zone\_cos) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.29.0 |
-| <a name="module_cbr_zone_ibmcloud_billing"></a> [cbr\_zone\_ibmcloud\_billing](#module\_cbr\_zone\_ibmcloud\_billing) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.29.0 |
-| <a name="module_cbr_zone_schematics"></a> [cbr\_zone\_schematics](#module\_cbr\_zone\_schematics) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.29.0 |
+| <a name="module_cbr_zone_additional"></a> [cbr\_zone\_additional](#module\_cbr\_zone\_additional) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.35.8 |
+| <a name="module_cbr_zone_cloudability"></a> [cbr\_zone\_cloudability](#module\_cbr\_zone\_cloudability) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.35.8 |
+| <a name="module_cbr_zone_cos"></a> [cbr\_zone\_cos](#module\_cbr\_zone\_cos) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.35.8 |
+| <a name="module_cbr_zone_ibmcloud_billing"></a> [cbr\_zone\_ibmcloud\_billing](#module\_cbr\_zone\_ibmcloud\_billing) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.35.8 |
+| <a name="module_cbr_zone_schematics"></a> [cbr\_zone\_schematics](#module\_cbr\_zone\_schematics) | terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module | 1.35.8 |
 | <a name="module_cloudability_bucket_access"></a> [cloudability\_bucket\_access](#module\_cloudability\_bucket\_access) | ./modules/cloudability-bucket-access | n/a |
 | <a name="module_cloudability_enterprise_access"></a> [cloudability\_enterprise\_access](#module\_cloudability\_enterprise\_access) | ./modules/cloudability-enterprise-access | n/a |
 | <a name="module_cloudability_onboarding"></a> [cloudability\_onboarding](#module\_cloudability\_onboarding) | ./modules/cloudability-onboarding | n/a |
 | <a name="module_cos_bucket"></a> [cos\_bucket](#module\_cos\_bucket) | ./modules/encrypted_cos_bucket | n/a |
 | <a name="module_cos_instance"></a> [cos\_instance](#module\_cos\_instance) | ./modules/data-resource-instance-by-id | n/a |
 | <a name="module_frontdoor_auth"></a> [frontdoor\_auth](#module\_frontdoor\_auth) | ./modules/frontdoor-opentoken | n/a |
-| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | terraform-ibm-modules/resource-group/ibm | 1.2.1 |
+| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | terraform-ibm-modules/resource-group/ibm | 1.4.7 |
 
 ### Resources
 
 | Name | Type |
 |------|------|
-| [ibm_enterprises.enterprises](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.79.2/docs/data-sources/enterprises) | data source |
-| [ibm_iam_account_settings.billing_exports_account](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.79.2/docs/data-sources/iam_account_settings) | data source |
-| [ibm_iam_auth_token.tokendata](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.79.2/docs/data-sources/iam_auth_token) | data source |
+| [ibm_enterprises.enterprises](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.86.1/docs/data-sources/enterprises) | data source |
+| [ibm_iam_account_settings.billing_exports_account](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.86.1/docs/data-sources/iam_account_settings) | data source |
+| [ibm_iam_auth_token.tokendata](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.86.1/docs/data-sources/iam_auth_token) | data source |
 
 ### Inputs
 
