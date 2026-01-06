@@ -57,6 +57,7 @@
         {
           "label": "Standard",
           "name": "cloudability-all-inclusive",
+          "short_description": "Add your IBM Cloud account or enterprise to IBM Cloudability to start analyzing and tracking all of your cloud expenses.",
           "working_directory": ".",
           "iam_permissions": [
             {
