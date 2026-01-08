@@ -1,13 +1,13 @@
 
 variable "ibmcloud_api_key" {
   type        = string
-  description = "The IBM Cloud API key corresponding to the cloud account that will be added to Cloudability. For enterprise accounts this should be the primary enterprise account"
+  description = "The IBM Cloud API key corresponding to the cloud account that is to be added to Cloudability. For enterprise accounts, create the api key in the primary enterprise account in order to add all child accounts within your enterprise. See [configuring IBM Cloud IAM permissions](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#cloudability-iam-prereqs)"
   sensitive   = true
 }
 
 variable "cloudability_api_key" {
   type        = string
-  description = "Cloudability API Key. Retrieve your Api Key from https://app.apptio.com/cloudability#/settings/preferences under the section **Cloudability API** select **Enable API** which will generate an api key. Setting this value to __NULL__ will skip adding the IBM Cloud account to Cloudability and only configure IBM Cloud so that the IBM Cloud Account can be added to Cloudability manually"
+  description = "(For Access Administration only) Cloudability API Key used to authenticate with Cloudability to add the IBM Cloud account to the Cloudability environment. See [how to retrieve your Cloudability API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#api-key) or visit the [cloudability preferences page](https://app.apptio.com/cloudability#/settings/preferences). \nRequired if `Authentication Mode` is set to `Cloudability Authentication`."
   sensitive   = true
   default     = null
 }
@@ -20,7 +20,7 @@ variable "cloudability_environment_id" {
 
 variable "frontdoor_public_key" {
   type        = string
-  description = "The public key that is used along with the `frontdoor_secret_key` to authenticate requests to Cloudability. Only required if `cloudability_auth_type` is `frontdoor`. See [acquiring an Access Administration API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#frontdoor-api-key) for steps to create your credentials."
+  description = "(For Access Administration mode only) Public key that is used along with the `frontdoor_secret_key` to authenticate requests to Cloudability. See [acquiring an Access Administration API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#frontdoor-api-key) for steps to create your credentials. Required if `Authentication Mode` is `Access Administration`"
   default     = null
 }
 
@@ -37,7 +37,7 @@ variable "cloudability_auth_type" {
 
 variable "frontdoor_secret_key" {
   type        = string
-  description = "The secret key that is used along with the `frontdoor_public_key` to authenticate requests to Cloudability. Only required if `cloudability_auth_type` is `frontdoor`.  See [acquiring an Access Administration API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#frontdoor-api-key) for steps to create your credentials."
+  description = "(For Access Administration mode only) Secret key that is used along with the `frontdoor_public_key` to authenticate requests to Cloudability. See [acquiring an Access Administration API key](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#frontdoor-api-key) for steps to create your credentials. Required if `Authentication Mode` is `Access Administration`."
   sensitive   = true
   default     = null
 }
@@ -80,13 +80,13 @@ variable "policy_granularity" {
 
 variable "use_existing_resource_group" {
   type        = bool
-  description = "Whether `resource_group_name` input represents the name of an existing resource group or a new resource group should be created"
+  description = "Whether the value of `resource_group_name` input is a new (true) or an existing (false) resource group"
   default     = false
 }
 
 variable "resource_group_name" {
   type        = string
-  description = "The name of a new or existing resource group where resources are created"
+  description = "The name of a new or existing resource group (depends on `use_existing_resource_group`) where resources are created."
   default     = "cloudability-enablement"
 
   validation {
@@ -97,13 +97,13 @@ variable "resource_group_name" {
 
 variable "resource_tags" {
   type        = list(string)
-  description = "Optional list of tags to be added to created resources"
+  description = "List of tags to be added to created resources"
   default     = []
 }
 
 variable "access_tags" {
   type        = list(string)
-  description = "A list of access tags to apply to the cos instance created by the module, see https://cloud.ibm.com/docs/account?topic=account-access-tags-tutorial for more details"
+  description = "List of access tags to be added to the created resources"
   default     = []
 
   validation {
@@ -116,7 +116,7 @@ variable "access_tags" {
 
 # region needs to provide cross region support.
 variable "region" {
-  description = "Region where resources are created"
+  description = "Region where resources are created. Only us-south, eu-de and jp-tok have [Key protect failover support](https://cloud.ibm.com/docs/key-protect?topic=key-protect-ha-dr#availability)"
   type        = string
   default     = "us-south"
 
@@ -132,7 +132,7 @@ variable "region" {
 
 variable "key_protect_instance_name" {
   type        = string
-  description = "Key Protect instance name"
+  description = "Name of the Key Protect instance that stores the Object Storage encryption key. Not needed if `existing_kms_instance_crn` is used."
   default     = "cloudability-bucket-encryption"
   validation {
     condition     = can(regex("^([^[:ascii:]]|[a-zA-Z0-9-._: ])+$", var.key_protect_instance_name)) && length(var.key_protect_instance_name) < 180
@@ -142,7 +142,7 @@ variable "key_protect_instance_name" {
 
 variable "key_ring_name" {
   type        = string
-  description = "Name of the key ring to group keys"
+  description = "Name of the Key Protect key ring to store the Object Storage encryption key."
   default     = "bucket-encryption"
 
   validation {
@@ -159,7 +159,7 @@ variable "use_existing_key_ring" {
 
 variable "key_name" {
   type        = string
-  description = "Name of the Object Storage bucket encryption key"
+  description = "Name of the Key Protect key for encryption of the Object Storage bucket. If `__NULL__` then the name of the Object Storage bucket is used instead."
   default     = null
   validation {
     condition     = var.key_name != null ? can(regex("^[a-zA-Z0-9-_]{2,90}$", var.key_name)) : true
@@ -174,7 +174,7 @@ variable "key_name" {
 ##############################################################################
 
 variable "cos_instance_name" {
-  description = "The name to give the Cloud Object Storage instance that will be provisioned by this module. Only required if 'create_cos_instance' is true."
+  description = "The name of the newly created Cloud Object storage instance which contains the billing reports bucket. Only used if `existing_cos_instance_id` is not defined."
   type        = string
   default     = "billing-report-exports"
   validation {
@@ -184,7 +184,7 @@ variable "cos_instance_name" {
 }
 
 variable "cos_plan" {
-  description = "Plan to be used for creating Cloud Object Storage instance. Only used if 'create_cos_instance' is true."
+  description = "Plan to be used for creating Cloud Object Storage instance. Only used if `existing_cos_instance_id` is not defined."
   type        = string
   default     = "cos-one-rate-plan"
   validation {
@@ -194,7 +194,7 @@ variable "cos_plan" {
 }
 
 variable "existing_cos_instance_id" {
-  description = "The ID of an existing Cloud Object Storage instance. Required if 'var.create_cos_instance' is false."
+  description = "The ID of an existing Object Storage instance. If `__NULL__` then a new instance is created."
   type        = string
   default     = null
 
@@ -221,7 +221,7 @@ variable "cross_region_location" {
 
 variable "bucket_name" {
   type        = string
-  description = "The name to give the newly provisioned Object Storage bucket."
+  description = "Name of the cloud object storage (COS) bucket where billing reports are stored"
   default     = "billing-reports"
   validation {
     condition     = can(regex("^[a-z][0-9a-z\\.\\-]{1,57}$", var.bucket_name))
@@ -231,13 +231,13 @@ variable "bucket_name" {
 
 variable "add_bucket_name_suffix" {
   type        = bool
-  description = "Add random generated suffix (4 characters long) to the newly provisioned Object Storage bucket name (Optional)."
+  description = "Add a randomly generated suffix (4 characters long) to the `bucket_name` to ensure global uniqueness."
   default     = true
 }
 
 variable "bucket_storage_class" {
   type        = string
-  description = "The storage class of the newly provisioned Object Storage bucket. Supported values are 'standard', 'vault', 'cold', 'smart' and `onerate_active`."
+  description = "The storage class of the newly provisioned Object Storage bucket of a `standard` or `lite` plan instance. Not required for one rate instances."
   default     = "standard"
 
   validation {
@@ -257,19 +257,19 @@ variable "management_endpoint_type_for_bucket" {
 }
 
 variable "overwrite_existing_reports" {
-  description = "A new version of report is created or the existing report version is overwritten with every update."
+  description = "Whether each update overwrites the existing report version or a new version of the report is created leaving the existing report"
   type        = bool
   default     = true
 }
 
 variable "object_versioning_enabled" {
-  description = "Enable [object versioning](/docs/cloud-object-storage?topic=cloud-object-storage-versioning) to keep multiple versions of an object in a bucket."
+  description = "Enable object versioning to keep multiple versions of an object in the object storage bucket"
   type        = bool
   default     = false
 }
 
 variable "archive_days" {
-  description = "Specifies the number of days when the archive rule action takes effect. A value of `null` disables archiving. A value of `0` immediately archives uploaded objects to the bucket."
+  description = "Specifies the number of days when the archive rule action takes effect. A value of `__NULL__` disables archiving. A value of `0` immediately archives uploaded objects to the bucket."
   type        = number
   default     = null
 }
@@ -285,32 +285,32 @@ variable "archive_type" {
 }
 
 variable "expire_days" {
-  description = "Specifies the number of days when the expire rule action takes effect."
+  description = "Specifies the number of days when the expire rule action takes effect. [Learn more](/docs/cloud-object-storage?topic=cloud-object-storage-expiry)"
   type        = number
   default     = 3
 }
 
 variable "activity_tracker_read_data_events" {
   type        = bool
-  description = "If set to true, all Object Storage bucket read events (downloads) will be sent to Activity Tracker."
+  description = "If set to `true`, all Object Storage bucket read events (downloads) are sent to Activity Tracker."
   default     = true
 }
 
 variable "activity_tracker_write_data_events" {
   type        = bool
-  description = "If set to true, all Object Storage bucket read events (downloads) will be sent to Activity Tracker."
+  description = "If set to true, all Object Storage bucket write events (uploads) are sent to Activity Tracker."
   default     = true
 }
 
 variable "activity_tracker_management_events" {
   type        = bool
-  description = "If set to true, all Object Storage management events will be sent to Activity Tracker."
+  description = "If set to true, all Object Storage management events are sent to Activity Tracker."
   default     = true
 }
 
 variable "monitoring_crn" {
   type        = string
-  description = "The CRN of an IBM Cloud Monitoring instance to send Object Storage bucket metrics to. If no value passed, metrics are sent to the instance associated to the container's location unless otherwise specified in the Metrics Router service configuration."
+  description = "The CRN of an IBM Cloud Monitoring instance to send Object Storage bucket metrics to. If no value is passed, metrics are configured in Metrics Router service configuration."
   default     = null
   validation {
     condition     = var.monitoring_crn != null ? can(regex("crn:v1:(bluemix|ibmcloud):public:sysdig-monitor:(jp-tok|jp-osa|ca-tor|br-sao|au-syd|eu-gb|eu-es|us-south|eu-de|us-east):a/[0-9a-f]{32}:[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}::", var.monitoring_crn)) : true
@@ -320,13 +320,13 @@ variable "monitoring_crn" {
 
 variable "request_metrics_enabled" {
   type        = bool
-  description = "If set to `true`, all Object Storage bucket request metrics will be sent to the monitoring service."
+  description = "If set to `true`, all Object Storage bucket request metrics are sent to the monitoring service."
   default     = true
 }
 
 variable "usage_metrics_enabled" {
   type        = bool
-  description = "If set to `true`, all Object Storage bucket usage metrics will be sent to the monitoring service."
+  description = "If set to `true`, all Object Storage bucket usage metrics are sent to the monitoring service."
   default     = true
 }
 
@@ -335,7 +335,7 @@ variable "usage_metrics_enabled" {
 ##############################################################################
 
 variable "existing_kms_instance_crn" {
-  description = "The CRN of an existing Key Protect or Hyper Protect Crypto Services instance. Required if 'create_key_protect_instance' is false."
+  description = "The CRN of an existing Key Protect or Hyper Protect Crypto Services instance to be used to create the object storage encryption key."
   type        = string
   default     = null
 
@@ -368,13 +368,13 @@ variable "kms_endpoint_type" {
 
 variable "kms_rotation_enabled" {
   type        = bool
-  description = "If set to true, Key Protect enables a rotation policy on the Key Protect instance. Only used if 'create_key_protect_instance' is true."
+  description = "If set to true, Key Protect enables a rotation policy on the Key Protect instance."
   default     = true
 }
 
 variable "kms_rotation_interval_month" {
   type        = number
-  description = "Specifies the number of months for the encryption key to be rotated.. Must be between 1 and 12 inclusive."
+  description = "Specifies the number of months for the encryption key to be rotated. Must be between 1 and 12 inclusive."
   default     = 1
   validation {
     condition     = var.kms_rotation_interval_month >= 1 && var.kms_rotation_interval_month <= 12
@@ -388,7 +388,7 @@ variable "kms_rotation_interval_month" {
 
 variable "cbr_enforcement_mode" {
   type        = string
-  description = "The rule enforcement mode: * enabled - The restrictions are enforced and reported. This is the default. * disabled - The restrictions are disabled. Nothing is enforced or reported. * report - The restrictions are evaluated and reported, but not enforced."
+  description = "The rule enforcement mode: \n* enabled - The restrictions are enforced and reported.\n* disabled - The restrictions are disabled. Nothing is enforced or reported.\n* report - The restrictions are evaluated and reported, but not enforced."
   default     = "enabled"
   validation {
     condition     = contains(["enabled", "disabled", "report"], var.cbr_enforcement_mode)
@@ -397,7 +397,7 @@ variable "cbr_enforcement_mode" {
 }
 variable "cbr_billing_zone_name" {
   type        = string
-  description = "Name of the CBR zone which represents IBM Cloud billing. See [What are CBRs?](https://cloud.ibm.com/docs/account?topic=account-context-restrictions-whatis)"
+  description = "Name of the cbr zone which represents IBM Cloud billing"
   default     = "billing-reports-bucket-writer"
   validation {
     condition     = can(regex("^[a-zA-Z0-9 -_]{1,128}$", var.cbr_billing_zone_name))
@@ -437,7 +437,7 @@ variable "cbr_schematics_zone_name" {
 
 variable "cbr_additional_zone_name" {
   type        = string
-  description = "Name of the CBR zone that corresponds to the ip address range set in `additional_allowed_cbr_bucket_ip_addresses`."
+  description = "An extra CBR zone ID which is permitted to access the bucket.  This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket. It can be used as an alternative to `additional_allowed_cbr_bucket_ip_addresses` in the case that a zone exists."
   default     = "additional-billing-reports-bucket-access"
   validation {
     condition     = can(regex("^[a-zA-Z0-9 -_]{1,128}$", var.cbr_additional_zone_name))
@@ -447,19 +447,19 @@ variable "cbr_additional_zone_name" {
 
 variable "additional_allowed_cbr_bucket_ip_addresses" {
   type        = list(string)
-  description = "A list of CBR zone IP addresses, which are permitted to access the bucket.  This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket."
+  description = "A list of CBR zone addresses or an IP address (ie. 169.23.56.234) or range (169.23.22.0-169.23.22.255) which are permitted to access the bucket. This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket."
   default     = []
 }
 
 variable "existing_allowed_cbr_bucket_zone_id" {
   type        = string
-  description = "An extra CBR zone ID which is permitted to access the bucket.  This zone typically represents the ip addresses for your company or workstation to allow access to view the contents of the bucket. It can be used as an alternative to `additional_allowed_cbr_bucket_ip_addresses` in the case that a zone exists."
+  description = "A list of CBR zone address which are permitted to access the bucket. This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket."
   default     = null
 }
 
 variable "skip_iam_authorization_policy" {
   type        = bool
-  description = "Set to true to skip the creation of an IAM authorization policy that permits the Object Storage instance created to read the encryption key from the KMS instance in `existing_kms_instance_crn`. WARNING: An authorization policy must exist before an encrypted bucket can be created"
+  description = "Whether to skip the creation of an IAM authorization policy that permits the Object Storage instance to read the encryption key from the Key Protect instance.\n**WARNING**: An authorization policy must exist before an encrypted bucket can be created."
   default     = false
 }
 
@@ -477,19 +477,19 @@ variable "skip_cloudability_billing_policy" {
 
 variable "cloudability_iam_custom_role_name" {
   type        = string
-  description = "Name of the custom role which grants access to the Cloudability service id to read the billing reports from the object storage bucket"
+  description = "Name of the custom role that is used to grant the Cloudability service ID read access to the billing reports within the Object Storage bucket"
   default     = "CloudabilityStorageCustomRole"
 }
 
 variable "cloudability_iam_enterprise_custom_role_name" {
   type        = string
-  description = "Name of the custom role which grants access to the Cloudability service ID to read the enterprise information. Only used if `is_enterprise_account` is `true`."
+  description = "Name of the custom role to grant access to a Cloudability service ID to read the enterprise information. Only used of `is_enterprise_account` is set to `true`."
   default     = "CloudabilityListAccCustomRole"
 }
 
 variable "cos_folder" {
   type        = string
-  description = "Folder in the Object Storage bucket to store the account data"
+  description = "Directory for your accounts billing report objects in the object storage bucket"
   default     = "IBMCloud-Billing-Reports"
 }
 
@@ -507,7 +507,7 @@ variable "enable_cloudability_access" {
 }
 
 variable "cloudability_host" {
-  description = "IBM Cloudability host name as described in https://help.apptio.com/en-us/cloudability/api/v3/getting%20started%20with%20the%20cloudability.htm"
+  description = "IBM Cloudability hostname which depends on the region where Cloudability is created. See [Cloudability API documentation](https://help.apptio.com/en-us/cloudability/api/v3/getting%20started%20with%20the%20cloudability.htm)"
   type        = string
   default     = "api.cloudability.com"
 }
