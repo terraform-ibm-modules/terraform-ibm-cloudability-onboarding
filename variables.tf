@@ -1,7 +1,7 @@
 
 variable "ibmcloud_api_key" {
   type        = string
-  description = "The IBM Cloud API key corresponding to the cloud account that is to be added to Cloudability. For enterprise accounts, create the api key in the primary enterprise account in order to add all child accounts within your enterprise. See [configuring IBM Cloud IAM permissions](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#cloudability-iam-prereqs)"
+  description = "The IBM Cloud API key corresponding to the cloud account to be added to Cloudability. For enterprise accounts, create the API key in the primary enterprise account to add all child accounts within your enterprise. See [configuring IBM Cloud IAM permissions](/docs/track-spend-with-cloudability?topic=track-spend-with-cloudability-planning#cloudability-iam-prereqs)"
   sensitive   = true
 }
 
@@ -26,12 +26,12 @@ variable "frontdoor_public_key" {
 
 variable "cloudability_auth_type" {
   type        = string
-  description = "Select Cloudability authentication mode. Options are:\n\n* `none`: no connection to Cloudability\n* `manual`: manually enter in the credentials in the Cloudability UI\n* `api_key`: use Cloudability API Keys\n* `frontdoor`: Frontdoor Access Administration"
+  description = "Select Cloudability authentication mode. Options are:\n\n* `none`: no connection to Cloudability\n* `manual`: manually enter the credentials in the Cloudability UI\n* `api_key`: use Cloudability API Keys\n* `frontdoor`: Frontdoor Access Administration"
   default     = "api_key"
   nullable    = false
   validation {
     condition     = var.cloudability_auth_type != null ? contains(["api_key", "frontdoor", "manual", "none"], var.cloudability_auth_type) : true
-    error_message = "Must have one of the value following values: `none`, `manual`, `api_key`, or `frontdoor`"
+    error_message = "Must have one of the following values: `none`, `manual`, `api_key`, or `frontdoor`"
   }
 }
 
@@ -80,7 +80,7 @@ variable "policy_granularity" {
 
 variable "use_existing_resource_group" {
   type        = bool
-  description = "Whether the value of `resource_group_name` input is a new (true) or an existing (false) resource group"
+  description = "Whether the value of the `resource_group_name` input is for a new (true) or an existing (false) resource group"
   default     = false
 }
 
@@ -116,7 +116,7 @@ variable "access_tags" {
 
 # region needs to provide cross region support.
 variable "region" {
-  description = "Region where resources are created. Only us-south, eu-de and jp-tok have [Key protect failover support](https://cloud.ibm.com/docs/key-protect?topic=key-protect-ha-dr#availability)"
+  description = "Region where resources are created. Only us-south, eu-de, and jp-tok have [Key Protect failover support](https://cloud.ibm.com/docs/key-protect?topic=key-protect-ha-dr#availability)"
   type        = string
   default     = "us-south"
 
@@ -174,7 +174,7 @@ variable "key_name" {
 ##############################################################################
 
 variable "cos_instance_name" {
-  description = "The name of the newly created Cloud Object storage instance which contains the billing reports bucket. Only used if `existing_cos_instance_id` is not defined."
+  description = "The name of the newly created Cloud Object Storage instance that contains the billing reports bucket. Only used if `existing_cos_instance_id` is not defined."
   type        = string
   default     = "billing-report-exports"
   validation {
@@ -221,7 +221,7 @@ variable "cross_region_location" {
 
 variable "bucket_name" {
   type        = string
-  description = "Name of the cloud object storage (COS) bucket where billing reports are stored"
+  description = "Name of the Cloud Object Storage (COS) bucket where billing reports are stored"
   default     = "billing-reports"
   validation {
     condition     = can(regex("^[a-z][0-9a-z\\.\\-]{1,57}$", var.bucket_name))
@@ -257,13 +257,13 @@ variable "management_endpoint_type_for_bucket" {
 }
 
 variable "overwrite_existing_reports" {
-  description = "Whether each update overwrites the existing report version or a new version of the report is created leaving the existing report"
+  description = "Whether each update overwrites the existing report version, or a new version of the report is created, leaving the existing report"
   type        = bool
   default     = true
 }
 
 variable "object_versioning_enabled" {
-  description = "Enable object versioning to keep multiple versions of an object in the object storage bucket"
+  description = "Enable object versioning to keep multiple versions of an object in the Object Storage bucket"
   type        = bool
   default     = false
 }
@@ -358,7 +358,7 @@ variable "key_protect_allowed_network" {
 
 variable "kms_endpoint_type" {
   type        = string
-  description = "The type of endpoint to be used for management of key protect."
+  description = "The type of endpoint to be used for management of Key Protect."
   default     = "public"
   validation {
     condition     = can(regex("public|private", var.kms_endpoint_type))
@@ -397,7 +397,7 @@ variable "cbr_enforcement_mode" {
 }
 variable "cbr_billing_zone_name" {
   type        = string
-  description = "Name of the cbr zone which represents IBM Cloud billing"
+  description = "Name of the CBR zone that represents IBM Cloud billing"
   default     = "billing-reports-bucket-writer"
   validation {
     condition     = can(regex("^[a-zA-Z0-9 -_]{1,128}$", var.cbr_billing_zone_name))
@@ -437,7 +437,7 @@ variable "cbr_schematics_zone_name" {
 
 variable "cbr_additional_zone_name" {
   type        = string
-  description = "An extra CBR zone ID which is permitted to access the bucket.  This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket. It can be used as an alternative to `additional_allowed_cbr_bucket_ip_addresses` in the case that a zone exists."
+  description = "An extra CBR zone ID that is permitted to access the bucket. This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket. It can be used as an alternative to `additional_allowed_cbr_bucket_ip_addresses` when a zone already exists."
   default     = "additional-billing-reports-bucket-access"
   validation {
     condition     = can(regex("^[a-zA-Z0-9 -_]{1,128}$", var.cbr_additional_zone_name))
@@ -447,13 +447,13 @@ variable "cbr_additional_zone_name" {
 
 variable "additional_allowed_cbr_bucket_ip_addresses" {
   type        = list(string)
-  description = "A list of CBR zone addresses or an IP address (ie. 169.23.56.234) or range (169.23.22.0-169.23.22.255) which are permitted to access the bucket. This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket."
+  description = "A list of CBR zone addresses or an IP address (e.g., 169.23.56.234) or range (169.23.22.0-169.23.22.255) that are permitted to access the bucket. This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket."
   default     = []
 }
 
 variable "existing_allowed_cbr_bucket_zone_id" {
   type        = string
-  description = "A list of CBR zone address which are permitted to access the bucket. This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket."
+  description = "A list of CBR zone addresses that are permitted to access the bucket. This zone typically represents the IP addresses for your company or workstation to allow access to view the contents of the bucket."
   default     = null
 }
 
@@ -471,7 +471,7 @@ variable "use_existing_iam_custom_role" {
 
 variable "skip_cloudability_billing_policy" {
   type        = bool
-  description = "Whether policy which grants cloudability access to view the billing service. This may be true if the policy already exists because it was created by a previous run."
+  description = "Whether to skip creating the policy that grants Cloudability access to view the billing service. This may be true if the policy already exists because it was created by a previous run."
   default     = false
 }
 
@@ -483,13 +483,13 @@ variable "cloudability_iam_custom_role_name" {
 
 variable "cloudability_iam_enterprise_custom_role_name" {
   type        = string
-  description = "Name of the custom role to grant access to a Cloudability service ID to read the enterprise information. Only used of `is_enterprise_account` is set to `true`."
+  description = "Name of the custom role to grant access to a Cloudability service ID to read the enterprise information. Only used if `is_enterprise_account` is set to `true`."
   default     = "CloudabilityListAccCustomRole"
 }
 
 variable "cos_folder" {
   type        = string
-  description = "Directory for your accounts billing report objects in the object storage bucket"
+  description = "Directory for your account's billing report objects in the Object Storage bucket"
   default     = "IBMCloud-Billing-Reports"
 }
 
@@ -502,7 +502,7 @@ variable "skip_verification" {
 
 variable "enable_cloudability_access" {
   type        = bool
-  description = "Whether to grant cloudability access to read the billing reports"
+  description = "Whether to grant Cloudability access to read the billing reports"
   default     = true
 }
 
