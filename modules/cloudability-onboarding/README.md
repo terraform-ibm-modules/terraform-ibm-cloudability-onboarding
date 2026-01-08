@@ -86,7 +86,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_cloudability_host"></a> [cloudability\_host](#input\_cloudability\_host) | IBM Cloudability host name as described in https://help.apptio.com/en-us/cloudability/api/v3/getting%20started%20with%20the%20cloudability.htm | `string` | `"api.cloudability.com"` | no |
+| <a name="input_cloudability_host"></a> [cloudability\_host](#input\_cloudability\_host) | IBM Cloudability API host name | `string` | `"api.cloudability.com"` | no |
 | <a name="input_cos_bucket_crn"></a> [cos\_bucket\_crn](#input\_cos\_bucket\_crn) | CRN of the Object Storage bucket | `string` | n/a | yes |
 | <a name="input_cos_bucket_location"></a> [cos\_bucket\_location](#input\_cos\_bucket\_location) | Location of the Object Storage bucket. | `string` | n/a | yes |
 | <a name="input_cos_bucket_prefix"></a> [cos\_bucket\_prefix](#input\_cos\_bucket\_prefix) | name of the manifest file in the cost report | `string` | `"IBMCloud-Billing-Reports"` | no |
