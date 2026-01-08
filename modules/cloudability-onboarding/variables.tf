@@ -45,7 +45,7 @@ variable "cos_instance_name" {
 }
 
 variable "cloudability_host" {
-  description = "IBM Cloudability host name as described in https://help.apptio.com/en-us/cloudability/api/v3/getting%20started%20with%20the%20cloudability.htm"
+  description = "IBM Cloudability API host name"
   type        = string
   default     = "api.cloudability.com"
 }

@@ -507,7 +507,7 @@ variable "enable_cloudability_access" {
 }
 
 variable "cloudability_host" {
-  description = "IBM Cloudability hostname which depends on the region where Cloudability is created. See [Cloudability API documentation](https://help.apptio.com/en-us/cloudability/api/v3/getting%20started%20with%20the%20cloudability.htm)"
+  description = "IBM Cloudability hostname which depends on the region where Cloudability is created. See [Cloudability API documentation]https://www.ibm.com/docs/en/cloudability-commercial/cloudability-premium/saas?topic=api-getting-started-cloudability-v3)"
   type        = string
   default     = "api.cloudability.com"
 }
