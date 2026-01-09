@@ -77,7 +77,7 @@ locals {
 module "key_protect_key_cbr_rule" {
   count            = length(var.kms_key_cbr_rules) > 0 ? length(var.kms_key_cbr_rules) : 0
   source           = "terraform-ibm-modules/cbr/ibm//modules/cbr-rule-module"
-  version          = "1.35.8"
+  version          = "1.35.9"
   rule_description = var.kms_key_cbr_rules[count.index].description
   enforcement_mode = var.kms_key_cbr_rules[count.index].enforcement_mode
   rule_contexts    = var.kms_key_cbr_rules[count.index].rule_contexts
