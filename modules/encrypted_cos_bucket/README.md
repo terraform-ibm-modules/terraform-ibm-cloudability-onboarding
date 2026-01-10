@@ -73,7 +73,7 @@ statement instead the previous block.
 |------|--------|---------|
 | <a name="module_cos_bucket"></a> [cos\_bucket](#module\_cos\_bucket) | terraform-ibm-modules/cos/ibm | 10.8.3 |
 | <a name="module_key_protect_all_inclusive"></a> [key\_protect\_all\_inclusive](#module\_key\_protect\_all\_inclusive) | terraform-ibm-modules/kms-all-inclusive/ibm | 5.5.20 |
-| <a name="module_key_protect_key_cbr_rule"></a> [key\_protect\_key\_cbr\_rule](#module\_key\_protect\_key\_cbr\_rule) | terraform-ibm-modules/cbr/ibm//modules/cbr-rule-module | 1.35.8 |
+| <a name="module_key_protect_key_cbr_rule"></a> [key\_protect\_key\_cbr\_rule](#module\_key\_protect\_key\_cbr\_rule) | terraform-ibm-modules/cbr/ibm//modules/cbr-rule-module | 1.35.9 |
 
 ### Resources
 
