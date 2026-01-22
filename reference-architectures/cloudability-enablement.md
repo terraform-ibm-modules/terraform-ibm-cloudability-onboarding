@@ -1,7 +1,6 @@
 ---
 
-# The YAML header is required. For more information about the YAML header, see
-# https://test.cloud.ibm.com/docs/writing?topic=writing-reference-architectures
+# The YAML header is required. For more information about the YAML header.
 
 copyright:
   years: 2024
@@ -16,11 +15,10 @@ authors:
     url: "https://github.com/chrisw-ibm"
 
 # The release that the reference architecture describes
-version: 1.0.x
+version: 1.2.4
 
 # Use if the reference architecture has deployable code.
 # Value is the URL to land the user in the IBM Cloud catalog details page for the deployable architecture.
-# See https://test.cloud.ibm.com/docs/get-coding?topic=get-coding-deploy-button
 deployment-url: https://cloud.ibm.com/catalog/cda5c842-ca01-468e-9614-0be561a792dc/architecture/deploy-arch-ibm-cloudability-1b3dcf22-f451-4443-b885-01ba1847443c-global
 
 docs: https://cloud.ibm.com/docs/track-spend-with-cloudability
@@ -64,8 +62,7 @@ The following line inserts all the attribute definitions. Don't delete.
 <!--
 Don't include "reference architecture" in the following title.
 Specify a title based on a use case. If the architecture has a module
-or tile in the IBM Cloud catalog, match the title to the catalog. See
-https://test.cloud.ibm.com/docs/solution-as-code?topic=solution-as-code-naming-guidance.
+or tile in the IBM Cloud catalog, match the title to the catalog.
 -->
 
 # IBM Cloudability Enablement
@@ -74,7 +71,7 @@ https://test.cloud.ibm.com/docs/solution-as-code?topic=solution-as-code-naming-g
 {: toc-industry="Banking,FinancialSector,ITConsulting,Technology,Telecommunications"}
 {: toc-use-case="FinOps"}
 {: toc-compliance="FSCloud"}
-{: toc-version="1.0.x"}
+{: toc-version="1.2.4"}
 
 <!--
 The IDs, such as {: #title-id} are required for publishing this reference architecture in IBM Cloud Docs. Set unique IDs for each heading. Also include
@@ -84,12 +81,6 @@ the toc attributes on the H1, repeating the values from the YAML header.
 The Cloudability Enablement deployable architecture(DA) is designed to automate the deployment and configuration of adding your {{site.data.keyword.Bluemix_notm}} account or enterprise to an existing {{site.data.keyword.IBM_notm}} Cloudability account. Once enabled, {{site.data.keyword.Bluemix_notm}} billing data is made available to Cloudability allowing the tracking and analysis of {{site.data.keyword.Bluemix_notm}} expenses. Billing data is made available to Cloudability by granting access to a Cloud Object Storage (COS) bucket which contains the billing reports, which {{site.data.keyword.Bluemix_notm}} Billing updates daily.
 
 A typical use case is to aggregate billing data from multiple cloud vendors or multiple {{site.data.keyword.Bluemix_notm}} accounts within Cloudability. This aggregation helps create a complete view of a companies cloud expenses. Also, it allows costs to be allocated based on business division, unit, or team by using Cloudability business mappings (synthetic resource tagging). This helps drive accountability of cloud costs across your organization.
-
-<!-- :information_source: **Tip:** For more information about this template, see [Creating reference architectures](https://test.cloud.ibm.com/docs/writing?topic=writing-reference-architectures).
-
-Include a short description, summary, or overview in a single paragraph that follows the title.
-
-After the introduction, include a summary of the typical use case for the architecture. The use case might include the motivation for the architecture composition, business challenge, or target cloud environments. -->
 
 ## Architecture diagram
 {: #architecture-diagram}
