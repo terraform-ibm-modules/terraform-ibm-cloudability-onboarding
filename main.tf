@@ -36,7 +36,7 @@ module "resource_group" {
 
 module "cbr_zone_ibmcloud_billing" {
   source           = "terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module"
-  version          = "1.35.9"
+  version          = "1.35.13"
   name             = var.cbr_billing_zone_name
   zone_description = "IBM Cloud Billing report exports to object storage. Managed by IBM Cloudability Enablement deployable architecture"
   account_id       = data.ibm_iam_account_settings.billing_exports_account.account_id
@@ -54,7 +54,7 @@ module "cbr_zone_ibmcloud_billing" {
 
 module "cbr_zone_cloudability" {
   source           = "terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module"
-  version          = "1.35.9"
+  version          = "1.35.13"
   name             = var.cbr_cloudability_zone_name
   zone_description = "IBM Cloudability access to billing reports object storage bucket. Managed by IBM Cloudability Enablement deployable architecture"
   account_id       = data.ibm_iam_account_settings.billing_exports_account.account_id
@@ -74,7 +74,7 @@ module "cbr_zone_cloudability" {
 module "cbr_zone_additional" {
   count            = length(local.additional_zone_addresses) > 0 ? 1 : 0
   source           = "terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module"
-  version          = "1.35.9"
+  version          = "1.35.13"
   name             = var.cbr_additional_zone_name
   zone_description = "Additional IP Addresses allowed to access the billing reports bucket. Managed by IBM Cloudability Enablement deployable architecture"
   account_id       = data.ibm_iam_account_settings.billing_exports_account.account_id
@@ -83,7 +83,7 @@ module "cbr_zone_additional" {
 
 module "cbr_zone_schematics" {
   source           = "terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module"
-  version          = "1.35.9"
+  version          = "1.35.13"
   name             = var.cbr_schematics_zone_name
   zone_description = "Schematics access to manage the Object storage bucket through Projects. Managed by IBM Cloudability Enablement deployable architecture"
   account_id       = data.ibm_iam_account_settings.billing_exports_account.account_id
@@ -99,7 +99,7 @@ module "cbr_zone_schematics" {
 
 module "cbr_zone_cos" {
   source           = "terraform-ibm-modules/cbr/ibm//modules/cbr-zone-module"
-  version          = "1.35.9"
+  version          = "1.35.13"
   name             = var.cbr_cos_zone_name
   zone_description = "Cloud Object storage can access the encryption key to manage the Object storage bucket. Managed by IBM Cloudability Enablement deployable architecture"
   account_id       = data.ibm_iam_account_settings.billing_exports_account.account_id
