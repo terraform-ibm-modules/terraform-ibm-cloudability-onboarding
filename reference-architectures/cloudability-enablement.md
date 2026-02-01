@@ -30,16 +30,10 @@ related_links:
     url: 'https://cloud.ibm.com/docs/billing-usage?topic=billing-usage-exporting-your-usage'
     description: 'Exporting your usage for integration into IBM Cloudability.'
 
-# use-case from 'code' column in
-# https://github.ibm.com/digital/taxonomy/blob/main/topics/topics_flat_list.csv
 use-case: FinOps
 
-# industry from 'code' column in
-# https://github.ibm.com/digital/taxonomy/blob/main/industries/industries_flat_list.csv
 industry: Banking,FinancialSector,ITConsulting,Technology,Telecommunications
 
-# compliance from 'code' column in
-# https://github.ibm.com/digital/taxonomy/blob/main/compliance_entities/compliance_entities_flat_list.csv
 compliance: FSCloud
 
 content-type: reference-architecture
