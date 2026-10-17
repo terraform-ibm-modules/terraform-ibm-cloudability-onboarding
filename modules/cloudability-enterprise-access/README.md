@@ -10,7 +10,7 @@ The policies are granted directly to the ServiceId.
 ### Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.9.0 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.59.0, < 2.0.0 |
 
@@ -21,7 +21,7 @@ No modules.
 ### Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [ibm_iam_custom_role.list_enterprise_custom_role](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/iam_custom_role) | resource |
 | [ibm_iam_service_policy.billing_policy](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/iam_service_policy) | resource |
 | [ibm_iam_service_policy.enterprise_policy](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/iam_service_policy) | resource |
@@ -30,7 +30,7 @@ No modules.
 ### Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_cloudability_iam_custom_role_name"></a> [cloudability\_iam\_custom\_role\_name](#input\_cloudability\_iam\_custom\_role\_name) | Name of the custom role which grants access to the Cloudability service ID to read the enterprise information. Only used if `is_enterprise_account` is `true`. | `string` | `"CloudabilityListAccCustomRole"` | no |
 | <a name="input_enterprise_id"></a> [enterprise\_id](#input\_enterprise\_id) | Guid for the enterprise account id | `string` | `null` | no |
 | <a name="input_skip_cloudability_billing_policy"></a> [skip\_cloudability\_billing\_policy](#input\_skip\_cloudability\_billing\_policy) | Whether policy which grants cloudability access to view the billing service. This may be true if the policy already exists because it was created by a previous run. | `bool` | `false` | no |
@@ -39,7 +39,7 @@ No modules.
 ### Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_billing_policy"></a> [billing\_policy](#output\_billing\_policy) | The policy granted to the ServiceId for reading billing |
 | <a name="output_custom_role_display_name"></a> [custom\_role\_display\_name](#output\_custom\_role\_display\_name) | Display name of the enterprise custom role to read the list of enterprise custom accounts |
 | <a name="output_enterprise_policy"></a> [enterprise\_policy](#output\_enterprise\_policy) | The policy granted to the ServiceId to read the enterprise |
