@@ -56,7 +56,7 @@ No permissions are needed to run this module.
 ### Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
 | <a name="requirement_http"></a> [http](#requirement\_http) | >= 3.4.1, < 4.0.0 |
 
@@ -67,13 +67,13 @@ No modules.
 ### Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [http_http.apikeylogin](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | data source |
 
 ### Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_host"></a> [host](#input\_host) | Frontdoor application host name | `string` | `"https://frontdoor.apptio.com"` | no |
 | <a name="input_key"></a> [key](#input\_key) | The api key id from frontdoor | `string` | n/a | yes |
 | <a name="input_secret"></a> [secret](#input\_secret) | The api key secret from frontdoor | `string` | n/a | yes |
@@ -81,7 +81,7 @@ No modules.
 ### Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_status_code"></a> [status\_code](#output\_status\_code) | The http status code from the authentication request. |
 | <a name="output_token"></a> [token](#output\_token) | The unique identifier of the billing\_report\_snapshot. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

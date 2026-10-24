@@ -55,7 +55,7 @@ statement instead the previous block.
 ### Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
 | <a name="requirement_http"></a> [http](#requirement\_http) | >= 3.4.1, < 4.0.0 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.59.0, < 2.0.0 |
@@ -67,20 +67,20 @@ No modules.
 ### Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [http_http.resource_instance](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | data source |
 | [ibm_iam_auth_token.tokendata](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/iam_auth_token) | data source |
 
 ### Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_guid"></a> [guid](#input\_guid) | The guid of the resource instance | `string` | n/a | yes |
 
 ### Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_crn"></a> [crn](#output\_crn) | crn of the resource instance |
 | <a name="output_name"></a> [name](#output\_name) | name of the resource instance |
 | <a name="output_region_id"></a> [region\_id](#output\_region\_id) | region\_id of the resource instance |
