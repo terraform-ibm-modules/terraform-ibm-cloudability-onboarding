@@ -62,7 +62,7 @@ statement instead the previous block.
 ### Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.9.0 |
 | <a name="requirement_cloudability"></a> [cloudability](#requirement\_cloudability) | >= 0.0.35, <1.0.0 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.59.0, <2.0.0 |
@@ -76,7 +76,7 @@ No modules.
 ### Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [null_resource.wait_for_billing_exports](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [restapi_object.cloudability_ibm_account](https://registry.terraform.io/providers/Mastercard/restapi/latest/docs/resources/object) | resource |
 | [cloudability_account_verification.ibm_account](https://registry.terraform.io/providers/skyscrapr/cloudability/latest/docs/data-sources/account_verification) | data source |
@@ -85,7 +85,7 @@ No modules.
 ### Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_cloudability_host"></a> [cloudability\_host](#input\_cloudability\_host) | IBM Cloudability API host name | `string` | `"api.cloudability.com"` | no |
 | <a name="input_cos_bucket_crn"></a> [cos\_bucket\_crn](#input\_cos\_bucket\_crn) | CRN of the Object Storage bucket | `string` | n/a | yes |
 | <a name="input_cos_bucket_location"></a> [cos\_bucket\_location](#input\_cos\_bucket\_location) | Location of the Object Storage bucket. | `string` | n/a | yes |
@@ -99,6 +99,6 @@ No modules.
 ### Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_cloudability_account_verification_state"></a> [cloudability\_account\_verification\_state](#output\_cloudability\_account\_verification\_state) | Current state of the cloudability account verification if var.skip\_verification is enabled |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
