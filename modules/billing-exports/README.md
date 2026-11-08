@@ -65,7 +65,7 @@ statement instead the previous block.
 ### Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.59.0, <2.0.0 |
 | <a name="requirement_null"></a> [null](#requirement\_null) | >= 3.2.2, <4.0.0 |
@@ -78,7 +78,7 @@ No modules.
 ### Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [ibm_billing_report_snapshot.billing_report_snapshot_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/billing_report_snapshot) | resource |
 | [ibm_iam_authorization_policy.billing_to_cos_authorization](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/iam_authorization_policy) | resource |
 | [null_resource.billing_report_replacement_trigger](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
@@ -88,7 +88,7 @@ No modules.
 ### Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_billing_account_id"></a> [billing\_account\_id](#input\_billing\_account\_id) | Account id which billing exports are enabled in. Defaults to the account id of the api key | `string` | `null` | no |
 | <a name="input_cos_bucket_crn"></a> [cos\_bucket\_crn](#input\_cos\_bucket\_crn) | CRN of the Object Storage bucket | `string` | n/a | yes |
 | <a name="input_cos_bucket_location"></a> [cos\_bucket\_location](#input\_cos\_bucket\_location) | location of the Object Storage bucket | `string` | n/a | yes |
@@ -102,7 +102,7 @@ No modules.
 ### Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_export_account_type"></a> [export\_account\_type](#output\_export\_account\_type) | Date that the exports were last updated |
 | <a name="output_export_compression"></a> [export\_compression](#output\_export\_compression) | type of compression for the exports |
 | <a name="output_export_content_type"></a> [export\_content\_type](#output\_export\_content\_type) | The content type of the billing exports. default is text/csv |
